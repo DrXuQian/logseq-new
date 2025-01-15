@@ -1,0 +1,87 @@
+---
+title: O'Reilly - Essentials of Interpreting
+---
+
+- References
+	 - [[O'Reilly - Essentials of Parsing]]
+
+- Parsers, ASTs, Interpreters, and Compilers
+	 - ![](../assets/DlbFR1aJTY.png)
+		 - Tokenizer:
+			 - tokenize the original program to tokens (not necessarily valid)
+
+		 - Parser
+			 - parse the tokens and do syntactic analysis
+
+			 - transform the tokens into abstract syntax tree
+
+			 - ![](../assets/_y-ey4-ZLu.png)
+
+		 - AST
+			 - ![](../assets/AMq2QAzrzF.PNG)
+
+	 - Interpreters vs compilers
+		 - ![](../assets/5tH8m7XoB2.png)
+			 - Compilers translate semantics to a target language
+
+			 - interpreter implement semantics and can execute these semantics 
+
+		 - ![](../assets/V0vk7ZG9Fb.png)
+			 - CPU is an interpreter
+
+			 - compile one language to another language with existing interpreter, like translating code to x86/x64 instructions
+
+		 - ![](../assets/NZzyYwpGDq.png)
+			 - Two types of interpreters
+				 - AST-based/Bytecode
+
+		 - ![](../assets/atpX7xbrg8.png)
+			 - JIT/AOT
+
+	 - 
+
+- AST Interpreters and Virtual Machines
+	 - questions
+		 - Difference bw AST and Bytecode and usage scenarios?
+			 - Bytecode less space than AST
+
+			 - closer to the hardware (optimize at the hardware level)
+
+		 - What is virtual machine?
+			 - 
+
+		 - what is the difference bw compiler and interpreter?
+			 - 
+
+	 - https://astexplorer.net/
+
+	 - AST interpreter (high-level semantics)
+		 - ![](../assets/c6aBFLsNI8.png)
+			 - runtime is with respect to the compile time
+
+	 - Bytecode interpreter (aka virtual machine)
+		 - ![](../assets/5SNSq9NnWC.png)
+			 - extra step to produce the bytecode
+
+		 - ![](../assets/VOnDWow46n.png)
+
+	 - ![](../assets/9qdOuIs4md.png)
+
+	 - ![](../assets/x37EOS622y.png)
+
+	 - Compilers: AOT, JIT
+		 - ![](../assets/z6AhbF1eIS.png)
+
+		 - ![](../assets/7nt-yJfnrv.png)
+			 - llvm compiler 
+				 - allows reuse of the compiler backend
+
+				 - ![](../assets/EspkWMx-wk.png)
+
+		 - Just in time compilation
+			 - ![](../assets/DNKK-NmzZS.png)
+
+		 - AST transformer
+			 - ![](../assets/FRwf5NtyXJ.png)
+
+			 - 

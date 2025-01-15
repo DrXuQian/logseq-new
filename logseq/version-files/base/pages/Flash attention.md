@@ -1,0 +1,15 @@
+- [[FlashAttention]]
+- v1
+	- 问题背景，attention计算score的时候的内存问题
+		- dot product attention需要三个kernel，每个kernel都涉及到从HBM读取数据，以及写回数据，所以需要用kernel fusion 来减少对于HBM的访问
+	- 如何保证计算的正确性，
+		- 浮点数的表示问题：
+			- > 在实际硬件中，因为浮点数表示的范围是有限的，对于float32和bfloat16来说，当x≥89时，exp(x)就会变成inf，发生数据上溢的问题。
+			- ![](https://minio.cvmart.net/cvmart-community/images/202312/21/0/v2-6457e175cfa3f17abbc31b9350fd5eaf_b.jpg){:height 201, :width 569}
+		- Safe softmax，用于防止softmax溢出精度带来的问题
+			- ![image.png](../assets/image_1733820427894_0.png){:height 134, :width 423}
+	- 如何把softmax的计算从三层循环变成两层循环：[[online softmax]]
+		- ![image.png](../assets/image_1733882207616_0.png){:height 562, :width 411}
+		- ![](https://pic2.zhimg.com/80/v2-6be2c82361f4fcdc6838949d4cc6f27d_1440w.webp)
+	- Flash attention的one pass格式：
+		- ![](https://pic2.zhimg.com/80/v2-cbabd0a56f83768b878769f3b580595f_1440w.webp)

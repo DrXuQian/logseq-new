@@ -1,0 +1,12 @@
+---
+title: Modern C++
+---
+
+- ![](../assets/5qskDz32gJ.png)
+- ![](../assets/AbB-_TyGOU.png)
+- ![](../assets/tJq_MMc-BU.png)
+- ![](../assets/vGCxufezbp.png)
+- ![](../assets/-Hj-lJZI_w.png)
+- ![](../assets/JccC0n0svH.png)
+-
+-

@@ -1,0 +1,18 @@
+- ![image.png](../assets/image_1714009939596_0.png)
+- [[building blocks for modern CPU]]
+- [[udacity pipeline]]
+- [[udacity branching]]
+- [[udacity predication]]
+- [[udacity ILP]]
+- [[udacity instruction scheduling]]
+- [[udacity reorder buffer]]
+- [[udacity memory ordering]]
+- [[udacity compiler ILP]]
+- [[udacity VLIW]]
+- [[udacity cache review]]
+- [[udacity virtual memory]]
+- [[udacity advanced caches]]
+- [[udacity memory]]
+- [[udacity multi-processing]]
+- [[udacity barrier synchronization]]
+-

@@ -1,0 +1,5 @@
+- 如果用cuda stream进行三个kernel的pipeline，可能可以，但是并行效果不知道，多个kernel在cuda里面的效率问题是关键。
+- 有机会使用我的方式去加速。
+	- flash attention没有用tensor core加速。
+	- flash attention中的指令相对于softmax来说显然是更复杂的。
+- 需要找其他人了解一下，并且学习flash attention的ncu图

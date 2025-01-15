@@ -1,0 +1,11 @@
+- ![image.png](../assets/image_1695087279156_0.png)
+- EU
+	- 1k Reg
+		- 512 bit/Reg
+	- 4 thread
+- Special register
+	- Accm Reg
+- ![image.png](../assets/image_1695087561267_0.png)
+- ![image.png](../assets/image_1695087588828_0.png)
+- ![image.png](../assets/image_1695087713805_0.png)
+- ![image.png](../assets/image_1695088294120_0.png)

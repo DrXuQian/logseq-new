@@ -1,0 +1,24 @@
+- `distributed buffer`:
+	- build all buffers that is allocated on `CMX`
+- `instructions`:
+	- For normal operator:
+		- layer output:
+			- `Alloc DistributedBuffer`
+		- layer param:
+			- `Alloc DistributedBuffer`
+		- layer input:
+			- `Dealloc DistributedBuffer` if no consumers after current layer
+	- For CopyOp:
+		- `CMX2DDR`
+			- `Dealloc DistributedBuffer` if no consumers after current layer
+		- `DDR2DDR`
+			- None
+		- `CMX2CMX`:
+			- ...
+		- `DDR2CMX`
+			- layer output:
+				- `Alloc DistributedBuffer`
+- `spill`
+	- `spill read`
+	- `spill write`
+		-

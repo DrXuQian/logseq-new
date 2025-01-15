@@ -1,0 +1,106 @@
+- {{video https://www.youtube.com/watch?v=I-9XWtdW_Co&ab_channel=ComputerScience}}
+	- ((66277b26-e445-4d08-92bb-e6143ce176d7))
+	- Transistor
+	  collapsed:: true
+		- works as a switch
+		- ![image.png](../assets/image_1713868686171_0.png){:height 129, :width 225}
+	- DRAM transistor with a capacitor
+	  collapsed:: true
+		- ![image.png](../assets/image_1713868752507_0.png){:height 177, :width 254}
+	- 2D matrix of a DRAM matrix:
+	  collapsed:: true
+		- ![image.png](../assets/image_1713869209511_0.png){:height 615, :width 550}
+		- Bit lines are allowed to float. Each bit line is precharged to 1.5v. Then the corresponding line will decrease a little if the connected transistor is not fully charged. And the corresponding line will increase a little if the corresponding line is fully charged (assumed to be 3V if fully charged).
+		- ![image.png](../assets/image_1713869339841_0.png){:height 627, :width 605}
+		- The change in voltage is only a little bit but enough to be detected by the sense amplifiers.
+		- The sense amplifier is aimed to differentiate the original voltage with the voltage coming in the sense amplifier. The sense amplifier also contains latch and flip-flop circuit to store the difference inside.
+		- Read followed by a write, also take use of the sense amplifier:
+		- ![image.png](../assets/image_1713869621483_0.png){:height 650, :width 619}
+		- refresh periodically, ~every 64ns
+- {{video https://www.youtube.com/watch?v=x3jGqOrXXc8&list=PLTd6ceoshprfg23JMtwGysCm4tlc0I1ou&index=11&ab_channel=ComputerScience}}
+	- Read one data from the DRAM
+		- ![image.png](../assets/image_1713869841043_0.png)
+	- Keep the pins fewer by separately input the row address buffer and column address buffer. 3-pins for 6-bit address.
+	- And only one data pin is needed since the data will output one bit at a time. And also the data pin is bi-directional.
+	- note there is also data buffer which should be the row data buffer that stores the results of rows temporarily.
+		- ![image.png](../assets/image_1713869961840_0.png)
+	- Row address strobe and column address strobe and write enable
+		- ![image.png](../assets/image_1713870130235_0.png)
+	- process of a read goes:
+		- ![image.png](../assets/image_1713870267768_0.png)
+	- Process of a write goes:
+		- ![image.png](../assets/image_1713870373031_0.png)
+- {{video https://www.youtube.com/watch?v=xPCDiEglo98&list=PLTd6ceoshprfg23JMtwGysCm4tlc0I1ou&index=12&ab_channel=ComputerScience}}
+- Binary decoder
+	- consists of not gate and and gate
+	- ![image.png](../assets/image_1713870444450_0.png) ![image.png](../assets/image_1713870459978_0.png)
+	- In DRAM:
+		- ![image.png](../assets/image_1713870474013_0.png)
+	- Add One enable bit:
+		- ![image.png](../assets/image_1713870565871_0.png)
+	- Combine decoders to make a bigger decoder
+		- ![image.png](../assets/image_1713870582484_0.png)
+- {{video https://www.youtube.com/watch?v=jjRTFfZwPLM&list=PLTd6ceoshprfg23JMtwGysCm4tlc0I1ou&index=13&ab_channel=ComputerScience}}
+	- MUX
+		- ![image.png](../assets/image_1713870606253_0.png){:height 472, :width 536}
+	- DMUX
+		- ![image.png](../assets/image_1713870635371_0.png){:height 454, :width 537}
+	- Application of MUX and DMUX to convert parallel input to serial format.
+		- ![image.png](../assets/image_1713870676754_0.png){:height 370, :width 708}
+	- circuit
+		- ![image.png](../assets/image_1713870768160_0.png)
+- {{video https://www.youtube.com/watch?v=Mhqi70OPW0o&list=PLTd6ceoshprfg23JMtwGysCm4tlc0I1ou&index=14&ab_channel=ComputerScience}}
+- DIMM
+	- Rectangle topology
+		- ![image.png](../assets/image_1713870983051_0.png)
+	- How to read 8-bit at a time
+		- Row selected using the same address:
+			- ![image.png](../assets/image_1713871012425_0.png)
+		- Column also selected using same address
+			- ![image.png](../assets/image_1713871021684_0.png)
+		- A memory device that can read or write a whole B of data, this is called a [[Bank]]
+			- ![image.png](../assets/image_1713871050943_0.png)
+		- A single microchip can contain 4/8/16 banks
+			- Need a bank address of 2/3/4 bit to route to the correct bank by memory controller
+				- ![image.png](../assets/image_1713871164313_0.png){:height 471, :width 353}
+		- Eight of such chips will be used to form a DIMM (dual inline memory module), DIMM with a set of chips that can be accessed using a unified memory channel is called RANK
+			- ![image.png](../assets/image_1713871312191_0.png)
+- {{video https://www.youtube.com/watch?v=9BjVUmaXaCQ&list=PLTd6ceoshprfg23JMtwGysCm4tlc0I1ou&index=15&ab_channel=ComputerScience}}
+	- Burst mode and bank interleaving
+		- memory controllers are integrated in the CPU
+			- ![image.png](../assets/image_1713871617614_0.png)
+		- Double data rate (DDR):
+			- can transfer data on rising edge and falling edge, so twice a cycle
+			- ![image.png](../assets/image_1713871791549_0.png)
+		- To make full use of the 64-bit data bus:
+			- Connect the data bus to 8 chips, each with 8 Banks. So in total, 64 banks. Each bank should be able to output 1B at a time.
+			- ![image.png](../assets/image_1713871842801_0.png)
+		- Banks of the same location within a chip share the same address lines and same control signals:
+			- ![image.png](../assets/image_1713872020652_0.png)
+		- One bank:
+			- Burst of read
+				- read the successor columns, which might be read since spatial locality soon (same cache line)
+				- length of burst read columns: DD2->2, DDR3->8, DDR4->16
+				- ![image.png](../assets/image_1713872152032_0.png)
+		- Bank conflict and interleaving
+			- In reality, DDR3 will have a bank in each chips working simultaneously to deliver 8 64 bit words in very close succession. This technique is called prefetching.
+			- Data is read in cache line size. (64B) And we are only reading 64 bits for the data bus at a time.
+			- The recovery (write the rows and precharging the lines) can be quite long for a bank (18 clk), so to better pipeline the reads. As soon as one bank has delivered burst, another burst can begin immediately. And after all banks inside a chip has finished burst, the first bank has recovered for the next burst.
+			- Different banks can be at different stages of read and write.
+				- ![image.png](../assets/image_1713872429973_0.png)
+- {{video https://www.youtube.com/watch?v=-xtWsQvOcjo&list=PLTd6ceoshprfg23JMtwGysCm4tlc0I1ou&index=16&ab_channel=ComputerScience}}
+	- DRAM memory address mapping
+		- ![image.png](../assets/image_1713872958841_0.png)
+	- memory interleaving
+		- ![image.png](../assets/image_1713873016982_0.png)
+		- 3 MSB will be row address, the next bit is column address
+		  id:: 6627a08d-7711-4c37-b124-d43f3c8f46aa
+			- ![image.png](../assets/image_1713873085645_0.png)
+		- The first 4 lines of data address would correspond to bank0 of four columns of data that can be read in a burst session
+			- ![image.png](../assets/image_1713873184739_0.png)
+		- Next session:
+			- ![image.png](../assets/image_1713873233526_0.png)
+		- Next one:
+			- ![image.png](../assets/image_1713873249509_0.png)
+		- continue until a different column of first bank:
+			- ![image.png](../assets/image_1713873291888_0.png)

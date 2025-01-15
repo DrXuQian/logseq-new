@@ -1,0 +1,8 @@
+- The key problem is actually memory allocation
+- For DMA prefetching:
+	- * We have copy operators inserted in the graph
+	- We have a scheduling order (some kind of DFS order)
+	- Calculate the peak memory for each operator (considering the residual connections that keep the buffer in memory)
+		- If exceed CMX memory, insert cmx2ddr for the buffer that is used in latter stages.
+		- Else try prefetch the next DMA.
+- Make things really really easy.

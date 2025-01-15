@@ -1,0 +1,2 @@
+- https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html
+- ![image.png](../assets/image_1653462880777_0.png)

@@ -1,0 +1,57 @@
+---
+title: x86 instruction basics
+---
+- Reference:
+	 - [[Mindshare x86]]
+- Questions:
+	 - What is the detailed process of ADD AX, BX? Does this need a temporary register?
+		 - ALU uses accumulator (a register) for storing intermediate results of arithmetic and logic operations.
+		 - ALU stores the result in accumulator which is a type of register. Accumulator is a kind of temporary storage device which stores the intermediate results and if some previous results are already stored on the accumulator then it automatically overwrites the new results and previous results are removed.
+		 - Without a register like an accumulator, it would be necessary to write the result of each calculation (addition, multiplication, [shift](https://en.wikipedia.org/wiki/Bitwise_operation#bit_shifts), etc.) to [main memory](https://en.wikipedia.org/wiki/Main_memory), perhaps only to be read right back again for use in the next operation.
+	 - What is the process of writing to a memory location like MOV [AX], BX?
+		 - I think it answers it self.
+	 - Indirect address mapping?
+		 - [[indirect mapping]]
+	 - Different architecture have different word size?
+		 - "Word size" refers to the number of bits processed by a computer's CPU in one go (these days, typically 32 bits or 64 bits). Data bus size, instruction size, address size are usually multiples of the word size.
+		 - Just to confuse matters, for backwards compatibility, Microsoft Windows API defines a WORD as being 16 bits, a DWORD as 32 bits and a QWORD as 64 bits, regardless of the processor.
+	 - What is x87?
+		 - **x87** is a [floating-point](https://en.wikipedia.org/wiki/Floating-point)-related subset of the [x86 architecture](https://en.wikipedia.org/wiki/X86_architecture) [instruction set](https://en.wikipedia.org/wiki/Instruction_set). It originated as an extension of the 8086 instruction set in the form of optional floating-point [coprocessors](https://en.wikipedia.org/wiki/Coprocessor#Intel_coprocessors) that worked in tandem with corresponding x86 CPUs.
+- Simple X86 instructions
+	 - ![](../assets/Rf-E4Mm7Kq.png)
+	 - MOV AX, BX
+		 - Copy BX to AX
+	 - ADD AX, CX
+		 - add AX and CX into AX
+- Typical Instruction Variants
+	 - ![](../assets/N_CZ4ifzoZ.png)
+		 - brackets specify the pointer to the memory
+		 - MOVS moves data from one memory location to another
+		 - careful about writing to memory location, some other thread might be read/write it
+		 - Lock makes the operation atomic
+- Integer and Floating point instruction groups
+	 - ![](../assets/ZvZkeJKc1x.png)
+		 - INC BX is smaller in size compared to ADD BX, 1
+		 - MUL BX (AX*BX)
+		 - XCHG is atomic by default (exchange values between registers or register with memory)
+		 - MMX use the same register as x87 instructions but with integers as operands instead of floating points. (64 bits)
+		 - SSE support floating point instructions. Also SSE use XMM registers instead of the same x87 registers. (128 bits)
+		 - AVX use YMM registers and ZMM registers. (256 bits/512 bits)
+- A few x86 program flow instructions
+	 - ![](../assets/QFhIkCUd8z.png)
+		 - JMP specify a negative number for the IP to add
+		 - ![](../assets/Z4woYHxLdt.png)
+			 - JNZ (jump non zero) compare the register currently used to zero
+		 - ![](../assets/UW3hZxGJqX.png)
+			 - To use LOOP, the counter need to be in CX
+		 - ![](../assets/nL1R9_RQ7t.png)
+			 - CALL expects return from the target location.
+			 - Machine will save the return address to stack, after return from the target, the IP will be replaced with the address after the original instruction
+- hardware related instructions
+	 - ![](../assets/r0ZNTz0WDW.png)
+		 - PREFETCH the target memory in cache (non-blocking)
+- Instruction Composition
+	 - ![](../assets/bSLHQ6M9jb.png)
+		 - Prefix change the default behavior of the instruction
+		 - Opcode defines the instruction
+		 - ![](../assets/zTlZafBDFg.png)

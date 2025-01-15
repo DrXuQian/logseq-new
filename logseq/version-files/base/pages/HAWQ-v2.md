@@ -1,0 +1,3 @@
+- How to calculate the hessian trace using Hutchinson's method:
+	- https://github.com/amirgholami/PyHessian/blob/master/pyhessian/hessian.py#L160
+	-

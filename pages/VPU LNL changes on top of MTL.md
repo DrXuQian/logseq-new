@@ -1,0 +1,19 @@
+- ![image.png](../assets/image_1714278139416_0.png)
+  id:: 662dc1e7-8fe2-48d0-af78-db878f1f9c04
+	- Interface:
+		- DMA traffic is the left two blue lines, each with 64B/c
+		- L2 miss interface: Instruction data/fetch from the risv-5 or shave
+		- MMU PTW for page-table walks
+	- MMU600 for context switching isolation support
+- NCE engine
+	- ![image.png](../assets/image_1714281223703_0.png)
+	- ![image.png](../assets/image_1714281597640_0.png)
+- DMA engine:
+	- ![image.png](../assets/image_1714281357571_0.png)
+- Shared virtual memory
+	- ![image.png](../assets/image_1714282140360_0.png)
+	- single view of virtual address space for CPU/VPU in LNL
+	- separate views of virtual address for CPU/VPU in MTL
+- VPU internal clock
+	- ![image.png](../assets/image_1714282875201_0.png)
+-

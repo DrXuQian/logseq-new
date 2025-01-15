@@ -1,0 +1,13 @@
+---
+title: Adventures in JIT compilation: Part 3 - LLVM
+---
+- References
+	 - [[Adventures in JIT compilation: Part 1 - an interpreter]]
+	 - [[Adventures in JIT compilation: Part 2 - an x64 JIT]]
+- Questions
+	 - In OneDnn, we also wrapped the corresponding machine code with
+- Insight
+	 - in OneDnn, we use opcode instead of intrinsic because intrinsic is converted by compiler while JIT need to put opcode in the corresponding executable memory.
+- Reading notes of [Adventures in JIT compilation: Part 3 - LLVM](https://eli.thegreenplace.net/2017/adventures-in-jit-compilation-part-3-llvm/)
+	 - LLVM as a programming language backend
+		 -

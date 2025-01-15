@@ -1,0 +1,3 @@
+- https://docs.intel.com/documents/MovidiusInternal/vpu27/common/SW/HLD/internal/02_04_NN_LayerMappingHLD.html#resize
+- ![image.png](../assets/image_1653631157335_0.png)
+- ![image.png](../assets/image_1653631131319_0.png)

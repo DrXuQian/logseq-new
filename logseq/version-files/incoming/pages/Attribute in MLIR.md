@@ -1,0 +1,2 @@
+- immutable attribute associated with an Operator or Type
+- `%result = "mydialect.constant"() {value = 42 : i32} : () -> i32`

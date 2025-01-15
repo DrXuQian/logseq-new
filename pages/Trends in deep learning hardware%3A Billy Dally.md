@@ -1,0 +1,8 @@
+- {{video https://www.youtube.com/watch?v=kLiwvnr4L80&ab_channel=PaulG.AllenSchool}}
+- Energy of operations:
+	- ![image.png](../assets/image_1714273125099_0.png)
+- Importance of staying local
+	- ![image.png](../assets/image_1714273135496_0.png)
+- HW NAS
+	- ![image.png](../assets/image_1714273194471_0.png)
+	- ![image.png](../assets/image_1714273253121_0.png)

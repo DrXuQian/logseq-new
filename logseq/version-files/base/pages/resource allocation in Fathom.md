@@ -1,0 +1,8 @@
+- https://intel-my.sharepoint.com/personal/alessandro_palla_intel_com/_layouts/15/onedrive.aspx?ga=1&id=%2Fpersonal%2Falessandro%5Fpalla%5Fintel%5Fcom%2FDocuments%2FCompiler%20from%20Zero%20to%20Hero%2FLesson%204%20%2D%20Resource%20Allocation%2FResource%20Allocation%2Emp4&parent=%2Fpersonal%2Falessandro%5Fpalla%5Fintel%5Fcom%2FDocuments%2FCompiler%20from%20Zero%20to%20Hero%2FLesson%204%20%2D%20Resource%20Allocation
+- interference graph
+	- ![image.png](../assets/image_1664155283124_0.png)
+- prefetch weight
+	- ![image.png](../assets/image_1664155327867_0.png)
+- transfer the original problem to graph coloring problem (NP-hard)
+	- ![image.png](../assets/image_1664157553342_0.png)
+-

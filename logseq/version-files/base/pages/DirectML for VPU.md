@@ -1,0 +1,23 @@
+- #directml
+- [[Direct3D]] 12 is a middle layer interface for connecting directML and lower level device driver
+- [[GDI]] Interface:
+	- An out facing API for graphics applications, responsible for representing graphical objects and transmitting them to output devices such as monitors and printers.
+	- Applications do not access the graphics hardware directly. Instead, GDI interacts with device drivers on behalf of applications. In order to interact with the VPU HW through the same KMD, the GDI32 interface is used for OpenVINO.
+	- ![image.png](../assets/image_1714898679844_0.png)
+- ### DirectML flow
+	- ![](https://docs.intel.com/documents/MovidiusExternal/vpu4/LNL/sw/auto/f1.DirectML_Flow.40e8be.svg)
+- #### [[Metacommand]]
+	- A metacommand is a driver implementation of some operation -- it's essentially a constrained extension mechanism for the Direct3D runtime. Within the context of DirectML, metacommands are defined for specific machine learning operators, like GEMM and convolution. DirectML does not define a metacommand for every ML operator possible; instead, operators are chosen based on their potential for superior performance over HLSL implementations of operators.
+- #### [[Metacommand]] Flow
+	- The flow includes multiple steps:
+		- Metacommand enumeration
+		- Query Metcommand
+		- Metacommand Creation
+		- Metacommand Initialization
+		- Metacommand Execution
+	- ##### Meta Command Execution
+		- Once a meta command is instantiated, the application can call the command list method ExecuteMetaCommand() to record it. The application can specify overrides for any of the runtime values during invocation.
+		- Also use command list and command queue to execute
+		- ![](https://docs.intel.com/documents/MovidiusExternal/vpu4/LNL/sw/auto/f6.DirectML_Flow.40e8be.svg)
+- #### HLSL
+	- [[DXIL]] is LLVM IR with additional intrinsics added for operations where no direct counterpart is found in LLVM. The MCDM driver provides a DXIL compiler which will first lower the DXIL shader to plain LLVM IR by substituting the DXIL intrinsic with plain LLVM IR implementations. Then the resultant LLVM shader will be compiled and linked in to VPU SHAVE bytecode which then would be encapsulated in to shavedlib data structure which is then ready to be executed in the VPU SHAVE dispatcher.

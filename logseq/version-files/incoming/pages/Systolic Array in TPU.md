@@ -1,0 +1,4 @@
+- ![image.png](../assets/image_1706181244210_0.png)
+- ![image.png](../assets/image_1706181838284_0.png)
+- This is different from what is in NPU
+- ![image.png](../assets/image_1706181902981_0.png)

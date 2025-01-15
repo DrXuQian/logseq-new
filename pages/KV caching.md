@@ -1,0 +1,12 @@
+- #Attention
+- #KVCache
+- #Transformer
+- https://www.dipkumar.dev/becoming-the-unbeatable/posts/gpt-kvcache/
+- Why can we cache K and V?
+	- K and V are the same for previous tokens generated. No need to re-generate those.
+- What is the difference with the first inference of decoder and the following ones?
+	- The first inference input is the encoder output if any. The following ones would only query one token at a time. And that token is from previous inference.
+		- Maybe the token that is with highest prediction score.
+- Can we cache cross attention KV cache?
+	- According to [this code from openai](https://github.com/openai/whisper/blob/9f70a352f9f8630ab3aa0d06af5cb9532bd8c21d/whisper/model.py#L81), the K and V for cross attention should be cached without any computation at all.
+-

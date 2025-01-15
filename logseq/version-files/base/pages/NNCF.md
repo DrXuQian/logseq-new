@@ -1,0 +1,17 @@
+- NNCF provides an advanced Post-Training Quantization algorithm, which consists of the following techniques:
+- ![default quantization pipeline](https://learnopencv.com/wp-content/uploads/2021/07/default-quantization-pipeline-1024x261.png)
+- ### Activation Channel Alignment
+	- Inside the algorithm, we first  apply channel alignment to the trained model. Also called Activation Channel Alignment, this aligns the activation ranges of the convolutional layers to reduce quantization error. Typically, in this process:
+		- First, we calculate the mean of the activation values.
+		- Then align them, by clipping the activation values within a certain range.
+- ### MinMaxQuantization
+	- Analyzes the model and inserts extra quantization layers calibrated on a small subset.
+	- The algorithm modifies the model by inserting additional nodes, which emulates the quantization of the data flow.
+	- The algorithm calibrates the parameters of the inserted nodes by collecting the statistics in the insertion points.
+- ### FastBiasCorrection or BiasCorrection
+	- [[ACIQ]]
+	- Reduces the bias errors between quantized layers and the corresponding original layers.
+-
+- [[SmoothQuant]]
+- ![accuracy aware quantization pipeline](https://learnopencv.com/wp-content/uploads/2021/07/accuracy-aware-quantization-pipeline-1024x582.png)
+-

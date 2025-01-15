@@ -1,0 +1,2 @@
+- Permute can translate to a DMA task with CMX -> CMX
+- Permute can fuse in ODU since MTL

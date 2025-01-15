@@ -1,0 +1,5 @@
+- #vpunn
+-
+- SHAVE kernel profiling from VPUNN team: [https://github.com/intel-innersource/libraries.performance.modeling.vpu.nn-cost-model/blob/main/src/shave/layers_perf.csv](https://github.com/intel-innersource/libraries.performance.modeling.vpu.nn-cost-model/blob/main/src/shave/layers_perf.csv)
+- it is 4.7 output/cycle and the kernel latency is the offset latency at zero input.  It is just a linear curve fit and this is the slope and intercept
+-

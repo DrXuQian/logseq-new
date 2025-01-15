@@ -1,0 +1,4 @@
+- 用fisher matrix去近似
+- ![image.png](../assets/image_1705288238304_0.png)
+- 其中$$m$$对应了$$m$$个sample，前面的项是dampening factor。其中$$I_d$$是一个identity矩阵。
+-

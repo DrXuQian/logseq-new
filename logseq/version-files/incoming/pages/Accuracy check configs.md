@@ -1,0 +1,3 @@
+- EDSR
+	- [edsr.yml](../assets/edsr_1658107825346_0.yml)
+	- [edsr.json](../assets/edsr_1658107835092_0.json)

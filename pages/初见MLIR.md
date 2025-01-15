@@ -1,0 +1,6 @@
+- https://zhuanlan.zhihu.com/p/101879367
+- Tensorflow 框架为例：
+	- ![image.png](../assets/image_1692239451120_0.png)
+	- ![image.png](../assets/image_1692241867572_0.png){:height 450, :width 667}
+	- ![image.png](../assets/image_1692241883601_0.png){:height 533, :width 669}
+-

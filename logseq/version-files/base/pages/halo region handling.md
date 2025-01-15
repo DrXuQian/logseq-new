@@ -1,0 +1,12 @@
+- ![image.png](../assets/image_1670545340406_0.png)
+- https://docs.intel.com/documents/MovidiusInternal/vpu27/Common/SW/VPU27SAS.html#vpu2.7-halo-region-handling
+- https://docs.intel.com/documents/MovidiusInternal/vpu4/common/has/VPU4HAS.html#halo-region-handling
+- The main difference is that the halo region can not read from the other cmx in VPU4.
+	- From VPU4HAS:
+		- ![image.png](../assets/image_1675669592632_0.png){:height 500, :width 848}
+		- Configure the ODU config
+		- ![image.png](../assets/image_1675671694709_0.png)
+-
+- There is no requirement to satisfy input_Hsplit*W to be a multiple of 4 (for VPU4 and beyond)
+- Tensor split methods: [https://github.com/intel-innersource/frameworks.ai.vpu.presilicon.fathom/blob/main/src/Controllers/MultiTileSplit.py](https://github.com/intel-innersource/frameworks.ai.vpu.presilicon.fathom/blob/main/src/Controllers/MultiTileSplit.py)
+- Halo algorithm: [https://github.com/intel-innersource/frameworks.ai.vpu.presilicon.fathom/blob/main/src/Controllers/HaloRegion.py](https://github.com/intel-innersource/frameworks.ai.vpu.presilicon.fathom/blob/main/src/Controllers/HaloRegion.py)

@@ -1,0 +1,13 @@
+- ![bitonic_sort_SHAVE.pdf](../assets/bitonic_sort_SHAVE_1652766575091_0.pdf)
+- https://www.youtube.com/watch?v=uEfieI0MumY&ab_channel=NullPointerException
+- ![image.png](../assets/image_1652770143080_0.png)
+- ![image.png](../assets/image_1652770631823_0.png)
+- In the equation, $$C0=4, C1=3, N=32, N_s=2, N_v=128//8$$(nn_shave_length_in_bytes)
+	- where $$N_s = \frac{(N*precision)}{vpubits}$$
+	- N is the 32x512x512, the 32 here
+	- N_s is N divide N_v
+	- Inter sub-vector CEX can be done in four cycles per sub-vector pair (processing will be bandwidth bound as two sub-vector reads and two sub-vector writes are   required for every two computations)
+	- Intra sub-vector CEX can be done in 3 cycles (again bandwidth limited. Only one input sub-vector is read and one output-sub-vector is written but one LSU slot required to perform swizzle on each of the two compute cycles).
+- Suppose $$N_v$$ is the number of elements in a sub-vector, then there will be $$N_s=\frac{N}{N_v}$$ sub_vectors
+- where $$C0$$ is the number of cycles cycles to  process a pair of sub-vectors.
+- where $$ C1$$ is the number of cycles required to process a sub-vector (intra sub-vector components are processed one sub-vector at a time)

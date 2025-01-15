@@ -1,0 +1,5 @@
+- In nbperf, the scheduling order is pre determined.
+- So the order is already
+	- A, B, C ... N
+- It is fairly easy to model this as a markov process.
+-

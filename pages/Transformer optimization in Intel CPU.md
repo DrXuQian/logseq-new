@@ -1,0 +1,22 @@
+- https://www.intel.com/content/www/us/en/developer/articles/technical/optimize-transformer-model-inference-processors.html#gs.4p5ttp
+- ## Padding/Unpadding Optimization in the FFN Layer
+	- Similar to efficient transformer by ByteDance
+	- Remove padding before FFN since that is token irrelevant and pad that back before attention
+- ## Encoder-Decoder Attention Cache Optimization
+	- KV caching
+- ## Beam Search Cache Optimization
+	- Beam search in transformer
+		- - Greedy search:
+			- choose the most probable token as the unique and only next target token, and repeat this processes until the <eos> token is predicted.
+		- - Beam search:
+			- selects the k-most probable tokens at each step. From those k tokens, the current sequence is duplicated k times and the k tokens are appended to the k sequences to produce new k sequences.
+		- More on Greedy search vs Beam search in Transformers:
+			- https://medium.com/@jessica_lopez/understanding-greedy-search-and-beam-search-98c1e3cd821d
+			- Beam search find the optimal sequence of output token rather than greedy peek the highest possible token at each step
+				- For the following graph, beam search pick sequence 2 over sequence 1:
+					- **Sequence 1 **— the last global war — *(0.35 * ****0.4**** * 0.1 * 0.21) = 0.0029*
+					- **Sequence 2 **— the second war was —* (0.35 * ****0.2**** * 0.25 * 0.2)* *=****0.0034***
+					- **Sequence 3 **— the war was the — (0.35 * **0.1 *** 0.15 * 0.17) = 0.00089
+				- ![](https://miro.medium.com/v2/resize:fit:700/1*SNO2jyh7brFe_Ugz1iC4xg.png)
+- ## Ops Fusion Optimization
+- ![](https://www.intel.com/content/dam/developer/articles/technical/optimize-transformer-model-inference-processors/f13-f14-operations-before-optimization.png)

@@ -1,0 +1,2 @@
+- [[Weak scaling]]: double processors, and double the question size. Same amount of time
+- [[Strong scaling]]: double processors, and same question size. Half amount of time

@@ -1,0 +1,11 @@
+- Every C++ program starts with main
+	- main is a function that returns an error code
+	- 0 means OK, other values mean error
+- `#include` directive
+	- What is the difference between `include <file>` and `include "file"`? #card
+		- The first one is used to include system file and the "" is used to include local file
+	- ![image.png](../assets/image_1714132260432_0.png){:height 422, :width 643}
+- two compilers for linux
+	- gcc
+	- clang (recommended)
+-

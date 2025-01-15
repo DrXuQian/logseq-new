@@ -1,0 +1,29 @@
+- Contexts:
+	- Hi, we have been working on nbperf front end compiler for both numerics bench as well as vpu-em. I see the goals of nbperf to be complementary to what is done in the PoC compiler, but certainly there can be a lot of collaboration on algorithms, best practices, etc.So I’d like to setup an initial sync to see how we can collaborate together.
+	- Proposed agenda:
+		- Align on goals for nbperf, Fathom/PoC compiler and how it feeds into VPUx, etc.
+		- Intro of nbperf by Victor and Xu
+		- Agree on next steps
+- Meeting notes:
+	- Nbperf:
+		- Meant to run on VPUEM
+		- high level blob for VPUEM, performance modelling
+	- From Darren perspective
+		- Nbperf + VPUNN or Math or VPUEM
+		- Alessandro working on Nbperf?
+		- Need to think of a unified interface with Nbperf
+- Notes from the meeting:
+	- Compiler Summary:
+		- Nbperf
+		    targeting performance simulation with VPU-EM back end with wide network coverage
+			- Does not generate an output that can run on the HW
+		- PoC/Fathom
+		    targeting optimal performance on HW but not targeting wide network coverage
+	- Goals:
+		- Be able to share algorithms across compilers so that the algo can be validated on actual HW with PoC compiler and get wide network coverage via nbperf and vpu-em
+		- Look to modularize algorithms so that they can be shared across compiler
+		- Look at IR definition to see if we can have a similar definition at least so that we can align on the features
+	- Next steps:
+		- Look to document IR between nbperf and vpu-em to at least get rough interface alignment and feature alignment
+		- Alessandro to share learnings of PoC compiler code modularization and investigate how this can be leveraged in nbperf
+		- Algorithm details sharing for CMX allocation, splitting strategy, physical barrier assignment.

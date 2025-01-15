@@ -1,0 +1,82 @@
+- Transistor:
+	- ON and OFF means the current can get through or not
+	- ![image.png](../assets/image_1713256549568_0.png){:height 202, :width 218}
+- Use transistors to build NOT gate:
+	- ![image.png](../assets/image_1713256562357_0.png){:height 388, :width 729}
+- Use transistors to build AND gate:
+	- ![image.png](../assets/image_1713256580856_0.png){:height 320, :width 736}
+- Use transistors to build
+	- ![image.png](../assets/image_1713256647394_0.png){:height 414, :width 741}
+- Floating point:
+	- fixed point:
+		- ![image.png](../assets/image_1713260293518_0.png){:height 146, :width 739}
+	- floating point: {{video https://www.youtube.com/watch?v=dQhj5RGtag0&ab_channel=janMisali}}
+		- free to float around for the point
+		- 5 points for representing the point location, other bits called mantissa
+			- ![image.png](../assets/image_1713260456166_0.png){:height 167, :width 668}
+		- 5 points is larger than the remaining bits, which is 27. We can use the extra values to represent the position outside of the mantissa
+			- 3 in front and 3 in end, always 0
+			- ![image.png](../assets/image_1713260650431_0.png){:height 148, :width 732}
+			- The more bits you use for point index, the wider range you can represent. But less accurate you are.
+		- sign + exp + mantissa:
+			- ![image.png](../assets/image_1713260950056_0.png){:height 174, :width 748}
+	- ![image.png](../assets/image_1713258302768_0.png){:height 253, :width 745}
+- ALU:
+	- half adder:
+		- ![image.png](../assets/image_1713259067162_0.png){:height 405, :width 428}
+	- Full Adder:
+		- ![image.png](../assets/image_1713259147904_0.png){:height 350, :width 756}
+	- 8-bit adder:
+		- ![image.png](../assets/image_1713259239634_0.png){:height 460, :width 796}
+	- Carry look ahead adder:
+		- {{video https://www.youtube.com/watch?v=yj6wo5SCObY&ab_channel=SpanningTree}}
+	- Operation:
+		- ![image.png](../assets/image_1713261668434_0.png){:height 458, :width 721}
+- Registers and RAM
+	- Latch:
+		- ![image.png](../assets/image_1713264828395_0.png)
+	- Gated latch
+		- ![image.png](../assets/image_1713264899843_0.png)
+	- group of latch can be used to form a register
+	- Latch matrix:
+		- ![image.png](../assets/image_1713265132145_0.png){:height 470, :width 582}
+		- ![image.png](../assets/image_1713265087530_0.png){:height 402, :width 761}
+	- Multiplexer (MUX)
+		- ![image.png](../assets/image_1713265232043_0.png){:height 535, :width 609}
+		- 8-bit address corresponding to one latch, that can store 1 bit
+			- ![image.png](../assets/image_1713265303676_0.png){:height 266, :width 560}
+		- 8 in a row that can store 1 byte of memory with a 8-bit address
+			- ![image.png](../assets/image_1713265322059_0.png){:height 354, :width 870}
+			- ![image.png](../assets/image_1713265451990_0.png){:height 514, :width 540}
+- CPU:
+	- ![image.png](../assets/image_1713265958615_0.png){:height 300, :width 452}
+	- Fetch instruction according to the instruction address register and fetch that to the instruction register.
+	- Decode the opcode from the instruction and ram address from the instruction
+	- Control unit recognize the instruction from the opcode and execute the instruction
+	- ![image.png](../assets/image_1713266089519_0.png){:height 403, :width 665}
+	- pack the control unit:
+		- ![image.png](../assets/image_1713266134615_0.png){:height 415, :width 676}
+	- Add ALU for execution
+		- ![image.png](../assets/image_1713266436800_0.png){:height 424, :width 816}
+	- Instructions and Programs:
+		- ![image.png](../assets/image_1713266837059_0.png){:height 429, :width 581}
+		- Immediate value, if a opcode need address or something else, the next value in memory would be the intermediate value
+- Advanced CPU design
+	- advanced instructions:
+		- AMX/SSE/AVX
+	- ![image.png](../assets/image_1713267553727_0.png){:height 399, :width 495}
+	- Add more memory hierarchical, send a block of data to cache
+		- ![image.png](../assets/image_1713267631392_0.png){:height 368, :width 526}
+		- Cache hit/miss
+		- Cache can also be used as a scratchpad, store intermediate data from ALU
+		- Cache have dirty bit, if have new data coming in and overwrites the original data, it need to write the dirty data back to RAM for synchronize purpose
+	- Instruction pipeline
+		- pipeline fetch decode and execute because use different parts of CPU
+			- ![image.png](../assets/image_1713267864687_0.png){:height 304, :width 478}
+		- look ahead for less stalls in pipeline
+		- out of order execution
+	- Conditional jump
+		- speculative execution
+	- pipeline flush
+	- branch prediction
+	-

@@ -1,0 +1,59 @@
+- https://homepage.cs.uiowa.edu/~dwjones/assem/notes/15arch.shtml
+- pipeline interstage registers in their context
+	- ![Pipeline components](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/15f/pipeline.gif)
+- Instruction fetch stage
+	- ![Pipeline components](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/15f/IFstage.gif)
+- Operand fetch/ Address computation
+	- ![Pipeline components](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/15f/EAstage.gif)
+- ALU/ memory access
+	- ![Pipeline components](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/15f/ALUstage.gif)
+- Result store
+	- ![Pipeline components](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/15f/RSstage.gif)
+- Dual Core system
+	- ![a multicore chip](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/15f/multicore.gif)
+- pipelining in a processor
+	- Fetch instructions;
+	- Read register/Decode instruction;
+	- ALU;
+	- access memory;
+	- write registers;
+	- ![image.png](../assets/image_1713954865094_0.png){:height 498, :width 906}
+- Instruction Pipelining Quiz #card
+  ![image.png](../assets/image_1713955033776_0.png){:height 346, :width 755}
+	- ![image.png](../assets/image_1713955025022_0.png){:height 388, :width 726}
+- Pipeline CPI
+	- ![image.png](../assets/image_1713955132348_0.png){:height 406, :width 659}
+	- stalls in processor pipelines
+		- ![image.png](../assets/image_1713955312791_0.png){:height 403, :width 637}
+	- flushes in pipelines
+		- ![image.png](../assets/image_1713955354808_0.png){:height 413, :width 643}
+- Control dependencies
+	- ![image.png](../assets/image_1713955498999_0.png){:height 424, :width 683}
+- Control dependencies quiz #card
+  ![image.png](../assets/image_1713955538318_0.png){:height 360, :width 786}
+	- 2.25
+	- ![image.png](../assets/image_1713955581936_0.png){:height 78, :width 320}
+- Data dependencies
+	- RAW True dependency
+	- WAW/WAR naming dependencies
+	- ![image.png](../assets/image_1713955628921_0.png){:height 442, :width 786}
+- Data dependencies quiz #card
+  ![image.png](../assets/image_1713955732986_0.png){:height 360, :width 809}
+	- ![image.png](../assets/image_1713955857493_0.png){:height 357, :width 775}
+- Dependencies and hazards (冒险)
+	- if multiple instructions in between the read and the previous write, there is not a hazard
+	- ![image.png](../assets/image_1713956050759_0.png){:height 484, :width 835}
+- Dependencies and hazards (冒险) quiz #card
+  ![image.png](../assets/image_1713956091584_0.png){:height 377, :width 820}
+	- ![image.png](../assets/image_1713956198581_0.png){:height 200, :width 832}
+- Handling of hazards
+	- Flush for control dependencies
+	- Stall for data dependencies or we can also forward the data generated
+	- forward is discussed more in later sessions
+	- ![image.png](../assets/image_1713956351912_0.png){:height 459, :width 829}
+- Flushes, Stalls, and Forwarding Quiz #card
+  ![image.png](../assets/image_1713960231181_0.png){:height 395, :width 804}
+	- ![image.png](../assets/image_1713960370583_0.png){:height 400, :width 756}
+- How many stages?
+	- 10 to 15 stages with good balance bw power and performance
+	- ![image.png](../assets/image_1713960617481_0.png){:height 463, :width 777}

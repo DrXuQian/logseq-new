@@ -1,0 +1,23 @@
+---
+title: Why software developers should care about CPU caches
+---
+- [Why software developers should care about CPU caches](https://medium.com/software-design/why-software-developers-should-care-about-cpu-caches-8da04355bb8a)
+	 - hierarchy of the memory in CPU
+		 - All CPUs have registers that can be directly accessed, nothing is faster
+		 - L1, L2 and L3 cache in a four core processor ([credit](https://superuser.com/questions/196143/where-exactly-l1-l2-and-l3-caches-located-in-computer))
+		 - Each processor core sports two levels of cache:
+			 - 2 to 64 KB Level 1 (L1) cache very high speed cache
+			 - ~256 KB Level 2 (L2) cache medium speed cache
+		 - All cores also share a Level 3 (L3) cache. The L3 cache tends to be around 8 MB.
+	 - Closer the cache is to the CPU, the faster it can be accessed
+		 - Electrical signals travel near light speed. That is fast but still a finite speed. Modern CPU work with GHz clocks. That is also fast. If I take a 4 GHz CPU then an electrical signal can travel about 7.5cm per clock tick. That is 7.5 cm in straight line. (Chips are anything but straight connections). In practice you will need significantly less than those 7.5 cm since that does not allow any time for the chips to present the requested data and for the signal to travel back.
+		 - In modern CPU design, the cache for code and the cache for memory are usually separated.
+		 - The core to design an efficient program is to maximum the L1 cache hit on One CPU and to maximum the L2 cache hit on Multi CPU with shared L2 cache.
+	 - performance difference between caches
+		 - L1 cache access latency: **4 cycles**
+		 - L2 cache access latency: **11 cycles**
+		 - L3 cache access latency: **39 cycles**
+		 - Main memory access latency: **107 cycles**
+		 - Note here that the accessing data or code from the L1 cache is 27 times faster than accessing the data from the main memory! Due to this lopsided nature of memory access, an O(N) algorithm may perform better than an O(1) algorithm if the latter causes more cache misses.
+	 - cache line
+		 - The memory are read as a chunk of cache line, usually 64 bytes per cache line. So it is important to keep the memory layout friendly to cache line.

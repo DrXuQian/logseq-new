@@ -1,0 +1,31 @@
+- predication
+	- fetch instructions in both direction, can be favorable when small if then else cases
+	- ![image.png](../assets/image_1713689600698_0.png){:height 427, :width 765}
+- Convert if to conditional move instruction
+	- ![image.png](../assets/image_1713690526978_0.png){:height 363, :width 766}
+- conditional move
+	- ![image.png](../assets/image_1713690692215_0.png){:height 355, :width 769}
+	- conditional move quiz #card
+	  ![image.png](../assets/image_1713690981255_0.png){:height 389, :width 802}
+		- ![image.png](../assets/image_1713691168414_0.png){:height 212, :width 301}
+	- Performance comparison
+		- ![image.png](../assets/image_1713691545518_0.png){:height 375, :width 691}
+	- MOVZ/MOVN Performance quiz #card
+	  ![image.png](../assets/image_1713691617212_0.png){:height 383, :width 695}
+		- 95%
+	- MOVc summary
+		- ![image.png](../assets/image_1713692001050_0.png){:height 372, :width 798}
+		- Need compiler support to convert if to movc
+		- remove hard-to-predict branches
+		- more register used as the example shows
+		- more instructions executed
+- Full predication
+	- To add full predication support for every instructions
+	- Need to add other bit to check if the condition meets or not from the instructions as in Intel ITANIUM
+	- ![image.png](../assets/image_1713692165684_0.png){:height 458, :width 829}
+	- Example:
+		- compare this full predication with the previous movc method:
+		- ![image.png](../assets/image_1713692375847_0.png){:height 353, :width 798}
+	- Full predication quiz #card
+	  ![image.png](../assets/image_1713692704657_0.png){:height 440, :width 796}
+		- p2, p1, 97.5

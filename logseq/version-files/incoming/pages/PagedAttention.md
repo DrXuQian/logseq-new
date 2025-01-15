@@ -1,0 +1,11 @@
+- The issue with KV Cache storage is that it keeps on growing and is very large, so this place a serious issue with the storage of this in SRAM.
+- Currently where is the KV Cache stored in VPU? Should be DDR, but do we store that in scratchpad? This might have some issue to DDR usage. #followup
+- *PagedAttention:* KV Cache are partitioned into blocks. Blocks do not need to be contiguous in memory space.
+	- ![](https://blog.vllm.ai/assets/figures/annimation0.gif)
+- Example generation process for a request with PagedAttention.
+	- ![](https://blog.vllm.ai/assets/figures/annimation1.gif)
+	- In PagedAttention, memory waste only happens in the last block of a sequence. In practice, this results in near-optimal memory usage, with a mere waste of under 4%. This boost in memory efficiency proves highly beneficial: It allows the system to batch more sequences together, increase GPU utilization, and thereby significantly increase the throughput as shown in the performance result above.
+- PagedAttention has another key advantage: efficient memory sharing. For example, in *parallel sampling*, multiple output sequences are generated from the same prompt. In this case, the computation and memory for the prompt can be shared between the output sequences.
+	- ![](https://blog.vllm.ai/assets/figures/annimation2.gif)
+- PagedAttention naturally enables memory sharing through its block table.
+	- ![](https://blog.vllm.ai/assets/figures/annimation3.gif)

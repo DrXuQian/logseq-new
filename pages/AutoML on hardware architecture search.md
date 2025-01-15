@@ -1,0 +1,4 @@
+- ![image.png](../assets/image_1652146690664_0.png)
+- ![2106.09180.pdf](../assets/2106.09180_1652181050456_0.pdf)
+- [Slides from Darren](https://intel-my.sharepoint.com/:p:/p/darren_s_crews/EawC3XDQ0BFMhSYZKBXM2ewBqzHMdLtbEOOADIxanx54rQ)
+	-

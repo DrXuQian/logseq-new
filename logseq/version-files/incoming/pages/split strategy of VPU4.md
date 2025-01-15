@@ -1,0 +1,8 @@
+- Vpu4
+	- 6 clusters, each with 1 dpu
+	- 2048 macs per cycle
+	- 16 Mac in K dimension, 8 Mac in C dimension, 16 Mac in HW dimension
+- ![VPU2.7 DPU sparsity simulator.pdf](../assets/VPU2.7_DPU_sparsity_simulator_1649731437579_0.pdf)
+	- ((6254e79f-f5c0-41ab-b372-ff0f5680bbf4))
+		- for a single sparse cell
+			- 5 in hw, 4 in k and 8 in c

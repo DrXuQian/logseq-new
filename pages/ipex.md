@@ -1,0 +1,2 @@
+- Intel pytorch extention
+	- For Dedicated GPU and CPU

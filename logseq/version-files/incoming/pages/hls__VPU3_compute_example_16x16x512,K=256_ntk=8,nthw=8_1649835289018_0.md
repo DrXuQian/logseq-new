@@ -1,0 +1,2 @@
+file:: [VPU3_compute_example_16x16x512,K=256_ntk=8,nthw=8_1649835289018_0.pdf](../assets/VPU3_compute_example_16x16x512,K=256_ntk=8,nthw=8_1649835289018_0.pdf)
+file-path:: ../assets/VPU3_compute_example_16x16x512,K=256_ntk=8,nthw=8_1649835289018_0.pdf

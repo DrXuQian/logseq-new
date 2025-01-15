@@ -1,0 +1,9 @@
+- ## Class members
+	- [[_sources]]
+		- closest source of the alias
+	- [[_roots]]
+		- top-root of the alias
+	- [[_allAliases]]
+		- all aliases, direct and indirect
+- ## What does this function do?
+	- 没看懂

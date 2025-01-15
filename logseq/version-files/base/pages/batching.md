@@ -1,0 +1,5 @@
+- https://docs.nvidia.com/deeplearning/nemo/user-guide/docs/en/main/nlp/nemo_megatron/batching.html
+- *Micro batch size* is the number of examples per data parallel rank
+- *Global batch size* = micro_batch_size * data_parallel_size * gradient_accumulation_steps. For details on data_parallel_size see [Parallelisms](https://docs.nvidia.com/deeplearning/nemo/user-guide/docs/en/main/nlp/nemo_megatron/parallelisms.html#parallelisms) section, but typically it is equal to the number of GPUs being used. Global batch size is controlled by model.global_batch_size parameter.
+- *Gradient accumulation steps*: Number of training steps to accumulate gradients before averaging and applying them. This feature is sometimes useful to improve scalability since it results in less frequent communication of gradients between steps. Another impact of this feature is the ability to train with larger batch sizes per GPU.
+-

@@ -1,0 +1,58 @@
+- #tiling
+- ## Tiling options:
+  id:: 62e72a75-874d-460b-982f-02212b39852e
+	- ### Algorithm:
+		- Go over the options in the order of priority. And return the option with least cost
+		- Cost function:
+			- Max(VPUNN cycles, DMA time (if input or output streaming))
+	- ### Options:
+		- **** No temporal tiling
+		- *** Temporal tiling with No spilling
+			- Temporal Tile over K + Spatial Tile over K or Spatial Tile over H, while keeping output in CMX
+		- ** Temporal tiling with Output spilling
+			- Temporal Tile over K + Spatial Tile over K  while stream output
+		- ** Temporal tiling with Input spilling
+			- Temporal Tile over H + Spatial Tile over K or Spatial Tile over H, while keeping output in CMX
+		- *Temporal tiling with Input and Output spilling
+			- Temporal Tile over H + Spatial Tile over K or Spatial Tile over H, while stream output
+	- ### options in detail:
+		- #### Param:
+			- ntt: number of temporal tiling
+			- nst: number of spatial tiling
+		- Suppose an operator needs temporal tiling, then the output would always need to broadcast
+		- #### Temporal Tile over K:
+			- 1. Spatial Tile over K:
+				- Input + Output + Wgt/ntt/nst < CMX
+				- No need for spilling
+			- 2. Spatial Tile over K:
+				- Input + Output/ntt + Wgt/ntt/nst < CMX
+				- Output need spilling
+			- 3. Spatial Tile over H:
+				- Input/nst + Output + Wgt/ntt < CMX
+				- No need for spilling
+			- 4. Spatial Tile over H:
+				- Input/nst + Output/ntt + Wgt/ntt < CMX
+				- Output need spilling
+		- #### Temporal Tile over H:
+			- 1. Spatial Tile over K:
+				- Input/ntt + Output + Wgt/nst < CMX
+				- Input need spilling
+			- 2. Spatial Tile over K:
+				- Input/ntt + Output/ntt + Wgt/nst < CMX
+				- Input need spilling
+				- Output need spilling
+			- 3. Spatial Tile over H:
+				- Input/ntt/nst + Output+ Wgt < CMX
+				- Input need spilling
+			- 4. Spatial Tile over H:
+				- Input/ntt/nst + Output/ntt+ Wgt < CMX
+				- Input need spilling
+				- Output need spilling
+		- #### No Temporal Tile
+			- 1. Spatial Tile over K:
+				- Input + Output + Wgt/nst < CMX
+			- 2. Spatial Tile over H followed by SOK:
+				- Input/nst + Output + Wgt< CMX
+			- 3. Spatial Tile over H followed by SOH (same nst):
+				- Input/nst + Output/nst + Wgt< CMX
+			-

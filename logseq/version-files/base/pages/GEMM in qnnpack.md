@@ -1,0 +1,27 @@
+---
+title: GEMM in qnnpack
+---
+- #Im2col, #[[专栏：GEMM optimization]], #NEON #[[Convolution optimization]]
+- https://engineering.fb.com/2018/10/29/ml-applications/qnnpack/
+- qnnpack is this open source mobile deep learning library by Facebook, which is similar to #gemmlowp by google.
+- Different than flame's slicing method, qnnpack slice the matrix to:
+	- ![](../assets/gO7Biu0zOz.jpg)
+		- Matrix-matrix multiplication of an MxK matrix A and KxN matrix B produces an MxN matrix C. Each element in C can be thought of as a dot product of a corresponding row of A and column of B.
+		- The modified primitive loads MR elements of A and NR elements of B, and performs MRxNR multiply-accumulate operations. The maximum values of MR and NR are limited by the number of registers and other details of processor architecture.
+		- Note that K are all loaded in memory for both A and B.
+		- [通用矩阵乘（GEMM）优化算法 | 黎明灰烬 博客](https://jackwish.net/2019/gemm-optimization.html)
+			- > 拆分后 MR × NR 计算块使用的内存为 MR ∗ NR + MR ∗ K + NR ∗ K 。由于常规的神经网络计算 K < 1024， 那么这里的内存消耗一般不超过 16KB，可以容纳在一级高速缓存（L1 Cache）中。QNNPACK 的这一发现是其矩阵乘优化的基础。
+- quantization support in qnnpack than other blas library
+	- Although QNNPACK leverages PDOT microkernel, the way other BLAS libraries do, its focus on quantized tensors with 8-bit elements and mobile AI use cases brings a very different perspective to performance optimization.
+	- Whereas other libraries repack A and B matrices to better exploit cache hierarchy in hopes of amortizing packing overhead over large number of computations, QNNPACK is optimized for cases when the panels of A and B can fit into L1 cache.
+		- ![](https://engineering.fb.com/wp-content/uploads/2018/10/QNNPACK2_final1.png)
+		- This explains the difference between this and flame, flame need to slice on the K dimension because the microkernel won't fit into L1 cache otherwise.
+		- The benefit is that the accumulation can all be done within the microkernel because the K elements are already there.
+- eliminated memory repacking overhead
+	- ![](../assets/lsrWGfend5.jpg)
+		- [通用矩阵乘（GEMM）优化算法 | 黎明灰烬 博客](https://jackwish.net/2019/gemm-optimization.html)
+			- 计算核中最小的计算单元处理的是两个 4 × 4 矩阵相乘。传统的方法由于 K 可能很大，需要对输入内存进行重新组织，防止相邻的访存引起高速缓存冲突。
+		- So that even the first row of A all missed in the cache, it will get loaded and the next time they will get cache hit for all next K elements. While the original method can not fit all K in cache. Resulting in cache miss frequently during the whole process.
+- from convolution to matrix multiplication
+	- ![](https://engineering.fb.com/wp-content/uploads/2018/10/QNNPACK4_final1.png)
+		- use indirection buffer to eliminate the overhead of im2col

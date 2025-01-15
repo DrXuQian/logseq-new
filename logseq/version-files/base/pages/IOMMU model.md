@@ -1,0 +1,5 @@
+- #IOMMU
+- Input-Output Memory Management Unit (IOMMU)
+	- MMU component that connects a DMA-capable I/O bus to system memory. It maps device-visible virtual addresses to physical addresses, making it useful in virtualization.
+	- To access memory, the GPU sends a data request to a compliant IOMMU. The request includes a shared virtual address and a *process address space identifier* (PASID). The IOMMU performs the address translation using the ==shared page table==. This is illustrated in the following diagram.
+	- ![Diagram that shows IOMMU process address space translation in WDDM 2.0.](https://learn.microsoft.com/en-us/windows-hardware/drivers/display/images/iommu-model.1.png)

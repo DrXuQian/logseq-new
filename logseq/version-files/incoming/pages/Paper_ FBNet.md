@@ -1,0 +1,32 @@
+---
+title: Paper: FBNet
+---
+
+- Metadata
+	 - [[Class]]:
+
+	 - [[Topic]]:
+
+	 - [[Lecturer]]:
+
+	 - [[Date]]:
+
+	 - [[Keywords]]:
+
+- Recall Questions
+	 - How to make the alpha differentiable for different candidate blocks?
+		 - 
+
+	 - What is super-net?
+
+	 - What is the difference between FBNet and Reinforcement learning based method?
+
+	 - What is the difference between FBNet and ProxylessNas?
+
+	 - What is the constraint of differentiable architecture search methods?
+
+- Notes
+	 - 
+
+- Summary
+	 - 

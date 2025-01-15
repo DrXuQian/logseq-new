@@ -1,0 +1,3 @@
+- 4 --> 8 for weight MRM banks and activation banks, 5% area saving
+	- ![image.png](../assets/image_1697069887739_0.png)
+-

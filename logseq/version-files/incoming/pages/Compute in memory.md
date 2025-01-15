@@ -1,0 +1,75 @@
+- ![image.png](../assets/image_1714982692613_0.png)
+	- Fig. 1: Top-level integration for Digital CiM block
+- **Number of MACs**
+	- 4K INT8 MACs (same as SCL)
+	- Optional: 8K INT4 MACs
+- **Array shape**
+	- 128x32 = 4096 MACs (Same as SCL)
+- ![image.png](../assets/image_1714982772547_0.png)
+	- **Fig 2: CiM shape – 128x32. 128 rows and 32 columns with column-wise accumulation**
+- **Array configurations**
+	- Column-wise accumulation.  Each MAC that the intersection of row and column does an 8-bit multiplication.
+	  The channels accumulate along the column in **INT23** precision.
+- **Weight stationarity**
+	- Given the higher number of weights in the newer models. The weights are loaded and held stationary while we circulate through the entire activation input. This maximizes the TOPS/W.
+- **Double buffer to avoid load stalls**
+	- ![image.png](../assets/image_1714983764455_0.png)
+	- we can instantly switch to the next set of weights after we are done computing with the current set.
+	- Note that in a CiM, the majority of the area and power overheads are due to the booth encoders and the adder tree. The additional weight columns almost come for free.
+	- Note that we also need double-buffering on the input (Activations) side as it also needs to toggle every cycle/round.
+- **NxN convolutions**
+	- ![image.png](../assets/image_1714983885465_0.png)
+	- We utilize OF RF for NxN convolution. To minimize the OF RF size, the loop order is HW, IC, FX, FY, OC so that we do not increase the number of partial sums.
+- **OFRF**
+	- ![image.png](../assets/image_1714983956746_0.png)
+- **CIM arrays**
+	- To meet the TOPS target and be iso-throughput with SCL, we need to instantiate 4xCiMs. This is because the CiM operates at half-DPU frequency,
+	  and the 32 reduced outputs are generated every 2 cycles. Hence, the factor 4.
+	- ![image.png](../assets/image_1714984170593_0.png)
+	- To balance the CMX requirement for weights and activations, the CiM arrays are split across 2 sets of activations and 2 sets of weights (OC/K) as depicted in upper Figure
+- **Stencil**
+	- Stencil 1 is the stencil of choice as it maximizes the weight stationarity resulting in maximum TOPS/W.
+	- **Stencil 1**
+		- Inner loop block
+			- **Spatial**: OC = 32x2, IC = 128, HW = 2, FX=1, FY=1
+			- **Loop order** – HW, IC, OC
+		- Workload limits - HW: 16x16, OC: 64
+		- Number of psums stored: 16K points (16x16x64)
+		- Size of OF RF: 64 KB (16K * 4 (INT32))
+	- Stencil 2 is an alternate minor variant of it which introduces a HW outer loop to reduce the OF RF size. However, it may complicate the IDU.
+	- **Stencil 2**
+		- Inner loop block
+			- **Spatial**: OC = 32, IC = 128, HW=2, FX=1, FY=1
+			- **Loop order** – HWinner, IC, HWouter, OC ?
+			- HWinner – 8x8, HWouter – 2x2
+		- Workload limits - HW: 16x16, OC: 64
+		- Number of psums stored: 4K points (8x8x2x32)
+		- Size of OF RF: 16 KB
+- **CIM unit interface**
+	- ![image.png](../assets/image_1714985449844_0.png)
+	- ![image.png](../assets/image_1714985459570_0.png)
+- **CIM Weight Write Timing Diagram**
+	- ![image.png](../assets/image_1714985916328_0.png)
+- **CIM Compute Timing Diagram**
+	- ![image.png](../assets/image_1714985923238_0.png)
+- **Top-level interface**
+	- ![image.png](../assets/image_1714986067066_0.png)
+	- CiM wrapper has interfaces with IDU and PPE. The IDU and the PPE run at DPU clk whereas the CiM wrapper runs on DPU clk/2.  IDU supplies weight and activation data. IDU has 2 ports each of 128x4b for weights and 2 ports each of 128x5b for activations. In addition to the IDU interface CiM wrapper has an interface with PPE with 2K bit data port.
+	- ![image.png](../assets/image_1714986092764_0.png)
+	- CiM wrapper has 4 instances of 128x32 CiM blocks that is collectively referred to as CiM Array. CiM Array receives its inputs from IDU and the CiM control and config block. The output of the CiM Array goes to 4 instances of OFRFs connected directly to the 4 CiM instances. 2K bits of data is sent to PPE, 512b per OFRF (32 * 2 * 8).
+	- ![image.png](../assets/image_1714986366340_0.png)
+	- Upper shows 2 independent weight data paths between CMX and CiMs through the IDU. This requires 2 IDU weight data readers each reading 32B per cycle. Over 4 cycles each weight data reader collects 4x32B=128B that gets read in 2 alternate cycles to CiM as shown in Figure below.
+	- ![image.png](../assets/image_1714986428175_0.png)
+	- Each weight reader works on a different weight set. CiM0 and CiM2 work on the same weight set and CiM1 and CiM3 work on another weight set.
+	- Cycle analysis:
+		- CMX Reads = 32x8b per reader per cycle.
+		- CiM weight throughput (for 1 reader) = 128x4b per 2 cycles.
+		- CiM weight throughput (for 2 readers) = 128x8b per 2 cycles = 1 weight set per 2 cycles.
+		- To fill all 4 CiMs (32 weight sets per 2 CiMs) with 64 weight sets it takes 128 cycles. So, it takes 128 cycles to fill all the 4 x 128 x 32 entries available for weights.
+	- ![image.png](../assets/image_1714986672804_0.png)
+	- Upper figure shows 2 independent activation data paths between CMX and CiMs through the IDU. This requires 2 IDU activation data readers each reading 32B per cycle. Over 4 cycles each activation data reader collects 4x32B=128B that gets read in 2 alternate cycles to CiM as shown in Fig 12d. Each activation reader works on a different (x, y) point. CiM0 and CiM1 work on the same (x, y) point and CiM2 and CiM3 work on another (x, y) point.
+- This is the minimum HW we need to perform a typical 1x1 convolution or Matmul. The MRM in the SCL is bypassed and the IDU can directly load the CiM. The accumulated output from the CiM is written into the newly added OFRF of the CiM, so the remaining post-processing functions can be done
+  through our traditional flow in the DPU.
+- **Bandwidth requirements**
+	- Double buffer CIM to meet CMX bandwidth
+-

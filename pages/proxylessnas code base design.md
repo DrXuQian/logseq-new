@@ -1,0 +1,9 @@
+- #NAS
+- #proxylessnas
+- Feed into ProxylessNAS
+	- optimizer of the network
+	- network structure with layerchoices
+	- learning rate scheduler
+	- dataloader for training and evaluation
+	- evaluation metrics
+-

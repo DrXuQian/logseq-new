@@ -1,0 +1,7 @@
+- If clone a repo in your local folder and you made some changes, you can go ahead and push that repo.
+- If fork a repo and the original repo changes, you need to set the original repo as upstream so you can get updates from the original repo instead of the forked repo which is static after the fork.
+- Steps to set and get upstream
+	- To set upstream: `git remote add upstream [URL of the original project]`
+	- To fetch updates from upstream: `git fetch upstream`
+	- To merge those updates into your main branch: `git merge upstream/main` (assuming you're using a main branch named "main")
+	- Thus, "upstream" allows you to stay in sync with the original project while making your own modifications in your fork.

@@ -1,0 +1,33 @@
+title:: NBperf: Spatial tiling strategy and broadcast
+
+- Spatial tiling strategy
+	- Broadcast update
+	- Task Generation
+- How to get the tasks for a operator
+	- only the Subtensors are needed
+	- instead of task manager
+- node_configuration
+	- Spatial tiling strategy
+	- Temporal tiling strategy
+	- Broadcast
+	- On_ddr
+	- Spilling
+		- can concat happen on cmx
+		- can slice happen on cmx
+- In L2:
+	- ApplyBestSplitStrategy
+		- isolated spatial tiling according to cost function
+		- store the results in node configuration
+		- Update broadcast and align with previous operator
+	- SpatialTilingSubgraphOpt
+		- Subtensors size from node configuration + operator
+		- update broadcast for strategy switched ops
+	- IsolatedTemporalTiling
+		- isolated temporal tiling according to cost function
+		- store the results in node configuration
+		- Can Concat happen on CMX function
+		- Can Slice happen on CMX function
+	- DMABoundTemporalTiling
+		- easier
+	- FeasibleAllocation
+		- subtensor memory consumption from node configuration + operator

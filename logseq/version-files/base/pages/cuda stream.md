@@ -1,0 +1,13 @@
+- #CUDAStream
+- https://developer.download.nvidia.cn/CUDA/training/StreamsAndConcurrencyWebinar.pdf
+- ![StreamsAndConcurrencyWebinar.pdf](../assets/StreamsAndConcurrencyWebinar_1735721305428_0.pdf)
+-
+- ### **硬件支持**
+	- GPU 必须支持 **多 kernel 并发执行（[[Concurrent Kernel Execution]]）**。
+	- 从 **Compute Capability 3.5+** 的架构（如 Kepler、Maxwell、Pascal、Volta、Ampere 等）开始，GPU 支持多个 kernel 的并发执行。
+	- 如果 GPU 是 **Compute Capability < 3.5**（如 Fermi 架构），多个 kernel 无法同时运行，即便资源允许。
+- ### **Warp 级调度**
+	- SM 内的线程块被分解为多个 Warp（每个 Warp 通常包含 32 个线程）。
+	- 不同 Warp 可以来自同一个 kernel，也可以来自不同 kernel。
+	- Warp 调度器负责调度这些 Warp 到不同的执行单元（如 CUDA Core、Tensor Core 等）上运行。
+-

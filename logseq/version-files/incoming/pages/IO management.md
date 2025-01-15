@@ -1,0 +1,40 @@
+- IO Devices
+	- I actually worked on Wifi cards a long time ago when in PHD study
+	- ![image.png](../assets/image_1714459860793_0.png){:height 535, :width 890}
+- IO Device Features
+	- Any device will have a set of control registers that can be accessed by the CPU
+	- ![image.png](../assets/image_1714460295819_0.png){:height 473, :width 888}
+- CPU device interconnect
+	- ![image.png](../assets/image_1714460454010_0.png){:height 451, :width 896}
+- Device drivers
+	- ![image.png](../assets/image_1714460779022_0.png){:height 490, :width 890}
+- Types of device
+	- ![image.png](../assets/image_1714460954497_0.png){:height 507, :width 890}
+- CPU device interactions
+	- Device registers appears to the CPU as physical memory address that it can load and store
+	- The PCI control will realize the memory access should be routed to the device.
+	- Memory-mapped I/O
+		- Controlled by base address registers (BAR)
+		- Meaning that part of the 'host' physical memory is dedicated to device interactions.
+	- IO port
+		- CPU can access device via special instructions
+		- need to specify target device (IO port) and value in register
+	- ![image.png](../assets/image_1714461561642_0.png){:height 563, :width 920}
+- Path from device to CPU
+	- interrupt or Polling
+	- ![image.png](../assets/image_1714461651861_0.png){:height 513, :width 884}
+- Device Access PIO
+	- ![image.png](../assets/image_1714462155574_0.png){:height 471, :width 885}
+	- ![image.png](../assets/image_1714462238216_0.png){:height 509, :width 889}
+- DMA
+	- ![image.png](../assets/image_1714462549574_0.png){:height 481, :width 882}
+	- ![image.png](../assets/image_1714463489818_0.png){:height 524, :width 884}
+	- ![image.png](../assets/image_1714463522452_0.png)
+	- DMA vs PIO quiz #card
+	  ![image.png](../assets/image_1714463644234_0.png){:height 466, :width 846}
+		- PIO
+		- DMA
+- Typical Device access
+	- ![image.png](../assets/image_1714464108787_0.png){:height 520, :width 850}
+- Virtualization
+	-

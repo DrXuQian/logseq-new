@@ -1,0 +1,15 @@
+- View-like operators
+	- Reshape
+	- Permutecast
+- Multi-cluster strategy for view-like operators
+	- should align with the previous operators
+	- Reshape:
+		- Iti broadcast or DMA broadcast or spill
+- [[Multi-cluster strategy for CopyOp]]
+  id:: 63f74a15-d18a-4b85-87f1-4f73b8f34508
+	- Should always align with the previous operator
+	- If not aligned with the next operator, spill
+	- Task generation for CopyOp
+		- CopyOp: uniformly split across clusters, output also uniformly split across clusters
+- [[Multi-cluster strategy for ShaveOp]]
+	- If the output need broadcast, always spill the output

@@ -1,0 +1,22 @@
+- #firmware
+- LRT: [[LeonRT]]
+	- Firmware
+- LNN: [[LeonNN]]
+	- [[Inference Runtime]]
+- What is [[IPC]] FIFO?
+	- [[IPC FIFO]]（进程间通信使用先进先出）是计算机系统中用于进程间数据交换的一种方法。这种方法使用了FIFO（先进先出）队列机制，确保发送消息的顺序就是接收消息的顺序。下面是更详细的解释：
+	- **IPC（进程间通信）**：IPC 允许不同的进程之间进行通信。这对于多进程应用程序非常重要，其中应用程序的不同部分或不同的应用程序需要交换信息。
+	- **FIFO（先进先出）**：FIFO 是一种队列方法，其中添加到队列中的第一个项目是第一个被移除的。在 IPC 上下文中，这意味着按照写入的顺序读取消息或数据。
+	- IPC FIFOs will be used to communicate between Runtime CPU (LeonNN) and Scheduler CPU (LEON RT), or for host - Scheduler CPU communication.
+- ![image.png](../assets/image_1706089581911_0.png)
+- ### Firmware Services Components
+	- #### JSM [[Job Scheduler]]
+		- 在LRT上运行，功能包括：
+		- manage NCE tiles (power on/off, allocation etc.)
+		- turn NCE tiles off whenever they are not used
+		- give idle/busy information of NCE subsystem for Power Manager.
+		- Trace the start/end time of NCE tile usage using the
+	- #### JSM Copy Engine
+		- 在LRT上运行，生成一系列copy的command
+	- #### JSM Compute Engine
+		- 在LRT上运行，

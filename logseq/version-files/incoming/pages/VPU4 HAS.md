@@ -1,0 +1,35 @@
+- # NCE subsystem
+	- ## Feature set
+		- Up to 6 Neural Compute Engine Tiles, where each tile consist of:
+			- Maximum of 4MB CMX Memory
+			- Up to two 512-bit ==ACT-SHAVEs==
+			- DPU (2k MACs)
+		- DMA Engine:
+			- Up to two:
+				- 64B [[AXI Interface]] to DDR
+				- 64B Read/128B Write Interfaces to CMX
+			- Bit Compactor Compression unit for weights decompression
+			- ==Broadcasting/Multicasting Capability to allow DMA to feed multiple NCE Tiles simultaneously==
+			- Prefetching capability in the DMA controller. **A dedicated prefetch machine provides single read accesses to pages at a configurable offset from the current transfer**. All prefetch commands are carried on the read channel of the converged 64B AXI DMA data bus.
+			- Address Patching capability for DRAM Accesses
+		- M2I Engine:
+			- Support of Cropping, Scaling, Color, Normalization Transforms
+			- 16B Write Only and 16B Read Only Interface to CMX
+			- No Direct Accesses to DRAM
+		- Inter-Tile-Interconnect (ITI) for **output activation sharing** (write-only). ITI provides broadcasting, multicasting and unicasting capability,
+		- ==256kB of SHAVE L2 Cache== for Data and Instruction shared between ACT-SHAVEs:
+			- Single L2 Cache Instance shared between 6 NCE Tiles with up to two ACT-SHAVE per NCE Tile
+		- Barriers for hardware and assisted task synchronization and pipelining
+		- Programmable HW FIFO Block for Work Descriptors and IPC
+		- Single Tile Yield Recovery due to process defect
+		- Virtual Addressing for all resources used during Inference (Memory, Barriers, FIFOs and DMA/M2I Interrupt IDs)
+	- ## NCE Subsystem
+		- https://docs.intel.com/documents/MovidiusInternal/vpu4/common/has/auto/NCE_CMX_Diagrams.vsdx_NCE-SS_81322.zoom.html
+		- ### NCE CMX Barriers
+			- The NCE provides up to 128 barriers for hardware assisted task synchronization (each barrier contains 8bit consumer and 8bit producer counter). Number of barriers avaliable for a job depends on number of tiles allocated to it: 16*(Number of Tiles allocated for job). Each barrier consist of:
+				- A producer count.
+				- A consumer count.
+				- A producer count zero hit status.
+				- A consumer count zero hit status.
+		- ### NCE Tile
+			-

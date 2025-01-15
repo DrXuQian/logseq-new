@@ -1,0 +1,1 @@
+- Context是MLIR的全局状态，包含所有的Dialect，Type和Operation的定义，上下文可以用于管理和共享所有MLIR的全局资源。

@@ -1,0 +1,3 @@
+- [SHV-DPU pipelining(1).pptx](https://intel-my.sharepoint.com/:p:/p/xu_qian/EYKMJlX8im1Mq8rT8hShIiEBUh84MYht93_2-8les4ACig?e=689jyP)
+- Basically vertical fuse the graph and then modify the graph to make the shave DPU pipeline in graph level.
+- Key concern is this is going to have more constraint on memory allocation.

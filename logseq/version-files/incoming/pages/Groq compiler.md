@@ -1,0 +1,2 @@
+- {{video https://www.youtube.com/watch?v=TjCDyiUVZL0&ab_channel=Groq}}
+- {{video https://www.youtube.com/watch?v=rXGbSMYXyG0&ab_channel=Groq}}

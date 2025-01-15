@@ -1,0 +1,2 @@
+- The Advanced eXtensible Interface (AXI), is an on-chip communication bus protocol developed by ARM.
+- ![image.png](../assets/image_1651671191212_0.png)

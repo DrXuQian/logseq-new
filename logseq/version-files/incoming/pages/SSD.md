@@ -1,0 +1,22 @@
+---
+title: SSD
+---
+
+- SSD in details
+	 - ![](https://arleyzhang.github.io/articles/786f1ca3/1521723003643.png)
+		 - [[hard negative mining]]
+
+		 - feature map size and the feature extracted from ssd
+			 - ![](../assets/zFhXTiQtQc.png)
+
+		 - prior boxes in ssd:
+			 - ![](../assets/R38wsk5b3W.png)
+
+			 - use prior box to generate output 
+				 - ![](https://arleyzhang.github.io/articles/786f1ca3/1522226439889.png)
+
+				 - ![](https://arleyzhang.github.io/articles/786f1ca3/1522226581238.png)
+
+				 - ![](https://arleyzhang.github.io/articles/786f1ca3/1522226756772.png)
+
+				 - ![1522226857210](https://arleyzhang.github.io/articles/786f1ca3/1522226857210.png)

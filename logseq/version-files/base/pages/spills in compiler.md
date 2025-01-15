@@ -1,0 +1,8 @@
+- Activations spills usually come from activation size is not enough to fit in CMX. Cases including:
+- Operator alone can't fit in CMX, we need to tile the operator to fit in CMX. And the input and output need to spill.
+- Bad selection of multi-cluster strategy that caused the activation to broadcast, which increased the memory usage and thus spill.
+- Residual memory in CMX reduce the memory available for the current operator, so need to spill the residual memory to make room.
+- for Concat, it the Concat can't happen on CMX. We need to spill to Concat using DMA.
+- Spills introduced in dynamic memory allocation, sometimes the memory fragments will cause spill.
+- We can only solve cases for 2 by some optimization to select better multi-cluster strategy. For other cases, there are going to be spills anyway.
+- Another way is vertical fusion, this can solve some spills from 1.

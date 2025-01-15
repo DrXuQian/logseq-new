@@ -1,0 +1,12 @@
+- GPU本质在于并行，对于单个workload的latency并不关注，而是关注整体的throughput。
+- Structure of A100:
+	- ![image.png](../assets/image_1705836811568_0.png)
+	- 有108个[[SM]]流处理器，每个流处理器都对应了64个[[warp]]。每个SM里面有4个warp的调度器，也就是同时可以执行4个warp。
+	- memory上HBM有80G，L2cache有40MB，L1是每个SM有192K，每个sheduler对应了16x4b的register。
+- Shared memory and L1 cache is configurable:
+	- 可以由用户配置这部分多少是shared memory（也就是scratchpad memory），多少是L1 cache。
+- blockIdx和threadIdx是什么，映射到硬件分别对应了什么单元？#card
+	- 在硬件上，block映射到[[SM]]，一个线程块上的所有线程都在一个SM上运行，并且共享所有资源，共享内存和寄存器。
+	- 每个thread block对应了多个thread。
+- `__syncthreads()` 是用于做什么的？ #card
+	- 用于同步一个线程块中的所有线程。同步机制，通常用的场景是，后面的thread对应的操作依赖于别的thread的完成与否。

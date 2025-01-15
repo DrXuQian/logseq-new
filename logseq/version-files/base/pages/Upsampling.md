@@ -1,0 +1,15 @@
+---
+title: Upsampling
+---
+- upsampling
+	 - bilinear
+	 - nearest
+- unpooling
+	 - ![](../assets/BAbdo-On7O.png)
+- deconvolution
+	 - ![](../assets/MCUrA8gH3S.png)
+	 - [[checkerboard effect and deconvolution]]
+		 - https://distill.pub/2016/deconv-checkerboard/
+- pixel_shuffle
+	 - depth2space
+		 - ![](../assets/7iEFeV2q4P.png)

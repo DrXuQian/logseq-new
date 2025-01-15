@@ -1,0 +1,14 @@
+- Pipeline bw DPU/SHAVE
+	- workload level barrier
+	- Loop inchannel first, write out NTHW contexts to CMX
+	- Then use Shave on that data, pipeline with the previous DPU
+- Elementwise operations
+	- Increase the utilization of element wise ops
+	- How we previously do this?
+		- ![image.png](../assets/image_1683159882597_0.png)
+	- IDU for different dtypes
+		- ![image.png](../assets/image_1683160144958_0.png){:height 618, :width 1084}
+		- ![image.png](../assets/image_1683160208550_0.png)
+	- Replace double-buffered RF with FIFO
+		- ![image.png](../assets/image_1683160919465_0.png)
+-

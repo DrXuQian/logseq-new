@@ -1,0 +1,13 @@
+title:: IOS: Inter-Operator Scheduler for CNN Acceleration
+- title:: IOS: Inter-Operator Scheduler for CNN Acceleration
+- http://www.yaoyaoding.com/ios
+- #GraphScheduling
+- What might we get from this paper?
+	- ![image.png](../assets/image_1675151760403_0.png){:height 444, :width 535}
+		- inter operator parallelization
+			- This is for under utilization problem
+		- intra operator parallelization
+- One line conclusion of the paper:
+	- Exhaustive search for the best solution to vertical/horizontal fusion scheduling
+		- ![image.png](../assets/image_1675151928644_0.png){:height 211, :width 526}
+-

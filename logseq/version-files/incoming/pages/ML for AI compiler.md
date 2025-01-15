@@ -1,0 +1,11 @@
+- Topoformer by Qualcomm:
+	- Topoformer which uses different topological transforms of a DAG for message passing. The node embeddings produced by the encoder are converted into node priorities which are used by the decoder to generate a probability distribution over topological orders.
+	- Target for minimizing peak memory consumption.
+	- Questions:
+		- Is the parallel execution of tensor/vector considered in this paper?
+		- Benefit might not that significant?
+			-
+- Paper:
+	- https://arxiv.org/abs/2207.05899
+	- This policy will then be able to generate good sequences for new unseen input graphs.
+	- ![Qualcomm-image](https://s7d1.scene7.com/is/image/dmqualcommprod/End-to-end-ML-sequencing?$QC_Responsive$&fmt=png-alpha&wid=640)

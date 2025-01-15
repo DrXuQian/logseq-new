@@ -1,0 +1,5 @@
+---
+title: Mindshare x86
+---
+
+- 

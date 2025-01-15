@@ -1,0 +1,55 @@
+### Source
+	- https://developer.nvidia.com/blog/scaling-language-model-training-to-a-trillion-parameters-using-megatron/
+- Overview
+	- ![image.png](../assets/image_1704549390993_0.png)
+- ### pipeline parallelism compared with Gpipe
+	- #Gpipe
+		- ![image.png](../assets/image_1704549907454_0.png)
+		- 注意，每次一个batch的前向和后向结束之后，需要同步一下optimizer的信息，这样保证了optimizer的正确性。
+		- The bubble is minimized when number of microbatchs >> number of GPUs for pipeline parallelism
+		- **时间分析**
+			- 这种方法的bubble的时间差不多需要$$t_{pb} = (p-1)*(t_f + t_b)$$，这个简单来看就是在全部的forward之前有$$p-1$$个空格。在最后的backward之后还有$$p-1$$个空格。其中$$t_f, t_b$$是一个microbatch的前向和后向的时间开销。
+			- 理想的时间开销是$$t_{id} = m * (t_f + t_b)$$， 这里的$$m$$是micro batch的数量。
+			- 所以可以得出：$$bubble\ time\ fraction = t_{pb}/t_{id} = (p - 1)/m$$
+		-
+	- ![image.png](../assets/image_1704549959705_0.png)
+	- Pipeline Dream flush:
+		- Summary:
+			- One such way is 1F1B scheduling proposed by PipeDream, wherein during the forward pass, initially, the micro-batches are allowed to flow forward until the last group receives the first micro-batch. But then the backward propagation of the first batch starts, and from then, a forward pass is always accompanied by a backward pass, hence the name 1F1B.
+			- 第一个microbatch前向结束之后立马开始后向，然后就是interleave的
+		- upper half of figure4, 限制了同时发生的microbatch的数量，如图所示，原来所有的microbatch都会做完inference之后开始backward。
+		- 在图4中，device4 在做完第一个microbatch的forward之后，并没有开始后一个microbatch的forward，而是去做了第一个microbatch的backward。
+		- 时间上跟Gpipe是一致的，但是，因为同时最多计算4个microbatch的forward和backward，所以只需要保留4个microbatch的intermediate activations。但是Gpipe方案因为每次要先算完所有的microbatch的forward，然后计算backward，所以需要保留8个。如果microbatch的数量特别巨大， 内存的问题会更明显。
+	- Schedule with interleaved stages:
+		- 为了减少bubble，每个device可以在每个自己的local的model上切分出更小的layer，叫做model rank。原来你的pipeline dream flush是(device 1 has layers 1-4, device 2 has layers 5-8, and so on).
+		- 聪明的解决方案，把1，2，9，10 划分给device1, device2是3，4，11，12。device3是5，6，13，14。device4是7，8，15，16。
+		- 这样粒度更细了，让不同的device在两个stage都能参与运算。能够减少bubble到原来的1/v，其中v是stage的数量。但是有额外的commnication的开销。
+		  id:: 6599639b-fcaf-4793-9819-7d3bb4a544b4
+		- 这种策略的bubble time:
+			- 因为每个device有$$v$$个stage，也就是$$v$$个model chunks。那么前向和后向的时间，又进一步的减少到了$$t_f/v$$以及$$t_b/v$$，那前面和后面的bubble时间应该是：
+			- $$bubble\ time = (p-1)*(t_f+t_b)/v$$
+- ### TP+MP+DP
+	- {{embed ((6599577e-6a83-47c6-b045-1531839ae9d0))}}
+	- Communication cost modelling is very hard. This is the first work to analyze performance interactions of different parallel dimensions.
+	- #### Tensor and Pipeline Model Parallelism
+		- Communication cost for tensor parallelism is high when multiple shards are not within the same GPU clusters. Need inter-server communication which can be real slow.
+		- > Takeaway 1: When considering different forms of model parallelism, tensor model parallelism should generally be used up to degree 𝑔 when using 𝑔-GPU servers, and then pipeline model parallelism can be used to scale up to larger models across servers
+	- #### Data and Model Parallelism
+		- > Takeaway 2: When using data and model parallelism, a total model-parallel size of 𝑀 = 𝑡 · 𝑝 should be used so that the model's parameters and intermediate metadata fit in GPU memory; data parallelism can be used to scale up training to more GPUs.
+	- #### Microbatch Size
+		- > Takeaway 3: The optimal microbatch size 𝑏 depends on the throughput and memory footprint characteristics of the model, as well as the pipeline depth 𝑝, data-parallel size 𝑑, and batch size B.
+	- #### Activation Recomputation
+		- [[gradient checkpointing]]
+		- > For most cases, checkpointing every 1 or 2 transformer layers is optimal
+- ### Implementation
+	- Communication optimization:
+		- ![image.png](../assets/image_1704605138742_0.png)
+		- 如图所示，1和2是tensor parallelism，1/2 和 3/4是pipeline parallelism。所以1和2操作不同的tensor（对于MHA是不同的head，对于MLP是不同的channel的activation），1/2和3/4是模型不同的vertical stage。
+		- 因为tensor parallelism要求输入输出是完整的tensor，所以再跨pipeline传输数据时，即使切分了，也会在通过inifiband传输之前通过nvlink all-gather来组合成完整数据。论文提出的优化就是，不直接传输gather之后的全部数据，而是只传输一部分，如图上所示，gpu1和gpu2每个各传输1/2的数据。
+		- 然后再接收端通过all gather来进行组合，由于接收端是用nvlink进行通信，所以会快很多。
+- ### Experiments
+	- Tensor parallel size should equal to number of nodes in one GPU server (8 for DGX A100)
+	- The more microbatch is, the less bubble there are when using pipeline parallelism.
+	- 10% after the optimization of communication (gather/scatter)
+	- 10% after optimization of interleaved pipeline parallelism (less bubble).
+-

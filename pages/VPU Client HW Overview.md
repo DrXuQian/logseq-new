@@ -1,0 +1,13 @@
+- VPU Client HW OverView
+	- MTL
+	- ![image.png](../assets/image_1714957462886_0.png)
+- SW Stack
+	- ![](https://usc-powerpoint.officeapps.live.com/pods/GetClipboardImage.ashx?Id=9490bb76-bf32-4cf5-93dc-d11446229b77&DC=US1&pkey=2908ec71-d9c6-44fa-8c05-ccb637fdd2c2&wdwaccluster=US1)
+- Developer view of VPU
+	- ![](https://usc-powerpoint.officeapps.live.com/pods/GetClipboardImage.ashx?Id=82fd5654-3e71-45cc-8d0b-5fd7011851fa&DC=US1&pkey=02b4a180-6f4e-495e-a1a9-39cb74e5fae7&wdwaccluster=US1)
+- [[Firmware in VPU]]
+	- ![](https://usc-powerpoint.officeapps.live.com/pods/GetClipboardImage.ashx?Id=17138dc9-5260-4845-ada9-014cafbafafd&DC=US1&pkey=8f582156-423f-4d3d-9816-78107ec8eaaa&wdwaccluster=US1)
+- [[LeonRT]]
+	- ![](https://usc-powerpoint.officeapps.live.com/pods/GetClipboardImage.ashx?Id=73e1a311-bc0e-45a5-b225-e755299c11cf&DC=US1&pkey=c2bd0ab7-a561-417c-ab7a-37331efc7822&wdwaccluster=US1)
+- [[LeonNN]]
+	- ![](https://usc-powerpoint.officeapps.live.com/pods/GetClipboardImage.ashx?Id=0f7fc8cf-1045-43a0-96b6-4651ca0d5ade&DC=US1&pkey=44e8b88b-513f-407c-bcca-fa7e06c049d4&wdwaccluster=US1)

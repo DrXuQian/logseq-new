@@ -1,0 +1,4 @@
+- #DMA #bitcompactor
+- the answer for the 2x difference in the DMA performance difference could be due to the fact that we aren't using bitcompactor in VPUx compiler.  for SoH with weight broadcast the BW of DMA will be half without BITC enabled.  If you see the diagram below that is from the SAS you have double the BW on the BITC path than the normal DMA path.
+- ![image.png](../assets/image_1667387353772_0.png)
+- [https://docs.intel.com/documents/MovidiusExternal/vpu27/MTL/SW/VPU27SAS.html#nn-cmx](https://docs.intel.com/documents/MovidiusExternal/vpu27/MTL/SW/VPU27SAS.html#nn-cmx)

@@ -1,0 +1,5 @@
+- Barrier Synchronization
+	- All thread must arrive before any can leave
+	- counter and flag for barrier
+	- ![image.png](../assets/image_1713943714222_0.png){:height 507, :width 892}
+-

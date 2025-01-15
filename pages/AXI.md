@@ -1,0 +1,1 @@
+- AXI，全称为Advanced eXtensible Interface，是ARM开发的一种芯片内部的高速通信协议

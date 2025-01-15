@@ -1,0 +1,19 @@
+- [[OKR for June 30th]]
+- Results:
+	- Feedback and Appreciation
+		- Keep developing Nbperf and improve model coverage. Currently more than 90% of the OpenVINO models passed compilation. 12 of 12 MEP models compiles through Nbperf. Also added support of VIT models like Swin-T.
+		- Add key features in Nbperf for performance optimization of top models like temporal tiling and spatial tiling strategy optimization, inplacebuffer allocation.
+		- Add features in Nbperf required by VPUEM for more accurate performance projection like sparsity, NHWC layout,  multi tile CMX memory allocation algorithm.
+		- Cooperating with the hardware architecture team and submitted one IDF about zero point hardware removal.
+		- Draft whitepaper about MTL VPU performance optimization.
+	- Coaching and Goal Alignment
+		- Currently not that familiar with VPUX compiler, this is essential when we want to quickly try some compiler optimization algorithm or new features on production compiler. Also, with a deeper understanding of the production compiler, we are able to understand what is missing in Nbperf based projection.
+- Behaviors:
+	- Feedback and Appreciation
+		- Actively cooperate with VPUEM team on enabling top models to provide more reliable KPI for MTL.
+		- Actively work with HW arch team on VPU5TR for VPU5 SKU finalization.
+		- Cooperating with the compiler team on the super resolution model and use network architecture search for a EDSR based structure with higher performance and accuracy.
+	- Coaching and Growth Opportunities
+		- Contribute more on the customer model optimization with the compiler knowledge and network optimization knowledge.
+-
+-

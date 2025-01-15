@@ -1,0 +1,10 @@
+- https://ar5iv.labs.arxiv.org/html/2312.12705
+- This is designed for find the optimal hype parameters for AMD server build by Oak Ridge National Laboratory
+- ### Background
+	- ![image.png](../assets/image_1704865061605_0.png)
+- ### Tensor Parallelism
+	- ![Refer to caption](https://ar5iv.labs.arxiv.org/html/2312.12705/assets/images/frontier-node.png)
+	- Communication bandwidth between GPUs
+	- Observations:
+		- Larger TP size decreases performance
+		- ![image.png](../assets/image_1704865143148_0.png)

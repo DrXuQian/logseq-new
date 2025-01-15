@@ -1,0 +1,21 @@
+- Superscalar vs VLIW
+	- ![image.png](../assets/image_1713931010929_0.png){:height 523, :width 982}
+- Superscalar vs VLIW quiz #card
+  ![image.png](../assets/image_1713931179988_0.png){:height 452, :width 881}
+	- 4000-16000
+	- The optimal case, we can always find 4 independent instructions to pack it up.
+	- The worst case, all instructions are sequential.
+- The good and the bad
+	- ![image.png](../assets/image_1713931449132_0.png){:height 462, :width 870}
+- VLIW Backward Compatibility Quiz
+	- ![image.png](../assets/image_1713931608162_0.png){:height 316, :width 870}
+		- No
+- VLIW instructions
+	- ![image.png](../assets/image_1713932162876_0.png){:height 437, :width 710}
+	- Why can't we do similar things about DPU descriptor? Compact instructions.
+- VLIW examples
+	- ![image.png](../assets/image_1713932281362_0.png){:height 413, :width 422}
+- VLIW Target Market Quiz
+	- ![image.png](../assets/image_1713932394172_0.png){:height 332, :width 813}
+		- ![image.png](../assets/image_1713932406280_0.png){:height 210, :width 736}
+-

@@ -1,0 +1,2 @@
+- XI Central Direct Memory Access
+- [[AXI]] CDMA（AXI Central Direct Memory Access）是一种专门设计用来在AXI设备之间高效地传输数据的技术。AXI，全称为Advanced eXtensible Interface，是由ARM开发的一种用于芯片内部组件之间的高性能通信协议。AXI CDMA使得数据可以直接在内存与其他AXI兼容组件之间传输，而不需要CPU的干预，这样可以显著提高数据处理速度并减少延迟。

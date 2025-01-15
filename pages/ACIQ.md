@@ -1,0 +1,5 @@
+- https://arxiv.org/pdf/1810.05723.pdf
+- Bias Correction:
+	- Notice change in mean and variance of the weight after quantization, compensate that as the following shows:
+- ![image.png](../assets/image_1705316476299_0.png)
+- ![image.png](../assets/image_1705316466996_0.png)

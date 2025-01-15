@@ -1,0 +1,13 @@
+- #tiling
+- #broadcast
+- #nbperf
+- TOH+SOK
+	- ![image.png](../assets/image_1661832904965_0.png)
+- TOK+SOK
+	- ![image.png](../assets/image_1661832951926_0.png)
+- TOK+SOH
+	- ![image.png](../assets/image_1661832894491_0.png)
+- TOH+SOH
+	- ![image.png](../assets/image_1661912902309_0.png)
+	- ![image.png](../assets/image_1661913217310_0.png)
+		- Suppose CMX concat can happen, then  CMX slice can always happen in DDR.

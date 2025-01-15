@@ -1,0 +1,70 @@
+- #tiling
+	- Prefetch tiling
+		- prefetch for not tiled operators
+	- Pipeline tiling
+		- prefetch for tiled operators
+- #memoryallocation
+	- prefetch levels
+		- 30 in vpux compiler
+- Contexts:
+  collapsed:: true
+	- 09:22
+		- [8:52 AM] Qian, Xu
+		- yaobo,你之前说的有isolated tiling，prefetch tiling还有啥的
+		- [8:59 AM] Yao, Shaojun
+		- pipeline tiling, 就是一个op tile成多个之后相互之间 prefetch
+		- [8:59 AM] Qian, Xu
+		- 感觉isolated tiling完了之后，prefetch tiling应该包含这种pipeline tiling吧
+		- [9:04 AM] Yao, Shaojun
+		- 这个其实取决于怎么定义，我之前也没搞清楚，这三个名字是vpux compiler现在的写法
+		- [9:05 AM] Yao, Shaojun
+		- prefetch tiling 特指 当相互连接的两个 OP，都能在cmx放的下，但是不能prefetch的情况下，通过tile 来支持prefetch
+		- [9:05 AM] Yao, Shaojun
+		- 如果把tile 就分两种，那么 prefetch tiling 和 pipeline tiling 都是为了达成 prefetch
+		- [9:06 AM] Yao, Shaojun
+		- isolated tiling 为了满足cmx
+		- [9:06 AM] Li, Victor Y
+		- pipeline tiling 的 trigger 条件是  dma copy time > compute time ？
+		- [9:07 AM] Yao, Shaojun
+		- 没有这个时间的比较，tiling这边目前都只看memory的状况
+		- [9:07 AM] Yao, Shaojun
+		- 目前的逻辑，pipeline tiling 的前提是有 isolated tiling
+		- [9:08 AM] Qian, Xu
+		- yaobo，你们有针对inference 时间做的tiling优化吗？
+		- [9:08 AM] Yao, Shaojun
+		- isolated tiling 有可能不能满足prefetch，那么会进一步tile，这个就叫 pipeline tiling
+		- [9:10 AM] Yao, Shaojun
+		- >
+		- [9:08 AM] Qian, Xu
+		- yaobo，你们有针对inference 时间做的tiling优化吗？
+		- prefetch tiling 就是啊，但是 prefetch tiling 是先于 memory/prefetch scheduling 做的，所以并不能一定保证tile的结果能够达成prefetch
+		- [9:11 AM] Qian, Xu
+		- 也有可能能prefetch，但是prefetch的DMA时间特别长，比前一个operator的执行时间长的多，我是说这种情况可能需要把prefetch的op进一步tile。
+		- [9:14 AM] Yao, Shaojun
+		- 你说的这个情况，那需要知道prefetch的DMA，会和哪个具体的operator overlap吧？
+		- [9:14 AM] Qian, Xu
+		- 需要的
+		- [9:14 AM] Qian, Xu
+		- vpux compiler里面不知道吗？
+		- [9:15 AM] Yao, Shaojun
+		- tile的时候不知道，要做memory/prefetch scheduling 的时候才知道
+		- [9:15 AM] Qian, Xu
+		- 嗯嗯，那nbperf也是
+		- [9:16 AM] Qian, Xu
+		- 只有做memory allocation的时候知道，但是大概可以知道是哪一个operator，基本上就是前一个
+		- [9:16 AM] Yao, Shaojun
+		- 所以我上次和你们提过，要在做 scheduling的同时 做 prefetch，这么才能清楚的知道哪个DMA和DPU做overplap，也能避免memory fragment的问题
+		- [9:17 AM] Yao, Shaojun
+		- >
+		- [9:16 AM] Qian, Xu
+		- 只有做memory allocation的时候知道，但是大概可以知道是哪一个operator，基本上就是前一个
+		- vpux 里面设置一个 prefetch level，经常会胯 好几个 Op 去做 prefetch
+		- [9:18 AM] Qian, Xu
+		- 我们现在prefetch level就是2，所以没那么多中情况
+		- [9:18 AM] Yao, Shaojun
+		- 但是 POC 似乎就只看前一个 op
+		- [9:18 AM] Yao, Shaojun
+		- 我们的 max level 大概是 30
+		- [9:18 AM] Li, Victor Y
+		- POC 也有一个参数来决定这个level的
+		- like 1

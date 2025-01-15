@@ -1,0 +1,36 @@
+# Introduction
+	- ((645df371-7f1a-475f-b2da-91df3b91831a))
+- # Partitioning for Inference Efficiency
+- ## Partitioning the feedforward layer
+- ### Feedforward Laye, 1D weight-stationary layout
+- ((645e02c2-f370-48a6-a586-828528168319))
+	- This is SOC/SOK in VPU, SOC is not supported right now
+- Notations:
+	- BLE_{xyz}, where B is batch, L is sequence length, E is the model embed. F is MLP feed forward dims.
+		- For whisper:
+			- ![image.png](../assets/image_1684715682903_0.png)
+			- B: 1
+			- L: 1500
+			- E: 384
+			- F: 1536
+	- Different split and corresponding shards in chips:
+		- 1D weight-stationary:
+			- 1 reduce-scatter and 1 all-gather
+			- ![image.png](../assets/image_1684725912116_0.png)
+		- 2D weight-stationary:
+			- partition on E and F so that each shard is roughly square
+				- ((646ae12d-7141-4187-8a7e-bc145e460449))
+			- ![image.png](../assets/image_1684726137602_0.png)
+		- weight gathered layout (partition on activation only or activation and weight at the same time)
+			- ![image.png](../assets/image_1684726300009_0.png)
+		- ![image.png](../assets/image_1683883110265_0.png){:height 805, :width 899}
+	- ((646ab97c-0737-4af7-8986-6428f7b32971))
+		- This is how vertical fusion happens, this reduced communication cost, which would translate to DMA cost in VPU
+	- Communication cost for different data ops:
+	  collapsed:: true
+		- ![image.png](../assets/image_1684725536691_0.png){:height 321, :width 937}
+- ## Partitioning the attention layer
+- Multi-head attention and multi-query attention
+	- ![image.png](../assets/image_1684726640874_0.png)
+- Multi-head attention and possible split:
+	- ![image.png](../assets/image_1684736899049_0.png)

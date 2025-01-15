@@ -1,0 +1,4 @@
+---
+title: jittered super sampling
+---
+-

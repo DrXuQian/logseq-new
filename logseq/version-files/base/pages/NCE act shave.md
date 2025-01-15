@@ -1,0 +1,10 @@
+- ![image.png](../assets/image_1706089378172_0.png)
+- Terminology:
+	- ![image.png](../assets/image_1706088690086_0.png)
+- [[NoC in VPU]]
+- ACT Shave connect to L2 which have 256K memory
+- ACT Shave connect to LSU2 NSIP (LSU is the common access interface to CMX)
+- ACT Shave connect to inter-tile NoC that can output to other tiles
+	- In total two connection from each NCE to the inter-tile NoC, one from Shave and one from DPU
+	- And there is one connection from NoC to NCE, that connects to accelerator NoC
+- ![image.png](../assets/image_1706088515510_0.png)

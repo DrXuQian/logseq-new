@@ -1,0 +1,5 @@
+- Logic gates in modern CPU
+	- ![graphic notation for digital logic gates](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/08f/gates.gif)
+- More about adder/multiplexer/shifter
+	- https://homepage.cs.uiowa.edu/~dwjones/assem/notes/08arith.shtml
+-

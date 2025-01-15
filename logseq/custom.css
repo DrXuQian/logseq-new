@@ -1,0 +1,18 @@
+.table-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+table td {
+  min-width:100px;
+  word-wrap:break-word;
+}
+div.ls-wide-mode iframe[id^='youtube-player'] {
+  height: 500px !important;
+  width: 100% !important;
+}
+
+iframe[id^='youtube-player'] {
+  height: 700px !important;
+  width: 100% !important;
+}

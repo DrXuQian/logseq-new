@@ -1,0 +1,64 @@
+### 总结一下，
+id:: 6774c2af-14c3-4554-8164-cfa83fa7e80c
+	- 1. 一个cuda program可以指定多少个thread block(gridSize), 每个block有多少个thread(blockSize)(每个线程块的线程数上限是硬件规定的（通常 1024）)。
+	- 2. 运行的时候，每个thread block被映射到一个SM，但是每个SM可以运行多个thread block，因为每个SM有多个warp scheduler，每个warp是32个thread的束（通常），所以可能会存在每个thread block对应了多个warp的情况（thread block上限1024个thread）。
+	- 3. [[warp-level parallelism]]
+		- 当前的warp存在等待访存，或者等待sync threads的时候，上下文会保存起来，包括pc，局部变量，访存状态等等。
+		- 两种切换的场景：
+			- **不同 thread block 的 warp 之间的切换**。
+			- **同一个 thread block 内部的不同 warp 之间的切换**。
+	- 4. 每个warp在执行的时候会取同样的instruction，但是对应了不同的数据地址，然后通过dispatcher去发送到对应的硬件执行单元。
+- [[streaming multiprocessor]]
+	- [[warp scheduler]]
+		- #### **1.1 定义**
+			- **Warp Scheduler** 是 SM（Streaming Multiprocessor）中的硬件组件，负责管理和调度 **Warp**（32 个线程组成的最小执行单元）的指令执行。
+			- 它的主要职责是决定哪个 Warp 在当前时钟周期中是“可运行的”，并将其指令发给下游的 **Dispatch Unit**。
+		- #### **1.2 功能**
+			- **选择可运行的 Warp：**
+				- Warp Scheduler 会检查每个 Warp 的状态，判断它是否可以运行。例如：
+					- Warp 是否等待内存访问完成？
+						- 如何判断warp等待的内存访问是否完成？
+							- ==下面的是gpt的猜想：==
+							- **内存请求队列（Memory Request Queue）：**
+								- 每个 SM 维护一个内存请求队列，用于记录所有 Warp 的内存访问请求。
+								- 当一个 Warp 发起内存请求（如全局内存加载或存储），该请求会被加入队列。
+								- Warp Scheduler 检查队列中 Warp 的内存请求是否完成，完成则标记为“可运行”。
+							- **指令完成标志：**
+								- 对于发起内存访问的 Warp，其对应的内存加载指令会被标记为“未完成”。
+								- GPU 的内存控制器会在数据加载完成后，将指令标记为“完成”。
+								- Warp Scheduler 会根据指令完成标志判断 Warp 是否可以继续执行。
+							- **内存一致性信号：**
+								- GPU 的内存控制器会向 SM 发送内存访问完成的信号，通知数据已经准备好。
+								- Warp Scheduler 根据这一信号更新 Warp 的状态。
+						- 一个 SM 中的 Warp 数量越多，隐藏内存延迟的效果越好。
+							- 例如：
+								- 假设全局内存的延迟是 400 个时钟周期。
+								- 如果 SM 上有 32 个 Warp，每个 Warp 的指令执行时间是 10 个时钟周期，那么调度器可以在这 400 个周期内切换到其他 Warp，以保持计算单元（CUDA 核心）的繁忙状态。
+					- Warp 是否处于同步等待状态（如 `__syncthreads()`）？
+				- 如果 Warp 准备好运行，它会被标记为“可调度”。
+			- **隐藏延迟：**
+				- 当某个 Warp 因为内存访问或其他原因挂起时，Warp Scheduler 会切换到另一个可运行的 Warp。这种快速切换机制（零开销切换）是 GPU 高效隐藏延迟的重要特性。
+			- **分配指令到 Dispatch Unit：**
+				- Warp Scheduler 决定在当前时钟周期中，哪个 Warp 的指令将被发送到 Dispatch Unit。
+		- #### **1.3 举例**
+			- 假设一个 SM 有 4 个 Warp Scheduler，负责管理 32 个 Warp。
+				- Warp Scheduler 会同时检查 32 个 Warp 的状态，并选出 4 个可运行的 Warp，将它们的指令发送给 Dispatch Unit。
+	- [[dispatch unit]]
+	- [[load/store]]
+		- 在 GPU 中，**Load/Store 单元（LD/ST 单元）**负责处理线程对内存的读写操作，包括：
+			- 从全局内存（Global Memory）加载数据到寄存器。
+			- 将寄存器中的数据存储到全局内存。
+			- 处理对共享内存（Shared Memory）的加载和存储。
+		- LD/ST 单元的数量直接决定了 SM 每个时钟周期能够发出的内存操作吞吐量。
+		- load store unit的数量为什么是16，但是每个warp有32个线程？#card
+			- ==每个 Warp 每个周期最多发出一条加载或存储指令（SIMT 模式）。==
+		- 多个warp的访存会合并成一个或者多个[[memory transaction]]吗？#card
+			- 会根据访存的pattern去变成一个或者多个内存访问。
+			- 主要是看是否跨越了多个[[memory segment]]，因为GPU中的内存访问基本单位是memory segment。
+		- [[Memory Coalescing]] 多个warp的访存是如何合并成一个或者多个[[memory transaction]]的？#card
+		  id:: 6774c413-0422-4d7a-9e2c-b3d108d15b60
+			- https://nichijou.co/cuda5-coalesce/
+			- **When all threads in a warp execute a load instruction, the hardware detects whether they access consecutive global memory locations**. If that’s the case, the hardware combines (**coalesces**) all these accesses into a consolidated access to consecutive DRAM locations.
+			- For example, for a given load instruction of a warp, if thread 0 accesses global memory location N2, thread 1 location N+1, thread 2 location N+2, and so on, all these accesses will be coalesced into a single request for consecutive locations when accessing the DRAMs.
+			- Such coalesced access allows the DRAMs to deliver data as a burst.
+- https://miro.medium.com/v2/resize:fit:4800/format:webp/1*Wj6gB_MhhnmGu3OuToAjJg.jpeg

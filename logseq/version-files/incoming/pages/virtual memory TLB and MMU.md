@@ -1,0 +1,5 @@
+- {{video https://www.youtube.com/watch?v=A9WLYbE0p-I&list=TLPQMTcwNDIwMjRS8Esenc8m7Q&index=2&ab_channel=TechWithNikola}}
+- [[MMU]] is responsible for translating virtual address to physical address
+	- TLB for quick access and cache page frames
+	- Multi-page table look up for virtual address to physical address
+	- Generate page fault or segmentation fault when necessary

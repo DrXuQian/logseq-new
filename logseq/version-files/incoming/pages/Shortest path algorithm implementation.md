@@ -1,0 +1,18 @@
+- Extract pivot and linear graph
+	- Find pivot nodes, that is nodes with multiple child/parents
+	- Remove pivot nodes and reconstruct the subgraphs according to the rest nodes
+	- Add pivot nodes to the subgraphs related
+- Cost function:
+	- [[HKSwitch for shave kernel]]
+- params:
+	- Spatial splits:
+		- SOH, SOK, Clustering, (SOW)
+	- Temporal splits:
+	- Stream output
+	- Stream input
+- latency estimation:
+	- compute of node a + compute of node b
+	- DMA latency
+- special cases:
+	- SOK for shave, need to spill output, stream output
+- how to determine in tiling conditions whether or not the DMA can prefetch

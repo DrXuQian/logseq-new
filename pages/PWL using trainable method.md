@@ -1,0 +1,3 @@
+- FP16 format:
+	- ![image.png](../assets/image_1666680941818_0.png)
+-

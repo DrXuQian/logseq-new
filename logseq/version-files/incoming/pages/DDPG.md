@@ -1,0 +1,23 @@
+- {{video https://www.youtube.com/watch?v=4jh32CvwKYw&ab_channel=MachineLearningwithPhil}}
+- Modeling of a Markov process:
+	- Given a state $$s_t$$, we can derive the next action to take from current state, which is $$a_t$$. From $$s_t$$ and $$a_t$$, we should be able to get the next state $$s_{t+1}$$.
+	- How to derive from $$s_t$$ to $$a_t$$:
+		- In DQN:
+			- Get the probability of different actions. For example, in a game where we can only choose to go left or right. The action is either left or right. And the actor network would give probability of left and right given the current state.
+		- In DDPG:
+			- Get a deterministic output as action
+	- What is the reward for a given state and action?
+		- With the current state $$s_t$$ and the action to take $$a_t$$, we know the next state is $$s_{t+1}$$.
+		- Then the reward for current action given the state is:
+			- $$G_t = R_{t+1} + \lambda R_{t+2} + ... = \sum_{k=0}^\infty\lambda^kR_{t+k+1}$$
+			- Where $$R$$ is the reward and $$\lambda$$ is the discounting factor. This means that the sooner the reward is about to happen. The more importance it lies on current action's reward.
+	- Value function:
+		- value function is the potential value from current state.
+		- $$v(s) = \mathbb E[G_t|S_t = s]$$
+	- Bellman equation:
+		- $$v(s) = \mathbb E[R_{t+1} + \lambda v(S_{t+1})|S_t = s]$$
+- DQN:
+	- Action Value function:
+		- $$\begin{align} Q^\pi(s,a) & = \mathbb E[r_{t+1} + \lambda r_{t+2} + \lambda^2r_{t+3} + ... |s,a] \\\\ & = \mathbb E_{s^\prime}[r+\lambda Q^\pi(s^\prime,a^\prime)|s,a] \end{align}$$
+	- Where $$\pi$$ is the strategy function, $$s$$ is the current state and $$a$$ is the action to take. $$s^\prime,a^\prime$$ is the state and action after current state and action.
+	-

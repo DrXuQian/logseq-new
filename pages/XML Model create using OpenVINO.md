@@ -1,0 +1,1 @@
+- https://docs.openvino.ai/latest/openvino_2_0_model_creation.html

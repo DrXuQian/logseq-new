@@ -1,0 +1,7 @@
+- [[VPUIP PE array]]
+- [[VPUIP CMX]]
+- [[VPUIP Shave]]
+- [[VPUIP DMA]]
+- [[VPUIP NOC]]
+- [[VPUIP Core processor]]
+-

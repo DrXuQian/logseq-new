@@ -1,0 +1,61 @@
+---
+title: C++
+---
+
+- [The best C++ video turtorial](https://www.bilibili.com/video/BV1VJ411M7WR)
+	 - C++ Header files
+		 - The header files included in a cpp file will be copied and pasted during the pre-process period before compilation
+
+		 - '#' is this symbol for pre-processing
+			 - '# pragma once' prevent the header file to be included twice; 
+
+			 - '# ifdef # define # endif' also does the same thing
+
+		 - <> will search the compiler include path for include files, "" is for include local header files ("" can replace <>)
+
+		 - C standard library header files would have .h extensions while C++ standard library files don't. (iostream) vs (stdlib.h)
+
+	 - pointer
+
+	 - reference
+		 - can cooperate with variables to get the variable updated without any memory copy
+
+	 - class
+		 - size of class
+			 - static variable would not take up the size of the class
+
+			 - function would not take up the space either, the function would be stored in other places and have one extra variable and have name space under the class
+
+		 - key words
+			 - private, default in class
+
+			 - public, default in struct
+
+			 - protect, can be accessed by child
+
+			 - friend...
+
+		 - constructors
+
+		 - destructors
+
+		 - virtual functions
+			 - pure virtual, functions need to be inherited. This is actually a interface in C++
+
+	 - static
+		 - in a class, the static variable would only be created once. The static variable is created until the line is reached, unlike const variables.
+
+		 - in a function, similar
+
+	 - string
+		 - ends with '\0' and have several member functions
+
+	 - const char*
+		 - if you write a string variable like 'qianxu', this would actually allocate a const char* in the const memory that can not be changed in the memory 
+
+	 - arrays
+		 - stored in between in C++ memory
+
+	 - 
+
+- [Stories about C++](https://light-city.club/sc/) Coding along with this turtorial

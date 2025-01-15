@@ -1,0 +1,45 @@
+- Good posts:
+	- https://zhuanlan.zhihu.com/p/79030485
+	- https://zhuanlan.zhihu.com/p/465967735
+- collective operations:
+	- Reduce:
+		- 多对单，多个device的数据发送到同一个device去reduce
+		- ![](https://basicv8vc.github.io/images/zero/Reduce.png#center)
+	- Broadcast:
+		- 单对多，单个GPU数据发送给其他所有节点
+		- ![](https://basicv8vc.github.io/images/zero/Broadcast.png#center)
+	- Scatter:
+		- 一个数据发送者，多个数据接收者，单个GPU把不同数据发送给其他节点
+		- ![](https://pic1.zhimg.com/v2-f17bd118677f919e255d5b1689fc66dc_r.jpg)
+	- Gather:
+		- 多对单，scatter的反向操作，多个GPU数据发送给单个节点concat
+		- ![](https://pic2.zhimg.com/v2-dc3fcf248c39b4a76947bcea140840d1_r.jpg)
+	- AllReduce:
+		- 先执行reduce scatter，然后执行all gather
+		- ![](https://basicv8vc.github.io/images/zero/AllReduce.png#center)
+	- AllGather:
+		- 多对多同步数据
+		- ![](https://basicv8vc.github.io/images/zero/AllGather.png#center)
+	- ReduceScatter:
+		- 多对多的通信原语，每个节点切分自己的数据，把对应的数据发送给对应的节点进行reduce。用于减少通信开销。
+		- ![](https://basicv8vc.github.io/images/zero/ReduceScatter.png#center)
+	- All to All
+		- allgather中，同一个节点发送给其他节点的数据是相同的，alltoall中，同一个节点发送给其他节点的数据是不同的。
+		- ![](https://pic2.zhimg.com/v2-945ffd7612632fa88ed2bc68ec832071_r.jpg)
+	- Ring All reduce operation:
+		- ![](https://pic3.zhimg.com/80/v2-37e6b806c5179271abe5904923878afe_720w.webp)
+		- 可以用下面两个op，reduce scatter和allgather去搭出来
+			- ![](https://pic3.zhimg.com/80/v2-1739980363d40244a9f49a9efb07c5f6_720w.webp)
+		- Ring reduce scatter:
+			- ![](https://pic1.zhimg.com/80/v2-f50c8afcf0ca0379931a0999afeb85d8_720w.webp)
+			- 在第 1 步中，每个设备都负责某一块的数据并向左边的设备发送这块数据，譬如在图 3 中，第 1 个设备负责第 2 片数据并向第 0 个设备发送（也就是第 4 个设备），第 2 个设备负责第 3 片数据并向第 1 个设备发送，第 3 个设备负责第 4 片数据并向第 2 个设备发送，第 4 个设备负责第 1 片数据并向第 3 个设备发送，每个设备收到右边设备的数据后，就把收到的数据累加到本地对应位置的数据上去（通过逐渐变深的颜色表示数据累加的次数更多）。注意，在这样的安排下，**每个设备的入口带宽和出口带宽都被用上了，而且不会发生争抢带宽的事情**
+		- Ring all gather:
+			- ![](https://pic2.zhimg.com/80/v2-8901be8ec72ea790ae7c1d6b6764b715_720w.webp)
+- 数据并行的通信：
+	- ![](https://pic2.zhimg.com/80/v2-e342e0e412d49be47d78ed45ce9e6e8d_720w.webp)
+- 同步数据并行：
+	- ![](https://pic3.zhimg.com/80/v2-b790d2a6aa8aac293a25116420074c8e_720w.webp)
+- 异步数据并行：
+	- ![](https://pic1.zhimg.com/80/v2-7a61a354ef50201be9ee1df79817227c_720w.webp)
+	- 会有不同步的问题，当前训练时step T要更新参数时，可能参数已经被其他的GPU在step T+n更新了，会有不同步的问题，导致难收敛。
+-

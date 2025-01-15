@@ -1,0 +1,17 @@
+- 为什么需要多个warp scheduler？ #card
+	- 类似于多个workload fifo，映射到不同的硬件单元
+	- #### **1. 独立调度多个 Warp：**
+		- 每个 Warp Scheduler 负责调度一部分 Warp。
+		- 例如，在 NVIDIA 的现代 GPU 架构（如 Ampere）中，每个 SM 通常有 4 个 Warp Scheduler，每个 Scheduler 可以独立调度多个 Warp。
+	- #### **2. 提供更高的调度并发：**
+		- 现代 GPU 的 SM 可能包含数十个执行单元（算术单元、内存单元等）。
+		- 多个 Warp Scheduler 可独立调度不同的 Warp 到不同的执行单元，确保多个 Warp 同时活跃。
+	- #### **3. 优化指令分发：**
+		- 每个 Warp Scheduler 会根据 Warp 的指令类型，将指令分发到合适的执行单元：
+			- 算术指令（如加法、乘法）→ ALU。
+			- 内存指令（如加载、存储）→ 内存访问单元。
+			- 特殊功能指令（如三角函数）→ SFU（Special Function Unit）。
+		- 多个 Warp Scheduler 可以并行调度不同类型的指令，减少执行单元的空闲时间。
+	- #### **4. 提高 Warp 的活跃性（Occupancy）：**
+		- 如果某些 Warp 因为访存延迟或同步等待而被挂起，Warp Scheduler 会切换到其他 Warp。
+		- 多个 Warp Scheduler 能管理更多的 Warp，从而提高 SM 的活跃 Warp 数量（Occupancy）。

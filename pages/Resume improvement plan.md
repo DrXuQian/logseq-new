@@ -1,0 +1,41 @@
+### Compiler optimization for spatial accelerator
+	- #### Already have:
+		- tiling/unrolling
+		- vertical fusion (scheduling)
+		- prefetch scheduling
+		- graph fusion
+		- graph rewrite
+		- ...
+	- #### Good to have:
+		- MLIR knowledge
+		- C++ knowledge
+		- *Other optimization technology like polyhedral optimization...
+- ### Model compression
+	- #### Already have:
+		- unstructured sparsity
+		- low-bit compression
+		- mixed precision
+	- #### Good to have:
+		- learn SOTA method, especially for LLM
+- ### LLM inference optimization
+	- #### Already have:
+		- flash attention
+		- minimize memory footprint in ff
+	- #### Good to have:
+		- compression
+		- other inference optimization tech, need to check paper list
+- ### AI chip architect
+	- #### Already have:
+		- knowledge of NPU
+	- #### Good to have:
+		- Learn more about hardware structure of NPU
+		- *Learn more about structure of other companies through HotChips
+- ### Plan
+	- [[Read VPUX compiler code]]
+		- [[VPUX: CMX concat]]
+		-
+	- [[Project of short cut LLM compilation using MLIR (existing code gen of VPUX)]]
+	- [[Read papers of LLM inference optimization and model compression]]
+	- [[Learn structure of NPU (spec/sas/has)]]
+	- [[Watch hotchips replay]]
+	- [[Leetcode 2024]]

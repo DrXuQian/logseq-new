@@ -1,0 +1,3 @@
+- string substr可以用来进行局部的string的裁剪。
+- string的concat，直接用+就可以。
+- stoi 可以直接把string转成integer。

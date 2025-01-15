@@ -1,0 +1,5 @@
+- Previous notes:
+	- [[VPUx compiler feasible memory]]
+- entry point of VPUX memory allocation:
+	- `voidFeasibleAllocationPass::safeRunOnModule()`
+	-

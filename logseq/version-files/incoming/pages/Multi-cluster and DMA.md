@@ -1,0 +1,5 @@
+- DDR->CMX:
+	- Single DMA desc if the address on CMX is the same
+	- Multiple DMA desc if the address is different
+- CMX->DDR:
+	- Multiple DMA desc

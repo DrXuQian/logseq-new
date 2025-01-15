@@ -1,0 +1,21 @@
+- [Yesterday 4:49 PM] Qian, Xu
+	- Crews, Darren S, suppose the previous layer use clustering and the following shave layer want to use SOK. Can the shave layer read from the CMX in a strided manner to get the corresponding input?
+- [8:34 AM] Crews, Darren S
+	- how do you mean strided?  You mean without activation broadcast?
+- [8:36 AM] Qian, Xu
+	- I mean the previous layer need to broadcast output, so for each CMX, we would have full input. But for the next shave kernel, it only consumes part of the input. Suppose the kernel is SOK, the kernel need to be aware of the input location and it need to read in a certain stride.
+- [8:38 AM] Crews, Darren S
+	- ok, I understand what you mean
+- [8:38 AM] Qian, Xu
+	- Suppose [1,32,32,16]Conv->[1,32,32,16]Gelu. And the Conv is SOH and Gelu is SOK. The output of Conv would need to broadcast, so each CMX would have a full [1, 32, 32, 16] conv output. For the following Gelu, it is SOK, so it need to read the [1, 32, 32, 8] out of the [1, 32, 32, 16].
+- [8:41 AM] Crews, Darren S
+	- yeah, we need to support this type of scenario.  My thought is that just like the DMA engine we have a plane stride support for kernels.  We could have this scenario when there are two SHAVEs working on the same data, they might need to stride.  For example this drawing I made for MNV on SHAVE when computing MVN in the spatial dimension:
+	- ![image.png](../assets/image_1678236332127_0.png)
+- [8:41 AM] Crews, Darren S
+	- each SHAVE would need to have strided read like you are describing I Think
+- [8:43 AM] Qian, Xu
+	- Is the plane stride support included in the shave SW kernel code?
+- [8:44 AM] Crews, Darren S
+	- no, we would need the kernel to support it, but it is my proposal to have this type of support
+- [8:44 AM] Qian, Xu
+	- I see. Thanks!

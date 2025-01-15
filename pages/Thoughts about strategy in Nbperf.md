@@ -1,0 +1,19 @@
+- #l2 #nbperf #brainstrom
+- ### Multi-cluster strategy
+- First isolated selection, then subgraph opt, revert some back
+- ==Missing, consideration of the residual memory in CMX==
+- ### Vertical Fusion and Temporal Tiling
+- Currently adding control using edges as barrier
+- Need to rethink about this by reading more papers about how to schedule a DAG
+- ### Mark operator on DDR
+- slice and concat on CMX and DDR logic
+- ==Missing, slice and concat to DMA==
+- Apply node configuration to graph
+- ### Schedule optimization
+- Add control edge for DFS order
+- ==Missing, consideration of the peak memory in CMX==
+- ### Memory allocation
+- ==Missing, look ahead more distance when prefetching weights==
+- ==Missing, insert spill prior to memory allocation==
+- ==Missing, allocation with more hints for vertical fusion or temporal tiling pipeline==
+- ==Missing, more reasonable allocation hint==

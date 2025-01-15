@@ -1,0 +1,7 @@
+- Interesting thing about performance degradation of using dynamic shared memory:
+	- Dynamic shared memory if taken in size information from parameter list, the CUDA compiler wouldn't know how to optimize that kernel, so it will generate a PTX that is relatively slow but works for all parameters.
+	- One thing to address this issue is to take the size info as the template input as follows and when call that kernel, you need to specify what size is the shared memory. So the CUDA compiler would actually generate a bunch of different kernels optimized for different shapes you assigned.
+		- Kernel:
+			- ![image.png](../assets/image_1736211698121_0.png)
+		- Caller
+			- ![image.png](../assets/image_1736211707256_0.png)

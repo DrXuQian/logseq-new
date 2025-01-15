@@ -1,0 +1,1 @@
+- https://github.com/intel-innersource/applications.ai.vpu-accelerators.vpux-plugin/blob/fb53a60dfc209b73eed98614eaef013bfec65743/src/vpux_compiler/src/dialect/VPU/passes/strategy_manager/multi_cluster_strategy_utils.cpp#L803

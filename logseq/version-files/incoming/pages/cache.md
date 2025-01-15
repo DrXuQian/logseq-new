@@ -1,0 +1,6 @@
+- From software view:
+	- {{video https://www.youtube.com/watch?v=WDIkqP4JbkE&t=264s&ab_channel=NOKIATechnologyCenterWroc%C5%82aw}}
+- From computer architecture view:
+	- {{video https://www.youtube.com/watch?v=OGDEsD3hdbk&ab_channel=JacobSchrum}}
+		- ![image.png](../assets/image_1713361619198_0.png)
+		- ![image.png](../assets/image_1713361639266_0.png)

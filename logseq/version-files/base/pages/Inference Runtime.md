@@ -1,0 +1,3 @@
+- ![image.png](../assets/image_1714958203279_0.png)
+- Tasks required by the inference runtime during execution of an inference. These tasks are [[management tasks]]
+-

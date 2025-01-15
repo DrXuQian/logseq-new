@@ -1,0 +1,3 @@
+- For whisper:
+	- `python3 -m onnxruntime.transformers.models.whisper.convert_to_onnx -m openai/whisper-tiny --output whispertiny --use_external_data_format --optimize_onnx --precision fp32`
+-

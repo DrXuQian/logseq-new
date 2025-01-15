@@ -1,0 +1,11 @@
+- Darren:
+	- ![image.png](../assets/image_1694614403326_0.png){:height 697, :width 1166}
+		- QDQ models
+		- ONNX IR
+	- ![image.png](../assets/image_1694614449239_0.png)
+	  id:: 6501c396-fd87-4532-b333-b005df924df7
+		- 80Tops of compute from MS ask
+		- A lot of models coming bw now and April
+- Murali:
+	- ![image.png](../assets/image_1694614814056_0.png)
+	- ![image.png](../assets/image_1694615170889_0.png)

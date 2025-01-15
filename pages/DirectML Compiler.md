@@ -1,0 +1,21 @@
+- ![image.png](../assets/image_1719380530974_0.png)
+- ![image.png](../assets/image_1719380542182_0.png)
+- What is the composer?
+	-
+- https://docs.intel.com/documents/MovidiusInternal/vpu27/Common/SW/HLD/DML_Compiler.html
+- # DirectML API Selective Overview
+	- In the query return struct, the DML Compiler is allowed to set per-metacommand memory locales for the persistent and temporary resources, but in the current API this can only be specified once for all command lists referencing that metacommand.
+- DirectML re-design
+	- Query design
+		- ![image.png](../assets/image_1721883721178_0.png)
+		- Single pass for every metacommand and basically run that pass
+		- feasible allocation is selective in query
+	- lowering:
+		- ![image.png](../assets/image_1721884989275_0.png)
+- Tiling:
+	- ![image.png](../assets/image_1721885475198_0.png)
+- Example:
+	- ![image.png](../assets/image_1721885918084_0.png)
+		- constfold.reshape and constfold.patch is for directml
+	- ![image.png](../assets/image_1721886626112_0.png)
+	- ![image.png](../assets/image_1721886940089_0.png)

@@ -1,0 +1,15 @@
+- A monorepo is a single repository containing   ==multiple distinct projects== , with   ==well-defined relationships== .
+  collapsed:: true
+	- ![monorepo vs polyrepo](https://monorepo.tools/images/monorepo-polyrepo.svg)
+- At first glance, it sounds counterintuitive to host more than one unit of software in a single repository, but there are few advantages on having all components stored in the same place:
+	- All dependencies are easily within reach, just in a different path
+	- Multiple-project changes in a single changeset
+	- No more versioning issues between internal modules, all of them are always in sync
+	- Easier to share knowledge between teams, their code is just there for you to change
+- Why then, would you ask, have we typically used single repositories until recently? Well, there are a few reasons also:
+	- Code isolation
+	- Smaller repository size
+	- Access control to the code
+	- Higher chance of merge conflicts
+	- Easier to deploy
+- ![What is a Monorepo](https://danielpecos.com/assets/2020/02/monorepos.png)

@@ -1,0 +1,25 @@
+- Plan1:
+	- 1. Assign address for activation first, head, toe, head, toe style...
+	- 2. Try prefetch weight
+	- 3. Spill if can't fit in weight with the current activation set as the weight consumer
+	- * Advanced plan1:
+		- prefetch weight and activation DMA and shave ops
+- Plan2:
+	- Determine the two operators that are running in parallel
+	- Try prefetch that operator in memory scheduler
+		- If fail, revert to not prefetch or reduce prefetch level
+		- If success, continue
+- More general solution:
+	- define different control edges:
+		- engine control
+			- control edge bw same engines
+		- dfs control
+			- insert weight copy before memory allocation by inserting dfs control edge
+			- dfs control bw operators
+				- prev op --> weight copy --> convolution
+		- pipeline control
+			- inside tiling operations
+	- memory allocation:
+		- allocate memory according to dfs order
+		- remove dfs edges and try prefetching shave output or dma output allocation to previous dpu operators
+		- add control edge according to prefetching status

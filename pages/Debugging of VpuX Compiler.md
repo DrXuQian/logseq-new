@@ -1,0 +1,15 @@
+- [[vpuxcompiler]]
+- dump the compiled graph on screen
+	- `export IE_VPUX_IR_PRINTING_FILTER=tiling`
+	- Where `tiling` is the alias in the `passes.td`.
+		- For example, `convert-scale-shift-depthwise` in `src/vpux_compiler/tblgen/vpux/compiler/dialect/IE/passes.td`
+		- Another example, `feasible-allocation` in `src/vpux_compiler/tblgen/vpux/compiler/dialect/IERT/passes.td`
+	- `export IE_VPUX_LOG_FILTER=feasible-allocation`
+	- Where `feasible-allocation` is the alias in the `passes.td`.
+		- control the `log.trace` in the codes
+		- not used much
+- Add dot dump in the pipeline
+	- `pm.addPass(vpux::createPrintDotPass("./output/mem-permute.dot"));`
+	- `dot -Tsvg output/cmxconcat.dot -o output/cmxconcat.svg`
+- Add a custom build application
+	- https://www.jetbrains.com/help/clion/debug-arbitrary-executable.html#debug-custom-app

@@ -1,0 +1,3 @@
+- https://arxiv.org/pdf/2309.01826.pdf
+- Remove FFN in Decoder and FFN with 1 width in Encoder
+- Modest accuracy drop, significant parameter size reduction

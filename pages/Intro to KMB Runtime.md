@@ -1,0 +1,30 @@
+- KMB SOC features
+	- Two LEON RISC processors
+		- one dual core with L2 cache for general runtime managerment ([[LeonRT]])
+		- one single core dedicated to NCE workload scheduling ([[LeonNN]])
+	- ![image.png](../assets/image_1714956122966_0.png)
+- NCE arch
+	- [[LeonNN]] and [[ShaveNN]] would talk with each other to schedule workload on DPU
+	- [[ShaveNN]] is simple microcontroller, replaced with FSM in vpu4
+	- ![image.png](../assets/image_1714956619984_0.png)
+- DPU HW
+	- [[ShaveNN]]:
+		- same functionality as FSM
+	- [[Shadow registers]]
+		- ?
+	- ![image.png](../assets/image_1714956761044_0.png)
+- [[Barriers]]
+	- HW synchronization mechanism
+		- [[LeonNN]] ISR (sets and resets barrier)
+	- ![image.png](../assets/image_1714957612389_0.png)
+- Shave scheduling
+	- [[LeonRT]] controlled the launch of UPA Shave
+	- ![image.png](../assets/image_1714957791497_0.png){:height 434, :width 617}
+- SW scheduling
+	- [[Inference manager]] runs on [[LeonRT]]
+		- [[Graph file parsing]]
+			- ![image.png](../assets/image_1714958079336_0.png){:height 544, :width 883}
+	- [[Inference Runtime]] runs on [[LeonNN]]
+		- runs predefined schedules, reset barriers...
+		- minimal SW overhead
+	- ![image.png](../assets/image_1714957867252_0.png){:height 412, :width 489}

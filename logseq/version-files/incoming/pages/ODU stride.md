@@ -1,0 +1,26 @@
+- In VPUX compiler
+	- https://github.com/intel-innersource/applications.ai.vpu-accelerators.vpux-plugin/blob/cb679e1470a47a6b26f7d6bc80f5590747e7221a/src/vpux_compiler/src/dialect/VPUIP/passes/unroll_cluster_tiling.cpp#L255
+- In Fathom:
+	- /home/qianxu/Desktop/frameworks.ai.vpu.presilicon.fathom/src/Models/DeviceProfile/VPUTask.py
+		- `odu_offset`
+- https://docs.intel.com/documents/MovidiusExternal/vpu4/common/SW/VPU4SAS.html#vpu4-nce
+	- Inter-Tile-Interconnect (ITI) for output activation sharing (write-only). ITI provides broadcasting, multicasting and unicasting capability,
+- Sync with Martin
+	- [3:35 PM] Qian, Xu
+		- Hi, Martin and Niall, this is Xu and Victor from Darren's team.
+		- We have a question regarding the ODU. Can the ODUwrite the layer output to CMX in a certain stride?
+		- This question is because when we have aop with SOK, the output should broadcast to the other tile, but in NHWC layout, the output can not directly concat. I am wondering how this is done in DPU.
+	- [3:41 PM] Grymel, Martin
+		- Hi Xu, in the ODU there is the concept of tensor and workload. The workload itself can span just a fraction of the overall tensor, and the ODU will make sure that that data is stored in the appropriate memory space. So you can have tensor z dimension twice the size of the workload z dimension for instance. To construct the full tensor you will have two workloads populating the data.
+	- [3:45 PM] Qian, Xu
+		- Thanks! So does this mean the two workloads have different base address configured? I see other variant parameters like start/end x/y/z, what is meaning of these parameters?
+	- [3:47 PM] Grymel, Martin
+		- Well, one way to do it is have the same base address configured for both WLs. The first WL will be configured to begin at (0,0,0) and the second WL will be configured to begin at (0,0,Z/2)
+	- [3:47 PM] Grymel, Martin
+		- The first ends at (X,Y,Z/2-1) and the second ends at (X,Y,Z)
+	- [3:48 PM] Qian, Xu
+		- Oh, I see. So for SOH, the second WL would begin at (H/2, 0, 0), is this understanding correct？
+	- [3:49 PM] Grymel, Martin
+		- Correct
+	- [3:49 PM] Qian, Xu
+		- Thanks, Martin! Are there any document about this? I checked the SAS and HAS, but haven't found information about this.

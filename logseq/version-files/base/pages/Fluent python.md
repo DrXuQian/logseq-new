@@ -1,0 +1,3 @@
+- [[Fluent Python Chapter1: The python data model]]
+- [[Fluent Python Chapter2: An Array of Sequences]]
+- ![流畅的python.pdf](../assets/流畅的python_1673868266377_0.pdf)

@@ -1,0 +1,10 @@
+- More belivable
+	- Correct tiling and padding for spatial and temporal tiling
+		- Already Done
+	- Correct broadcast strategy for spatial tiling
+		- On the way
+	- Correct copy for DMA operations
+		- On the way
+- More efficient algorithm
+	- shortest path
+- Scheduling algorithm

@@ -1,0 +1,20 @@
+- ![image.png](../assets/image_1668155542105_0.png)
+- ODU reads data in ZXY format, Z is the continuous dim in memory.
+- Possible layout for ODU output
+	- ZXY
+	- ZYX
+	- YZX
+	- YXZ
+	- XZY
+	- XYZ
+- ODU transpose when there is need for split
+	- SOK and transpose
+		- NCHW->NHWC
+		- split over channel dims
+	- [1, 16, 224, 224]
+		- dpu0:
+			- [1, 8, 224, 224] -> [1, 224, 224, 8]
+		- dpu1:
+			- [1, 8, 224, 224] -> [1, 224, 224, 8]
+		- stride:
+			- [dtype: 1, N: 16 * 224 * 224, H: 16 * 224, W: 16, C: 1]

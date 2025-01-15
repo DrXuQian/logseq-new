@@ -1,0 +1,28 @@
+- [Tech Talk - Management Tasks](https://intel.sharepoint.com/sites/VPUIPArchitecture/_layouts/15/stream.aspx?id=%2Fsites%2FVPUIPArchitecture%2FShared%20Documents%2FNCE%20Software%20Architecture%2FNNARCH%20%2D%20TechTalks%20%26%20Trainings%2FTech%20Talk%20%2D%20Management%20Tasks%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E0067b7c9%2Dfa0c%2D43f6%2D952e%2Da1ebc395a390)
+	- Limited CMX space, not enough to keep all workload data in memory
+		- ![image.png](../assets/image_1715042663870_0.png){:height 445, :width 939}
+	- make this portion dynamically functioning
+		- DMA that takes from external memory and load into CMX
+		- ![image.png](../assets/image_1715047043564_0.png){:height 385, :width 946}
+	- CMX memory structure
+		- On the left of the figure, we have all the invariants preloaded. Which takes about 34 Kb
+		- And originally we would have the variants section in CMX set to empty. These will get loaded from DDR as shown in the right. All the workload descriptors will get preloaded to DDR.
+		- Then we allocate another 1kb memory just to store addresses of the variant workloads.
+			- each [[fifo]] entry is 4 byte
+		- ![image.png](../assets/image_1715047234108_0.png)
+		- ![image.png](../assets/image_1715049049767_0.png)
+	- Methodology
+		- {{embed ((663755b4-a753-441a-b351-903483f65f98))}}
+		- {{embed ((65acce80-ccec-45a0-afcc-f7deeec17541))}}
+		- ![image.png](../assets/image_1715049106164_0.png){:height 471, :width 979}
+		- The DMA1 and DMA2 are separate DMAs or unified DMA?
+		- How is the [[link agent]] DMA executed?
+			- {{embed ((663b0a87-fe80-46bb-b796-1abfe1bd168f))}}
+		- ![image.png](../assets/image_1715054737892_0.png){:height 447, :width 983}
+		- ![image.png](../assets/image_1715054803226_0.png)
+		  id:: 6639a892-0f40-4864-ac76-a511e0f386da
+	- Further benefit:
+		- ![image.png](../assets/image_1715055711797_0.png)
+- ## Management Tasks:
+-
+-

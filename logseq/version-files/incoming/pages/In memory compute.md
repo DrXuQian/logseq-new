@@ -1,0 +1,2 @@
+- {{video https://www.youtube.com/watch?v=66wdh8y8K10&ab_channel=tinyML}}
+- ![image.png](../assets/image_1708473891778_0.png)

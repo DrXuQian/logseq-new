@@ -1,0 +1,5 @@
+- #[[vpunn Shave Kernel]]
+- questions:
+	- How the data is collected? multiple back to back workloads or single workloads?
+	- What is the data distribution? analyze through tools like sklearn or seaborn
+-

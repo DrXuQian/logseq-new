@@ -1,0 +1,26 @@
+- [[图融合和UB融合]]
+	- 图融合：融合之后在同一个engine完成运算操作
+		- ![image.png](../assets/image_1718075922956_0.png){:height 323, :width 855}
+	- UB融合：
+		- unified buffer融合，减少到DDR的搬运次数
+		- 在图上直接融合成一个算子
+		- ![image.png](../assets/image_1718075976119_0.png)
+- 计算单元：
+	- Scalar:
+		- ![image.png](../assets/image_1718285055829_0.png){:height 469, :width 569}
+		- ![image.png](../assets/image_1718285040595_0.png)
+	- Vector:
+		- ![image.png](../assets/image_1718285108662_0.png){:height 307, :width 767}
+	- Cube:
+		- ![image.png](../assets/image_1718285156876_0.png){:height 621, :width 742}
+- memory hierarchy
+	- AI Core的主要内部存储包括： L1 Buffer （ L1缓冲区）， L0 Buffer（ L0缓冲区）， Unified Buffer（统一缓冲区）等。为了配合AI Core中的数据传输和搬运， AI Core中还包含MTE（ Memory Transfer Engine，存储转换引擎）搬运单元，在搬运过程中可执行随路数据格式/类型转换。
+	- ![image.png](../assets/image_1718285261824_0.png)
+	- ![image.png](../assets/image_1718285346625_0.png)
+- 控制单元
+	- ![image.png](../assets/image_1718285422570_0.png){:height 243, :width 810}
+	- ![image.png](../assets/image_1718285457719_0.png)
+	- 除S队列之外，分属于不同队列的指令能够乱序执行，但是队列内部指令为顺序执行，即在满足数据依赖的前提下，指令的物理执行顺序不一定与代码的书写顺序一致。硬件按照下发顺序，将不同队列的指令分发到相应的队列上执行，提供Barrier、SetFlag/WaitFlag两种指令，保证队列内部以及队列之间按照逻辑关系执行。
+	- ![image.png](../assets/image_1718285655156_0.png)
+- 编程模型
+	- ![image.png](../assets/image_1718285906249_0.png){:height 453, :width 758}

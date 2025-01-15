@@ -1,0 +1,12 @@
+### System SW Stack
+	- The VPU Host System SW stack is built with a principle to be compliant to OneAPI Level0 specification. For features that do not match the specification support yet, the VPU System SW stack shall return such features as un-supported.
+	- OpenVINO centric SW Stack
+		- ![image.png](../assets/image_1714637162244_0.png)
+		- ![image.png](../assets/image_1714830129762_0.png)
+	- Windows ML centric SW Stack #WINML
+		- ![image.png](../assets/image_1714639783502_0.png)
+	- #### Windows Driver Stack
+		- [[UMD]]: integrates the graph compiler
+		- [[KMD]]: communicate with DXG Kernel and load firmware
+		- ![](https://docs.intel.com/documents/MovidiusExternal/vpu4/LNL/sw/auto/MTL_drawings.vsdx_ddr_structure_39447.svg)
+- ### Windows Host Drivers

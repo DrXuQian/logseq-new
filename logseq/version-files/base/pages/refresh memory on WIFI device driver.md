@@ -1,0 +1,10 @@
+- ![](https://github.com/open-sdr/openwifi/raw/master/openwifi-arch.jpg)
+- # Chapter 15. Memory Mapping and DMA
+	- ## Address Types
+	- Virtual memory also allows the program to play a number of tricks with the process's address space, including mapping the program's memory to device memory.
+	- ![image.png](../assets/image_1714631712434_0.png)
+	- User virtual address
+	- Physical address
+	- Bus address
+		- 外设总线和memory之间使用的地址。通常和CPU使用的物理地址是一样的，但是某些架构提供了IOMMU，这样bus和主存之间的映射关系就可以通过IOMMU进行重新映射。
+		- > The addresses used between peripheral buses and memory. Often, they are the same as the physical addresses used by the processor, but that is not necessarily the case. Some architectures can provide an I/O memory management unit (IOMMU) that remaps addresses between a bus and main memory. An IOMMU can make life easier in a number of ways (making a buffer scattered in memory appear contiguous to the device, for example), but programming the IOMMU is an extra step that must be performed when setting up DMA operations. Bus addresses are highly architecture dependent, of course.

@@ -1,0 +1,13 @@
+- #Transformer
+- Compared to normal transformer structure:
+	- ![](https://machinelearningmastery.com/wp-content/uploads/2021/08/attention_research_1.png){:height 601, :width 420}
+- GPT only uses the decoder part of the transformers
+	- ![image.png](../assets/image_1691465283617_0.png){:height 537, :width 239}
+- ### Generating Text
+- ##### Autoregressive
+- We can generate full sentences by iteratively getting the next token prediction from our model. At each iteration, we append the predicted token back into the input. This process of predicting a future value (regression), and adding it back into the input (auto), is why you might see a GPT described as **autoregressive**.
+- ##### Randomness
+- Introduce randomness by selecting other predicted results instead of the largest possibility one
+- ### Multi-Head Causal Self Attention
+- [[An Intuition for Attention]]
+-

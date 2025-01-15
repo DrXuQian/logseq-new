@@ -1,0 +1,8 @@
+---
+title: Operator fusion
+---
+- Rethinking the benefit of operator fusion, quotes from Nimba
+id:: 23365e47-484c-40e6-8092-481f0f60d1d1
+	 - The activations or weights need to be separated into small microkernels for operations. Then the output activation is added up or concat together according to the split strategy. In this period, the memory need to copy out and copy in for the next op. But if the next operation is per-element or per-block, we can utilize that and perform that directly when the output is still near CPU. this reduces memory copy.
+	 - Another optimization very similar is vertical fusion.
+	 - > It is worth noting that in the presence of dynamic shape functions, operator fusion needs to be specially taken care of. Operator fusion, which combines basic operators into a composite operator, is a critical technique for performance optimization as it reduces unnecessary memory copies and improves the cache locality. The compiler can easily connect the shape functions of basic operators to form the shape function for a composite operator when all shape functions are data independent. However, a basic operator with a data dependent or upper bound shape function cannot be fused to other operators, i.e., taking the outputs of other operators as its inputs to fuse together, as the shape function requires to access to the intermediate result within a composite operator. As a result, we explicitly define the fusion policy to prevent this from happening.

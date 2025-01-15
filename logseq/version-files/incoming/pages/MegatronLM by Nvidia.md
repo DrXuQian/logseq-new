@@ -1,0 +1,3 @@
+- {{embed ((65994b36-c00f-4021-9295-e99c7d2c620b))}}
+- [[Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM]]
+-

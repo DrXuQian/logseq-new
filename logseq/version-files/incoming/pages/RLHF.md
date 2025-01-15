@@ -1,0 +1,16 @@
+- Reinforcement learning from human feedback
+- blogs:
+	- https://zhuanlan.zhihu.com/p/591474085
+	- https://huggingface.co/blog/rlhf
+- RLHF分三步：
+	- 第一步，花钱请人给问题写回答，拿到训练数据之后fine-tune一个GPT3。
+		- ![](https://pic3.zhimg.com/80/v2-fb3e3120c6d50ef09c7b2601a26241d2_720w.webp)
+	- 第二步，用多个模型给出多个回答，可能是人工的回答，fine-tune的模型或者初始模型，反正是要有很多的不同回答，然后人工给这些回答评分，这样又拿到了一个回答和打分的数据集。然后训练一个reward model给回答打分。reward model也可以用一个language model。
+	- ![](https://pic1.zhimg.com/80/v2-b22f4564d13c54cf27c80d90da622170_720w.webp)
+	- 第三步，用强化学习去fine-tune 第一步中得到的GPT3模型。
+		- ![](https://pic4.zhimg.com/80/v2-2a097d5661209c81476fdd87be89d95f_720w.webp)
+		- policy是给GPT输入文本后输出结果的过程；
+		- action space是全词表（～50k）；
+		- observation space是输入文本序列的空间（全词表大小 x 序列长度）；
+		- reward function则是一个基于RM输出的一个函数。具体而言，把问题分别输入第一步finetune的模型和正在训练的模型得到输出 $$y1, y2$$ ，把 $$y2$$ 输入RM得到评分 $$r_\theta$$，然后这里我们期望 $$y1, y2$$ 别差太多（训练步子太大了容易扯到蛋）所以加一个KL散度的惩罚项 $$r_{KL}$$，即： $$r=r_\theta-r_{KL}$$
+-

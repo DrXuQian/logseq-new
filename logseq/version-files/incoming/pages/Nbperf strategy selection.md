@@ -1,0 +1,8 @@
+- Context:
+	- Hi Victor and Xu,
+		- Together with Michal we are from VPUX NN Compiler team and we were involved in developing its current scheduler. We have been thinking recently about the need for improving VPUX NN compiler scheduler or in general pipeline of related passes: Strategy Generation -> Tiling -> Scheduling (ordering+allocation).
+		- We would like to understand how this is done in **NBPerf** and if there is some knowledge, like general design and used algorithms, that we could leverage. For sure we would like to be at least familiar with it and understand your experience and plans in this area so that we can align. Let me know if you are willing to share some info about NBPerf with us and if this time works for you to have some initial discussion.
+	- Thanks,
+		- Mateusz
+- #nbperf
+-

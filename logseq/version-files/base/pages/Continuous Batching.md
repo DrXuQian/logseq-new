@@ -1,0 +1,12 @@
+- References:
+	- https://www.anyscale.com/blog/continuous-batching-llm-inference
+- ## Static Batching:
+	- ![](https://miro.medium.com/v2/resize:fit:960/1*sAiIlEHKRXDj4Jgc97Tsuw.gif)
+	- ![cb 02 diagram-static-batching](https://images.ctfassets.net/xjan103pcp94/1LJioEsEdQQpDCxYNWirU6/82b9fbfc5b78b10c1d4508b60e72fdcf/cb_02_diagram-static-batching.png)
+	- This may cause under-utilize of GPU resources since different sequence might end with different steps.
+	- For the upper right example. On the first iteration (left), each sequence generates one token (blue) from the prompt tokens (yellow). After several iterations (right), the completed sequences each have different sizes because each emits their end-of-sequence-token (red) at different iterations. Even though sequence 3 finished after two iterations, static batching means that the GPU will be underutilized until the last sequence in the batch finishes generation (in this example, sequence 2 after six iterations).
+- ## Continuous batching [](https://www.anyscale.com/blog/continuous-batching-llm-inference#continuous-batching)
+	- ![动图](https://pic3.zhimg.com/v2-8092ac7d9ffc1eea2d2782d9a946b79e_b.webp)
+	- ![cb 03 diagram-continuous-batching](https://images.ctfassets.net/xjan103pcp94/744TAv4dJIQqeHcEaz5lko/b823cc2d92bbb0d82eb252901e1dce6d/cb_03_diagram-continuous-batching.png)
+	- Completing seven sequences using continuous batching. Left shows the batch after a single iteration, right shows the batch after several iterations. Once a sequence emits an end-of-sequence token, we insert a new sequence in its place (i.e. sequences S5, S6, and S7). This achieves higher GPU utilization since the GPU does not wait for all sequences to complete before starting a new one.
+	-

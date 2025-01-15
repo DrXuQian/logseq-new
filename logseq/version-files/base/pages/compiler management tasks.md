@@ -1,0 +1,2 @@
+- https://github.com/intel-restricted/frameworks.documentation.promark.vpu.ip.mvds-ip-vpu/blob/595c8827ec7507094f151bf9243479c639047ea7/src/VPU/common/SW/hld-compiler/VPUX_NN_Compiler/chapters/70_management_tasks.md
+-

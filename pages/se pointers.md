@@ -1,0 +1,8 @@
+- ![Keem_Bay_VPU_NCE_DS_v0.81 (1).pdf](../assets/Keem_Bay_VPU_NCE_DS_v0.81_(1)_1646275860602_0.pdf)
+- ((625cb665-a700-4e65-b861-42b19b5dc214))
+	- #SE-pointer
+- Example: 7x7x1024 with a SE of 1x1x1024 with an MPE configuration 4x4 with ZXY Storage element order.
+	- ![image.png](../assets/image_1666056822638_0.png){:height 556, :width 697}
+- ![image.png](../assets/image_1666056950587_0.png){:height 633, :width 821}
+- Example: 7x7x1024 with a SE of 1x1x512 with an MPE configuration 4x4 with ZXY Storage element order.
+	- ![image.png](../assets/image_1666056837416_0.png){:height 706, :width 786}

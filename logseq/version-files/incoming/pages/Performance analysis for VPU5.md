@@ -1,0 +1,19 @@
+- Zeropoint Subtraction handled as extra ops.
+	- [vpu.json](../assets/vpu_1652235736147_0.json)
+	- Activation always asymm with zp
+	- Weight two options:
+		- Symm with 0 zp
+		- Asymm with unified zp
+	- Contexts:
+		- [VPU vs CPU Default quantization report v2.xlsx](../assets/VPU_vs_CPU_Default_quantization_report_v2_1652235855038_0.xlsx)
+		- ![image.png](../assets/image_1652235815243_0.png)
+- 2K->4K scaling
+	- ![IMG_2380.png](../assets/IMG_2380_1652245544569_0.png)
+	- ![IMG_2381.png](../assets/IMG_2381_1652245535874_0.png)
+	-
+- Additional stencils to be added / Support for secondary accumulator.
+- Accuracy Impact of using fp8 datatype for transformers.
+- Explore spatial and temporal similarities between FP16 inputs into the PPE.
+- Reducing the number of accumulator contexts/PPEs.
+- [Area&Power Reduction Performance improvment](https://intel-my.sharepoint.com/personal/deepak_a_mathaikutty_intel_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fdeepak%5Fa%5Fmathaikutty%5Fintel%5Fcom%2FDocuments%2FRecordings%2FVPU5%20Architecture%20%28Wed%29%20%2D%20Please%20forward%20as%20needed%2D20220427%5F080115%2DMeeting%20Recording%2Emp4&parent=%2Fpersonal%2Fdeepak%5Fa%5Fmathaikutty%5Fintel%5Fcom%2FDocuments%2FRecordings&ga=1)
+-

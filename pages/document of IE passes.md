@@ -1,0 +1,3 @@
+- [src/vpux_compiler/docs/chapters/generated/dialect/IE/_passes.md](https://github.com/intel-innersource/applications.ai.vpu-accelerators.vpux-plugin/blob/releases/2022/1/src/vpux_compiler/docs/chapters/generated/dialect/IE/_passes.md)
+-
+-

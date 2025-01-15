@@ -1,0 +1,32 @@
+---
+title: C traps and pitfalls
+---
+- PDF
+	 - ![](../assets/MaDdvQfoBe.pdf)
+id:: 0ee3c7eb-5ad3-4610-aba5-2d7de46bbace
+- 1. lexical pitfalls
+	 - 1.1 = is not ==
+	 - 1.2 & and | are not && or ||
+		 - & and | is per bit operation
+	 - 1.3 Multi-character tokens
+		 - The C reference manual tells how to decide: ‘‘If the input stream has been parsed into tokens up to a given charac-ter,  the  next  token  is  taken  to  include  the  longest  string  of  characters  which  could  possibly  constitute  a token.’’   Thus,  if  a / is  the  first  character  of  a  token,  and  the /is  immediately  followed  by  a *,  the  two characters begin a comment,regardlessof any other context {{2  sufLjHOxK}} [ ](((0ee3c7eb-5ad3-4610-aba5-2d7de46bbace)))
+	 - 1.4 Exceptions
+		 - compound assignment operators += have multiple tokens that looks like single tokens
+		 - >> and -> are single tokens and can not be separated into > > and - > with space in between
+	 - 1.5 Strings and Characters
+		 - a character enclosed in single quotes are just another way of writing an integer.
+		 - a string enclosed in double quotes is a short hand for writing a pointer to a nameless array that has been initialized with the characters between the quotes and an extra character whose binary value is zero.
+			 - ![](../assets/qD9cyXATgq.png)
+			 - The upper two expressions are actually the same
+		 - 1.4 整型常量
+			 - 0开头的数据将视为八进制数
+		 - Exercise
+			 - n-->0 的含义是n-- >0 还是n- ->0?
+				 - 因为编译器是按需解析token，并且根据1.5，会解析直到最长token。
+			 - a+++++b是什么含义？
+				 - a + (b++);
+				 - a ++;
+- 2. Syntactic pitfalls
+	 - tokens form up declarations, expression, statements, and programs
+	 - 2.1 Understanding Declarations
+		 -

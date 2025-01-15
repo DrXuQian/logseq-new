@@ -1,0 +1,19 @@
+- Results:
+	- Feedback:
+		- Xu has done a great job in developing Nbperf to support VPU-EM.
+		- Provided support for VPU6TR-related topics, including the implementation of 1x16 stencil support and the enablement of GPTQ in Nbperf, etc..
+		- Enhanced the strategy optimization and scheduling algorithms within Nbperf. This includes the integration of an advanced algorithm for multi-cluster strategy optimization, as well as the development of a prefetching algorithm that optimally pipelines DSP/DMA/DPU operators. This provide a good reference for production compiler.
+	- Coaching:
+		- Based on Xu's combined knowledge of network architecture, and how the HW works based on VPU5/6 TR, I hope that Xu can contribute to both unique algorithms for the compiler as well as potentially develop new ideas for future HW architecture.
+		- Work on more general algorithm for strategy optimization. This will enable us to achieve good performance for models out of the box.
+		- Enhance the reliability of Nbperf by considering additional constraints present in the production compiler. This includes correct DMA stride calculation and proper buffer reuse in memory allocation.
+- Behaviors:
+	- Feedback:
+		- Presented vertical fusion design in Nbperf with the Microsoft DirectML team.  This effectively showcased its capabilities and provided compelling evidence for the team to consider incorporating this feature into the DirectML compiler.
+		- Dedicated more time to collaborate with members of the core compiler team, specifically focusing on algorithm development like vertical fusion and tiling. Currently the core compiler team is utilizing Nbperf as a reference point for strategy of MEP models.
+		- Engaged with the hardware architecture team and flex team to discuss patenting ideas from TR; One IDF approved for filing and one submitted and pending review.
+		- Contributed to the authoring of a white paper focused on optimizing transformers for VPU.
+	- Coaching:
+		- Xu has great technical knowledge and is a strong contributor, I would like to see him get more exposure and make bigger impacts.
+		- Continue to discuss with the core compiler team on the tiling and vertical fusion for MEP models.
+		- Discussion with production team on the sanity of dynamic shape workflow defined in Nbperf and VPUEM

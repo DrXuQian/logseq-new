@@ -1,0 +1,1 @@
+- https://www.python.org/doc/humor/#the-zen-of-python

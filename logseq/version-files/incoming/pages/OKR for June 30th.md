@@ -1,0 +1,40 @@
+- Results:
+	- •Feedback and Appreciation
+		- o What progress have you made toward your quarterly results including OKRs?
+			- Keep developing Nbperf to support VPU-EM. Currently the Nbperf and VPU-EM is ready for first release.
+			- Write SAS documents about weight and activation sparsity.
+			- Literature review and performance projection of SOTA Transformer based model like DSTT, TimesFormer and so on.
+			- Perform experiments on Nbperf for VPU5TR on topics including Reducing Accumulator Contexts, 2K to 4K MAC scaling and second order accumulator support.
+			- Use Network Architecture Search for Midas network for efficient inference on VPU hardware. Currently ongoing.
+		- o	What are you most proud of? Why? What is the impact?
+			- Developed Nbperf for front end of VPU-EM. We can use math or VPUNN or VPU-EM as cost model. This provides a great choice for VPU performance projection besides ArchBench and spreadsheet.
+		- o	How would you describe your performance this quarter?
+			- Solid performance this quarter. Good progress on the OKR for this quarter.
+		- o	What feedback and support do you need from me?
+			- So far so good.
+	- •	Coaching and Goal Alignment
+		- o	What are your top priorities near term? Looking ahead, what are your OKR priorities?
+			- Keep developing Nbperf, improving feasible memory allocation algorithm and model Coverage
+			- Write SAS on compiler algorithm, including tiling strategy, memory allocation and task scheduling.
+		- o	How are they connected to our business strategy and team/org OKRs?
+			- Nbperf development establish accurate and comprehensive VPU KPI data analysis methodology and procedures, from modeling to silicon
+			- SAS on compiler algorithm provides guidance for compiler to meet the performance KPI.
+		- o	What barriers can I help resolve?
+			- Need help on the task priorities.
+- Behaviors:
+	- •	Feedback and Appreciation
+		- o	What is one value you are applying where you are seeing the most impact?
+			- Constant learning. To design or validate a new architecture for VPU, I need to dig deep into the VPU design strategy. For example, in VPU5TR, we need to really understand how computation in VPU works to make the right decisions.
+		- o	In what ways are you helping contribute to an inclusive work environment?
+			- No hesitate to share expertise when necessary. Actively share expertise of model compression with Luca's team and our expertise of NAS on Super resolution networks with CCG.
+		- o	How are you helping your team and partners succeed? And enabling their OKRs?
+			- Actively cooperate with VPU-EM team on the interface design and their features requests.
+		- o	How are you growing from learning, failing fast, innovating? What is the impact?
+			- I learned a lot about VPU architecture from the VPU5TR. This helps me understand much more about VPU computation and how to better project the performance.
+	- •	Coaching and Growth Opportunities
+		- o	Where do you see additional opportunities to demonstrate Intel’s values?
+			- Innovative thinking. Innovatively find ways to improve the future generation VPU architecture.
+		- o	What should we have an honest conversation about?
+			- Nothing I can think of right now.
+		- o	What growth opportunities excite you the most?
+			- Having chance to get deeper knowledge about the VPUX compiler algorithms.

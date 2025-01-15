@@ -1,0 +1,5 @@
+- [[vpuxcompiler: mempermute]]
+- Memory Permute
+	- memory actually change, need UPA task to realize this
+- Permute Cast
+	- No actual memory permute

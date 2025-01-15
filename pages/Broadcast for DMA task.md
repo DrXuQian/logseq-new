@@ -1,0 +1,18 @@
+- #broadcast
+- [[Broadcast in VPU]]
+- #broadcast #task_gen #nbperf
+- DMA
+	- Activation
+		- CMX2DDR
+			- Suppose source tensors is the same shape as dma output tensor size
+				- Build 2 DMA to carry the tensor in the first CMX to DDR
+			- Suppose source tensors is not the same shape as dma output tensor size
+				- Build len(source tensors) DMA to carry the tensors in all CMXs to DDR
+		- DDR2CMX
+			- Suppose dst tensors is more than 1
+				- Build multi tensors to carry to all CMXs, in this way, the tensors need to be aligned with the next operator
+			- Suppose dst tensor is 1
+- First principle
+	- The output subtensors of previous operator need to be aligned with the input subtensors of the next operator
+	- The DMA for weight or activation need to be aligned with the corresponding subtensors in the task of the operator that used these weight or activation.
+- Ideally, we can use adaptor to wrap the task generation.

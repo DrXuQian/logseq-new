@@ -1,0 +1,11 @@
+- #[[vpunn Shave Kernel]]
+- Related posts:
+	- [[VPUNN training data analysis]]
+	- [[VPUNN training data]]
+- [[May 11th, 2022]]
+	- Video of training VPUNN:
+		- https://intel-my.sharepoint.com/:v:/p/richard_richmond/EcHIPyQPFtpHvlVC-eyd8qAB_msFbNonBznMRjqD34y0wg
+	- VPUNN training slides:
+		- https://intel-my.sharepoint.com/:p:/r/personal/sebastian_eusebiu_nagy_intel_com/Documents/Microsoft%20Teams%20Chat%20Files/VPUNN%20Training.pptx?d=w6de536542d4a40acbd7c79582b8434c0&csf=1&web=1&e=q778Rb
+	- The script that generates the training data configurations is based on this
+		- https://github.com/intel-innersource/frameworks.ai.vpu.presilicon.fathom/blob/main/notebooks/Generate%20Workloads.ipynb

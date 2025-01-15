@@ -1,0 +1,6 @@
+- ![](https://miro.medium.com/v2/resize:fit:523/1*F7uWJePoMc6Qc1O2WxmQqQ.png)
+- Motivation:
+	- Fine-tuning LLM is GPU consuming
+- Method:
+	- Add to original weight with a multiplier of two low-rank, rank size can vary depending on the model accuracy and training speed you trade off.
+	- The two low rank would form the original model weight so that we are compatible.

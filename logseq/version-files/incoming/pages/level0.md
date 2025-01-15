@@ -1,0 +1,17 @@
+- [[Level Zero]]
+- {{video https://www.youtube.com/watch?v=Caaug93iEXI&ab_channel=X.OrgFoundation}}
+- oneAPI and Level zero software stack
+	- ![image.png](../assets/image_1714634403640_0.png)
+- Core/Tools/System management
+	- ![image.png](../assets/image_1714634514252_0.png)
+- https://jjfumero.github.io/posts/2021/09/introduction-to-level-zero/
+- Level-Zero is a close to bare-metal API for programming heterogeneous architectures.
+- Level-Zero is shipped as part of Intel oneAPI, but it can be used as a standalone API.
+- Command list is not directly associated with a hardware device
+- Command queue are associated to a physical input stream in the device
+- events and fences:
+	- ![image.png](../assets/image_1714897321398_0.png)
+- level zero scheduling model:
+	- ![image.png](../assets/image_1714897394607_0.png)
+	- ![image.png](../assets/image_1714897442368_0.png)
+-

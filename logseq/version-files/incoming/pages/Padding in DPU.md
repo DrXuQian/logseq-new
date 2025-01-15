@@ -1,0 +1,15 @@
+- Padding in VPUNN
+	- Should be the way the padding should be in the workload
+	- ==Don't== pad the workload before feed into vpunn if the padding is supposed to be done by hardware
+	- For example:
+		- RN50 Filter: 64x3x7x7
+			- Strides: {2, 2}
+			- Padding: {bottom = 3, left = 2, right = 3, top = 2}
+		- each gives H -28 in output
+		- Input:
+			- Tile 0 input: 1x3x59x224, padding {bottom = 0, left = 2, right = 3, top = 2}
+			- Tile 1 input: 1x3x61x224, padding {bottom = 0, left = 2, right = 3, top = 0}
+			- Tile 2 input: 1x3x61x224, padding {bottom = 0, left = 2, right = 3, top = 0}
+			- Tile 3 input: 1x3x58x224, padding {bottom = 3, left = 2, right = 3, top = 0}
+	-
+-

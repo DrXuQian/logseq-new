@@ -1,0 +1,7 @@
+- [S2D_D2S.pptx](https://intel-my.sharepoint.com/:p:/r/personal/xu_qian_intel_com/Documents/S2D_D2S.pptx?d=w6e038fac6a8d4eb8b58f7afc99fdcfa0&csf=1&web=1&e=XWeGoW)
+- [SpaceToDepthDMA-NHWC.pptx](https://intel-my.sharepoint.com/:p:/p/shaojun_yao/EQqwSquvxv9HlPJ-pn8q9y8BTRzkAkShDj7IkEqZy704hQ?e=BhyONq)
+- 2D 的stride dma就是把原始数据分成了多个plane，然后每一个plane都有一个对应的src_stride和dst_stride。
+- DMA descriptor in VPU2p7
+	- [LV2 performance opens.pptx](https://intel-my.sharepoint.com/:p:/p/john_brady/EZxPdK1F2i1Fl1lCvDjZVygBZPJs3PcXchN0NrwUtpbvOQ?email=xu.qian%40intel.com&e=b2KogB)
+		- please look at slides 17-20
+	- [https://docs.intel.com/documents/MovidiusInternal/vpu27/common/HW/VPU_HAS.html#job-descriptors](https://docs.intel.com/documents/MovidiusInternal/vpu27/common/HW/VPU_HAS.html#job-descriptors)

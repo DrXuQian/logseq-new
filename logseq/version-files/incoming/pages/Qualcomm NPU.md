@@ -1,0 +1,32 @@
+- Rough sketch of Hexagon
+	- ![](https://i0.wp.com/chipsandcheese.com/wp-content/uploads/2023/09/hexagon.drawio1.png?resize=688%2C411&ssl=1){:height 498, :width 903}
+	- Hexagon supports virtual memory and caching like CPU and can run compiled C code
+		- How can the tensor operations run on Hexagon NPU as C code is the question?
+	- Interesting point:
+		- instructions are first committed and then executed, enables very deep execution pipelines
+- Overview:
+	- ![image.png](../assets/image_1717636953088_0.png)
+	- Vector extention:
+		- ![image.png](../assets/image_1717637114421_0.png)
+- Tensor extention:
+	- Also SIMD, tensor SIMD
+	- ![image.png](../assets/image_1717637240503_0.png)
+- Programming model:
+	- Threads
+		- ![](https://i0.wp.com/chipsandcheese.com/wp-content/uploads/2023/09/hexagon_threading.png?resize=688%2C327&ssl=1)
+- memory model:
+	- ![image.png](../assets/image_1717638225565_0.png)
+- Locality:
+	- ![image.png](../assets/image_1717638501263_0.png)
+- Scheduling and Allocation
+	- https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/scheduling_and_allocation.html
+	- In QNN HTP, both scheduling and allocation is done in Graph::prepare() stage. As an overview, the following occurs in regards to *scheduling and allocation*:
+		- Memory **blocks are registered** with the allocator.
+		- ==**Pre-Scheduler** fits as much data into TCM as possible.==
+		- **Spill/fill nodes are inserted** where necessary.
+		- Some **ops are split** into launch-wait pairs.
+		- **Offsets are allocated** for blocks that reside in VTCM.
+		- Ops are **re-scheduled** to maximize parallelism.
+	- How are they lowering the graph into?
+	- What is the runlist?
+-

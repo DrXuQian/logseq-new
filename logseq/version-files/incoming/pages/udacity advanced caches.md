@@ -1,0 +1,140 @@
+- More about memory subsystem from circuit view
+	- https://homepage.cs.uiowa.edu/~dwjones/assem/notes/14memory.shtml
+	- Naive view of memory
+		- ![Naive model of memory](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/14f/naive.gif)
+	- Add Cache to naive view
+		- ![Memory with a cache](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/14f/cache1.gif)
+	- Add a MMU
+		- ![A Memory-Management Unit between the CPU and Memory](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/14f/mmu1.gif)
+	- A complete system including the MMU and cache
+		- ![A complete system with I cache, D cache, MMU and L2 cache](https://homepage.cs.uiowa.edu/~dwjones/assem/notes/14f/chip.gif)
+- Improve the cache performance
+	- ![image.png](../assets/image_1713943818434_0.png){:height 126, :width 726}
+	- ![image.png](../assets/image_1713943838923_0.png){:height 190, :width 465}
+- Reduce hit time
+	- ![image.png](../assets/image_1713943938553_0.png){:height 332, :width 816}
+- pipelined caches
+	- ![image.png](../assets/image_1713944490120_0.png){:height 445, :width 787}
+- TLB and Cache hit
+	- total latency is the TLB visit time + cache checkup time
+	- ![image.png](../assets/image_1713944580588_0.png){:height 463, :width 789}
+	- Virtually addressed cache
+		- use virtual address to index to cache might have following problems:
+			- still need to check TLB to see if the access is valid or not even on cache hit, might be a page fault
+			- need to flush cache on context switch since different program share the same virtual address range
+		- ![image.png](../assets/image_1713944769226_0.png){:height 427, :width 793}
+- Virtually Indexed Physically Tagged
+	- {{embed ((662741f2-9e13-4620-afe6-0a603daa0647))}}
+	- Use virtual address index to find out which set the data is in. Use physically address tag to check the tag.
+		- benefit: hit time == cache hit time like VIVT
+		- ==Aliasing: multiple virtual address might map to same physical address==
+		- ![image.png](../assets/image_1713945110802_0.png){:height 459, :width 793}
+	- **Student Question:**
+		- In this video it is emphasized that there is no CACHE flush needed on a context switch for the VIPT cache. Which makes sense.
+		- However, just to confirm that my understanding is correct, the TLB still needs to be flushed on a context switch, right? Because the TLB needs to have the V-P translations for each process loaded?
+		- So, if I'm right about the TLB flush, does that mean that a TLB flush/reload is significantly faster than a cache flush/reload?
+	- **Instructor Answer:**
+		- The TLB should be flushed because different processes have different physical mappings for the same page number, e.g. virtual page number 45 in one process probably maps to a different physical location than page 45 in another process.
+		  Because the TLB is MUCH smaller than a cache, a flush of a TLB results in a much lower total penalty (to refill it) than a cache flush. Also, a TLB flush itself is usually just a matter of invalidating the entries, which can be done quickly. In a write-back cache, the flush itself is a time-consuming thing - we have to write back all the dirty blocks!
+- Aliasing in Virtually Accessed Caches
+	- might have security issues since when accessing different virtual address, we might end up with same physical address
+	- if we modify one cache line, the other would still read from the un-modified physical address.
+	- ![image.png](../assets/image_1713946315460_0.png){:height 446, :width 884}
+- VIPT Cache Aliasing
+	- When cache size is small, the index will be very small, and the index is the same in virtual address as in physical address. Thus no aliasing problem since all index bits come from page offset.
+	- ![image.png](../assets/image_1713946601169_0.png){:height 471, :width 885}
+- VIPT Aliasing Avoidance #card
+  ![image.png](../assets/image_1713947108294_0.png){:height 262, :width 839}
+	- 8kB page ==> 13-bit page offset
+	- 16B cache line ==> 4-bit cache line offset
+	- maximum number of index = 13 - 4 = 9 ==> 512 sets
+	- total cache size = 512 sets * 4 way * 16B / 1024 = 32KB = 4way x page size
+- Real VIPT Caches
+	- ![image.png](../assets/image_1713947553912_0.png){:height 493, :width 783}
+- Associativity and hit time
+	- ![image.png](../assets/image_1713947756400_0.png){:height 395, :width 786}
+- Way prediction
+	- guess which line in the set is the data in, if guess correctly, we get the hit time of a direct mapped cache
+	- ![image.png](../assets/image_1713947903770_0.png){:height 230, :width 801}
+	- way prediction performance
+		- ![image.png](../assets/image_1713948189185_0.png){:height 488, :width 771}
+	- way prediction quiz #card
+	  ![image.png](../assets/image_1713948245086_0.png){:height 338, :width 626}
+		- First three
+- replacement policy and hit time
+	- problem with LRU and random
+	- ![image.png](../assets/image_1713948595109_0.png){:height 350, :width 617}
+- NRMU
+	- Not most recently used
+	- ![image.png](../assets/image_1713948869726_0.png){:height 415, :width 760}
+- PLRU
+	- pseudo LRU policy, one bit for each line in the set. Mark as 1 if get hit, and evict lines that are marked 0. In the end if we have all 1s, we mark all others to 0 which are not just set to 1. and continue.
+	- ![image.png](../assets/image_1713949048998_0.png){:height 422, :width 766}
+	- NMRU quiz #card
+	  ![image.png](../assets/image_1713949312207_0.png){:height 411, :width 767}
+		- 5, 6
+- Reducing the Miss Rate
+	- ![image.png](../assets/image_1713949559226_0.png){:height 475, :width 799}
+- Larger cache lines
+	- more for DSA AI chips since the data spatial locality is really good there
+	- ![image.png](../assets/image_1713949702367_0.png){:height 439, :width 806}
+- Miss rate quiz #card
+  ![image.png](../assets/image_1713949753027_0.png){:height 405, :width 838}
+	- ![image.png](../assets/image_1713949802293_0.png){:height 273, :width 416}
+- Prefetching
+	- guess which blocks will be accessed soon and prefetch, kind of like what we did for SRAM prefetching
+	- ![image.png](../assets/image_1713950094079_0.png){:height 444, :width 782}
+- prefetch instructions
+	- let programmer determine when to prefetch or not
+	- ![image.png](../assets/image_1713950245410_0.png){:height 436, :width 826}
+- prefetch instructions quiz #card
+  ![image.png](../assets/image_1713950343530_0.png){:height 462, :width 852}
+	- ![image.png](../assets/image_1713950564078_0.png){:height 459, :width 821}
+- Hardware prefetching
+	- ![image.png](../assets/image_1713950790605_0.png){:height 405, :width 885}
+- Loop interchange
+	- compiler optimization
+	- [[Why software developers should care about CPU caches]]
+	- [[Loop nest optimization]]
+	- {{video https://youtu.be/WDIkqP4JbkE}}
+- Overlap misses
+	- out of order execution until it runs out of resources or instructions to do
+	- blocking cache vs non-blocking cache (memory level parallelism)
+		- ![image.png](../assets/image_1713951240905_0.png){:height 549, :width 851}
+	- Miss Under Miss Support in Caches
+		- MSHR: miss status handling registers
+		- ![image.png](../assets/image_1713951427328_0.png){:height 501, :width 850}
+	- Miss under miss quiz #card
+	  ![image.png](../assets/image_1713951477984_0.png){:height 482, :width 864}
+		- A and B
+- Cache hierachies
+	- ![image.png](../assets/image_1713951692968_0.png)
+	- AMAT with cache hierarchies
+		- ![image.png](../assets/image_1713951910259_0.png){:height 433, :width 828}
+	- L1 vs L2 quiz #card
+	  ![image.png](../assets/image_1713951965404_0.png){:height 438, :width 769}
+		- L1 have low associativity than L2
+		- ![image.png](../assets/image_1713952117864_0.png){:height 308, :width 680}
+	- Multi level cache performance
+		- ![image.png](../assets/image_1713952446559_0.png){:height 410, :width 687}
+- Hit rate
+	- L2 hit rate may seem low but that is the local hit rate since the visits are the cases where other are not found in l1
+	- global vs local hit rate and MPKI
+	  collapsed:: true
+		- ![image.png](../assets/image_1713952673717_0.png){:height 514, :width 866}
+	- global and local miss quiz #card
+	  ![image.png](../assets/image_1713952810446_0.png){:height 417, :width 811}
+		- ![image.png](../assets/image_1713952796641_0.png)
+		  id:: 6628d815-b5b5-4c6b-ba75-ac3574689086
+- inclusion property
+	- Cache doesn't have inclusion property by nature
+	- Need extra inclusion bit in L2 and prevent something with inclusion bit set to 1 from L2
+	- ![image.png](../assets/image_1713953118483_0.png)
+		- **Student Question:**
+			- What is the point of inclusion in a multi-level cache? Why would the effort/cost be spent to try and enforce an inclusion property?
+			- I would have guessed that EXCLUSION would be a better thing to work towards, get more data into some part of the cache. I just don't get why you would want duplicate data taking up valuable cache space, no matter what level.
+		- **Instructor Answer:**
+			- Inclusion makes several things simpler. When doing a write-back from L1, for example, inclusion ensures that the write-back is a L2 hit. Why is this useful? Well, it limits how much buffering we need and how complicated things will be. If the L1 cache is write-through, inclusion ensures that a write that is a L1 hit will actually happen in L2 (not be an L2 miss). And for coherence with private L1 and L2 caches (a la Intel's i3/i5/i7), inclusion allows the L2 cache to filter requests from other processors. With inclusion, if the request from another processor does not match anything in our L2, we know we don't have that block. Without inclusion, even if the block does not match in L2, we still need to probe in the L1 because it might be there.
+	- Inclusion quiz #card
+	  ![image.png](../assets/image_1713953221533_0.png){:height 417, :width 814}
+		- ![image.png](../assets/image_1713953244153_0.png){:height 348, :width 839}

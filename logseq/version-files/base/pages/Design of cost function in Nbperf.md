@@ -1,0 +1,38 @@
+- For a given node `A`, `56x56x256->28x28x512`, wgt `512x256x3x3`:
+	- split over `h` and `w`, `2x2x256`, output would also split, `1x1x512`
+	- Maximum split on the `h` dims is 28
+	- min split is
+		- `2*(56x56x256 + 28x28x512) / (cmx-512x256x3x3)`
+		- which means the `min_split` to fit `wgt+2tiled_in+2tiled_out` in CMX
+		- 2 means count in prefetching the next tile input
+	- So in general, the best case of split over H or split over W is:
+		- ![image.png](../assets/image_1679211061688_0.png)
+- For a given node A,
+	- split over `k`, maximum split is `32`
+	- We should always concat the tiled output if the operator is tiled over K to make sure the output can be read by the successors.
+	- ![image.png](../assets/image_1679210614791_0.png)
+- For a node, possible split over `h` should be:
+	- `(2xfeature_in + feature_out)/(cmx-param)`
+		- `| wgt | tile0 in | tiled 1 in | tiled0 out |`
+	- The output would spill to DDR. No Stride DMA required since tile over the highest dimension.
+	- Multi-cluster strategy:
+		- split over height (no need for `iti broadcast`)
+		- split over kernel (need `iti broadcast`)
+- For a node, possible split over `k` should be:
+	- `(2xparam)/(cmx-feature_in-feature_out)`
+		- `| wgt | in | out | param0 | param1 |`
+	- Multi-cluster strategy:
+		- split over kernel (if `iti broadcast`, no spilling)
+		- split over kernel (if no `iti broadcast`, need to spill)
+		- split over height
+- Tile in Multiple dimensions
+	- pending...
+	- For a node, if no solution found for the upper two cases.
+		- `CMX < feature and CMX < wgt`
+		- N x H x W x C
+			- Tile in the order of N x H x W x C
+		- Always spill output
+- DSP kernel
+	- Multi-cluster or tiling
+		- Can only support split on the highest dimension.
+		- Insert transpose if the split on highest dimension not supported.

@@ -1,0 +1,35 @@
+- [slides](https://intel-my.sharepoint.com/:p:/r/personal/sergey_shumihin_intel_com/Documents/Microsoft%20Teams%20Chat%20Files/Technical%20comparison%20of%20OpenVINO,%20ONNX%20frameworks.pptx?d=w3bbf658d7b244e9699e558d1c9dec584&csf=1&web=1&e=rQAmgI)
+- ![image.png](../assets/image_1693789208028_0.png)
+- Possible flow with ONNX + Olive
+	- ep as execution provider
+	- ![image.png](../assets/image_1693790497180_0.png)
+- 1. ONNX runtime to DirectML and generate meta command and then run metacommands on VPUX
+	- [Sharing from Rutvi and Murali](https://intel-my.sharepoint.com/:p:/r/personal/jing_cui_intel_com/_layouts/15/Doc.aspx?sourcedoc=%7B7DCE8AF7-9EA1-48CB-9F38-0C68FB69F225%7D&file=DML-NPU-Overview-8-23.pptx&action=edit&mobileredirect=true)
+	- DML and VPU responsibilities:
+		- DirectML output meta command, but that is already allocated meta commands with correct address and efficient tiling from cost model
+		- Compiler + driver by Intel handles lowering of that meta command
+		- ![image.png](../assets/image_1693790179001_0.png)
+	- Comparison of two flows:
+		- ![image.png](../assets/image_1693790326188_0.png){:height 471, :width 833}
+		- ![image.png](../assets/image_1693790339955_0.png){:height 462, :width 833}
+	- Compilation flow of DirectML:
+		- ![image.png](../assets/image_1693789612037_0.png)
+		- What is a meta command:
+			- **Metacommands**​
+				- -IHV accelerated replacement for graph operators that make best use of the hardware​
+				- -A Meta Command is a Deep Learning or Machine Learning (ML) primitive, such as a convolution operation.​
+				- -Defined by a GUID ​
+				- -Metacommands have four stages: query, creation, initialization, and execution. Each stage has a respective API in D3D​
+- 2. Use ONNX runtime + OV-EP
+	- -VPUX Plugin
+		- -Most optimized way of using VPU devices.
+		- -Validation build around VPU Plugin usage.
+	- **-OpenVINO-EP (ONNX Runtime)**
+		- -Same results should be achievable as with OpenVINO + ONNX model.
+		- -ONNX model will be sent to OpenVINO (no conversions to IR).
+		- -All optimizations from OpenVINO and VPUX Compiler can be applied to model.
+	- -DirectML
+		- -Not possible to apply ngraph transformations from OpenVINO.
+		- -How to implement backward/forward compatibility. Now it’s responsibility of VPU plugin.
+		- -Scheduling logic responsibility –less room for optimizations in VPU Compiler.
+		- -Memory allocation

@@ -1,0 +1,3 @@
+- I don’t see any issue with publishing this model, and I think it would be a great white paper reference for customers if [@Qian, Xu](mailto:xu.qian@intel.com) is interested in writing it up.
+- ![NEURAL ARCHITECTURE SEARCH FOR INTEL MOVIDIUS VPU.pdf](../assets/NEURAL_ARCHITECTURE_SEARCH_FOR_INTEL_MOVIDIUS_VPU_1676946984030_0.pdf)
+	-

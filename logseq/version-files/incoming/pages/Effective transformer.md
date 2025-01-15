@@ -1,0 +1,4 @@
+- https://zhuanlan.zhihu.com/p/139255930
+- Introduced by Bytedance to handle the seq len inconsistent issue with large batch input
+- Key to this kind of optimization is that apart from the dot-product attention, all other operators are not paying any ==attention== to other tokens
+- ![1.png](https://github.com/bytedance/effective_transformer/blob/master/images/1.png?raw=true)

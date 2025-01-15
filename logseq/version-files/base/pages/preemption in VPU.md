@@ -1,0 +1,2 @@
+- For different tile allocation, jobs are allowed to run in parallel.
+- With preemption, it allows high priority job to preempt low priority job that uses same tile allocation.

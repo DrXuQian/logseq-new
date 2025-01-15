@@ -1,0 +1,7 @@
+- {{video https://www.youtube.com/watch?v=Gg8_TA7U0Uw&t=15s&ab_channel=AliAbdaal}}
+	- You emotion is also important when it comes to investing. If your investment behavior is already having impact on your personal emotion, you'd better stop that.
+	- What you want from luxury shit is the respect and admiration from others, but that don't bring admiration.
+	- Think about what money should do for you. Use money to buy freedom. Time is most important resource which is non-renewable.
+	- Save as much as you can even if you don't have the excuse to do so.
+		- Saving =  income - **ego**
+	- respect the magic of Compounding

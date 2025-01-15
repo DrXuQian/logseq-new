@@ -1,0 +1,31 @@
+- Implicit concat when there is split
+	- Concat on CMX
+		- input from DPU op
+			- we perform ODU concat
+			- if broadcast:
+				- stride:
+					- [HWC, WC, C, 1] for DPU
+					- starting address varies case by case
+			- if no broadcast:
+				- stride:
+					- [HWC / 2, WC / 2, C / 2, 1]  for SOK concat
+					- [HWC / 2, WC, C, 1] for SOH concat
+		- input from DDR
+			- need DMA to carry the output to certain address
+			- If split over multi-cluster, need to change src stride to cut the SOK or SOH corresponding input from the memory in DDR
+				- dst stride same as upper
+			- If no split, same as broadcast mentioned earlier
+		- input from Shave
+			- use DMA to do the copy, stride same as DPU op
+	- Concat on DDR
+		- CMX input:
+			- Need two separate DMA to carry the split output from two DPUs
+				- Stride analysis same as CMX
+			- Need one DMA to carry the output if output broadcast
+		- DDR input:
+			- stride DMA
+- Memory allocation of Concat Op
+	- Concat on CMX:
+		- Only need to allocate the output
+		- Previous DPU OP need to consider to reserve the space for stride DMA
+-

@@ -1,0 +1,7 @@
+- #fathom
+- Source:
+	- https://intel-my.sharepoint.com/personal/alessandro_palla_intel_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Falessandro%5Fpalla%5Fintel%5Fcom%2FDocuments%2FCompiler%20from%20Zero%20to%20Hero&ga=1
+	- https://github.com/intel-innersource/frameworks.ai.vpu.presilicon.fathom
+- Dijkstra algorithm
+- [[hyper-param optimization in Fathom]]
+-

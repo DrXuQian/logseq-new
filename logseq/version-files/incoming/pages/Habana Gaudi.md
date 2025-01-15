@@ -1,0 +1,25 @@
+- Hardware view:
+	- ![image.png](../assets/image_1714806099459_0.png)
+- Software stack:
+	- ![image.png](../assets/image_1714806217320_0.png)
+- MME:
+	- ![image.png](../assets/image_1714806379222_0.png)
+	- Comparing the MME to modern GPUs that were modified for AI workloads, the Intel® Gaudi® 3 accelerator features a small number of large matrix multiplication units, while GPUs contain a large number of small matrix multiplication units.
+	- ![image.png](../assets/image_1714806506720_0.png)
+	- The compute capabilities of the two options in Figure 14 are equivalent – both can perform 64k MACs/cycle. However, from a bandwidth perspective the two options significantly differ. Figure 14a shows that the large MME requires two sets of 256B inputs per cycle, summing up to 512B per cycle. On the other hand, Figure 14b shows each of the small cores requires two sets of 16B inputs per cycle, summing up to 32B per core per cycle. The total amount of input data that is required to feed all the 256 small cores is 256 times 32B, which amounts to 8192B. This is 16 times more than what a single large MME requires.
+	- In the Intel® Gaudi® 3 accelerator, m=n=k=1K is sufficient to utilize 100% of the MACs. If activations are pipelined via 96 MB L2 cache (which is usually the case), m=n=k=512 is sufficient to utilize MME by 100%. In other words, Intel® Gaudi® 3 accelerator requires between ~25x-~200x less MACs in a GEMM operation to reach 100% compute utilization compared to modern GPUs which reach only 80%
+- TPC:
+	- As opposed to common DSPs, which require a DMA to fetch in and out the operands to a local SRAM, the TPC exposes a DMA-free programming model, achieved by advanced micro-architectural techniques, which significantly eases software development.
+	- In addition, the same advanced microarchitecture allows consecutive execution, free of idle time, between kernels. This allows 100% runtime utilization of the TPC, even for micro-second scale kernels, regardless of the location of its inputs and outputs (cache or DRAM).
+	- ![image.png](../assets/image_1714807154355_0.png)
+	- The Intel® Gaudi software TPC SDK includes an LLVM-based TPC-C compiler, a simulator and debugger. These tools facilitate the development of custom TPC kernels. The SDK is used to build the high-performance kernels. Users can thereby develop customized deep learning models and algorithms on Intel® Gaudi AI accelerators to innovate and optimize to their unique requirements. The TPC programming language, TPCC, is a derivative of C99 with added language data types to enable easy utilization of processor-unique SIMD capabilities. It natively supports wide vector data types to assist with programming of the SIMD engine (for example, float64, uchar256 and so on). It has many built-in instructions for deep learning, including tensor-based memory accesses, acceleration for special functions, random number generation and multiple data types.
+- memory:
+	- The second advancement is the integration of two-level cache. The on-die 96 MB of SRAM can be used as a uniformly accessible last-level cache (L3) or split to 4 slices of 24 MB L2 cache each, with each slice accessible to 2 MMEs and 16 TPCs.
+	- Using the on-die memory as L2 or L3 cache is fully configurable by the Intel® Gaudi® software stack, which dynamically decides per I/O tensor its optimal cache allocation.
+	- ![image.png](../assets/image_1714807322105_0.png)
+	- Allocation Hints: Users can specify whether to cache in L2, in L3, or both, offering greater control over data management
+- Software stack:
+	- The software suite includes low-level components, such as a graph compiler, an automatic kernel fuser and a library of precompiled kernels, as well as integration to the AI ecosystem: PyTorch, DeepSpeed, Hugging Face, vLLM, Ray and more. The Intel® Gaudi software also includes custom implementations of popular algorithms such as Paged Attention, Flash Attention and more.
+	- Automatic Kernel Fusion
+		- The Intel® Gaudi software includes a cutting-edge, MLIRbased kernel fuser, capable of automatically generating fused kernels from sequences of primitive kernels in the user graph, without the need for user intervention. These kernels are then interfaced to the graph compiler to utilize Intel® Gaudi® accelerator’s heterogeneous architecture.
+	- ![image.png](../assets/image_1714807629328_0.png)

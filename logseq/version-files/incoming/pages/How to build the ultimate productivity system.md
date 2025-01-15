@@ -1,0 +1,28 @@
+- #productivity
+- {{video https://www.youtube.com/watch?v=T6hmdrsLQj8&ab_channel=AliAbdaal}}
+	- Key takeaways:
+		- Your brain is good at creativity and entertainment and staff that is for fun. You brain is **not** designed for holding ideas and remembering staff that is easy to look up.
+		- 1st level
+			- todo list
+			- calendar
+			- e-mail management
+		- 2nd level
+			- instapaper
+			- kindle
+			- readwise
+		- 3rd level
+			- roam research/obsidian
+		- Use todo list and instapaper
+			- But ==Make Sure== you are going to finish the todo list or read the Instapaper sometime or else it means nothing.
+- {{video https://www.youtube.com/watch?v=K-ssUVyfn5g&ab_channel=AliAbdaal}}
+	- organize the notes based on actionability.
+		- ==Project instead of Topic==
+		- Like getting to know the VPU works with DMA or how the compute works in DPU hardware?
+		- topic instead of vague words that can be many things.
+	- Capture->Organize->Distill->Express
+- {{video https://www.youtube.com/watch?v=FbSNfj2S6Pw&ab_channel=AliAbdaal}}
+	- “Instead of doing things you enjoy, learn to enjoy the things you do”. Great message Ali. Noted 📝. 💝
+	- Make working as game ([[gamification]])
+		- ![image.png](../assets/image_1674913717575_0.png)
+	- Make the environment more fun
+-

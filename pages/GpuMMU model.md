@@ -1,0 +1,24 @@
+- https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpummu-model
+- In the *GpuMmu* model, the graphics processing unit (GPU) has its own memory management unit (MMU) which translates per-process GPU virtual addresses to physical addresses.
+- ### Summary:
+	- **Separate Address Spaces**: Both the CPU and GPU have their own virtual address spaces with distinct page tables.
+	- [[pinned memory]]
+		- 在使用页锁定内存（Pinned Memory）时，尽管它和普通的主机内存（Host Memory）都存在于 CPU 的物理内存中，但它们的处理方式不同，尤其在数据交互方面，如与 GPU 的数据传输。页锁定内存的关键特点是它被操作系统锁定，不会被换出到虚拟内存，这使得 GPU 通过直接内存访问（DMA）能够更快速地访问这部分内存，提高数据传输效率。
+		- ### 数据拷贝过程：
+			- **申请页锁定内存**：
+				- 使用特定的 API 调用来申请页锁定内存。例如，在 CUDA 中，可以使用 `cudaMallocHost()` 函数来申请页锁定内存。
+			- **从普通主机内存复制到页锁定内存**：
+				- 使用标准的内存复制方法（如 `memcpy()`）将数据从普通的主机内存拷贝到页锁定内存。尽管这是在 CPU 端进行的操作，由于页锁定内存不会被操作系统换出，这一步骤通常可以保证较高的内存访问速度。
+			- **从页锁定内存传输到 GPU**：
+				- 利用页锁定内存的优势，可以使用 GPU 的 DMA 功能直接从页锁定内存高效地传输数据到 GPU 内存。在 CUDA 中，这可以通过 `cudaMemcpy()` 函数实现，选择 `cudaMemcpyHostToDevice` 作为传输方向。
+			- **数据处理**：
+				- GPU 处理数据后，如果需要，可以通过类似的方式将数据从 GPU 内存复制回到页锁定内存或直接到普通主机内存。
+			- **释放页锁定内存**：
+				- 完成数据交换后，应释放页锁定内存以避免资源浪费。在 CUDA 中，这可以通过 `cudaFreeHost()` 实现。
+		- ### 特别注意：
+			- **虚拟地址空间**：虽然页锁定内存和普通内存可能有不同的虚拟地址，但这对于内存复制操作（如 `memcpy()`）来说并不是问题。CPU 端的内存复制是在同一虚拟地址空间中进行的，因此不受这些差异影响。
+			- **效率和性能**：页锁定内存的使用可以显著提高与 GPU 的数据传输速度，特别是在大规模数据处理时。但是，过度使用页锁定内存可能会影响系统的整体性能，因为它减少了操作系统用于其他任务的可用内存。
+		- 这种数据拷贝方式在高性能计算和图形处理中非常常见，可以有效地利用硬件资源，优化程序性能。
+	- [[UMA]]
+		- 统一内存架构（Unified Memory Architecture, UMA）是一种计算架构，其中 CPU 和 GPU（或其他类型的处理器）共享同一个物理内存，而不是使用分开的内存模块。这种架构的主要优点是简化了内存管理，并允许不同的处理器类型更容易地共享数据。
+- ![Diagram that shows the GpuMmu model with its components and interactions.](https://learn.microsoft.com/en-us/windows-hardware/drivers/display/images/gpummu-model.1.png)

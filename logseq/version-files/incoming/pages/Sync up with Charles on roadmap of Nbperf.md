@@ -1,0 +1,21 @@
+- Overall:
+	- Charles already talked to Darren
+	- Nbperf + VPUEM for VPU6, Nbperf for VPUX compiler algorithm development. Opportunity for VPU6, SW impact from Nbperf
+- ![image.png](../assets/image_1693536438832_0.png){:height 745, :width 1143}
+- Direct Onnx model support:
+	- ![image.png](../assets/image_1693536919013_0.png)
+		- Higher level interface onnx, lower level select DML/OV-EP
+		- Roofline performance analysis from Nbperf, check missing parts of 2 and 3
+		- Metacommand support?
+		- Subgraph inference with part of that run on CPU and part of that run on VPU
+			- VPU simulation while CPU directly run on CPU
+- ELF format support:
+	- VPUIP Dialect?
+- Add Numerics Bench as backend of Nbperf
+	- verify the tiling
+	- Select device to run considering numeric impact
+- Shave kernel gen
+	- Auto-gen
+	- Template
+	- Sql
+	-

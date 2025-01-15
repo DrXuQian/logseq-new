@@ -1,0 +1,23 @@
+---
+title: how to take smart notes
+---
+
+- [[Zettelkasten]] [[how to take notes]]
+- 0. highlight from zetero
+- 1. write literature notes
+	- key takeaways
+		- should be short and extremely effective
+		- should be in your own words, no cv
+	- Highlight the materials when reading some materials like papers or articals
+		- then take literature notes
+		- alt drag for reference of blocks
+- 2. create references
+- 3. write permanent notes that will be in your knowledge system
+	- think about the relations between the new notes and your interests and knowledge system
+		- the key is to add some new content to your knowledge
+	- use key words and relevant notes
+		- should be easy to search when you need to access this
+	- should be sentences you can use in your article instead of bullet points
+- 4. add question section apart from the permanent note
+	- review the questions from time to time
+	- [[👀 Spaced Repetition]]

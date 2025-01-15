@@ -1,0 +1,8 @@
+- 现在compiler team的engineer人数也挺多的，你感觉做一个production compiler需要多少个engineer？如果需要这么多engineer才能deliver，是不是硬件设计的时候就存在一些问题，让软件更难写了，像是很多op的支持有特别多的方法。还有DPU本身支持很多功能，这些feature如果很难在软件端利用到，感觉意义也没有那么大。像是SEP，到现在compiler也没有用上。
+- 我们希望production team的人如何使用我们这一套工具，包括nbperf + VPUEM，StackEM等。Arch team现在定义的KPI输出的时候compiler team接受度怎么样？感觉上如果我们的输出仅仅是一些baseline，意义就没有那么大了。
+- 如果希望他们持续使用作为profiling等，那么需要我们很准，但是准就会增加我们的开发时间。这个度到底在哪里。
+- 现在最大的performance issue是DMA和DSP。尤其是DSP，开发进度很慢，写一个efficient的kernel非常费劲。这个你觉得问题在哪里？
+- VPUEM+ NBperf roadmap
+- Stack EM + Nbperf现在正在coverge，后面应该主要是一些维护性的工作，你有profiling工具之外的别的规划吗？
+- 你对arch team负责的事情的理解是什么，主要是负责后续vpu的tr吗。没有compiler arch是问题吗？
+- LLM模型怎么看的

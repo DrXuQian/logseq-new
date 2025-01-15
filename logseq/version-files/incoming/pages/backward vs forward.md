@@ -1,0 +1,3 @@
+- ![](https://pic1.zhimg.com/80/v2-9f61e4eba3c1efcf11fb512fae080e55_720w.webp?source=1def8aca)
+- ![](https://pic1.zhimg.com/80/v2-54aa965c6517f1b79769ac6a182a3b99_720w.webp?source=1def8aca)
+- 反向传播时候，dx和dw都需要运算，这个是因为，dw是w的gradient，dx要用于计算前一级的dw'。所以经过了两次matmul计算，计算量是前向的两倍。

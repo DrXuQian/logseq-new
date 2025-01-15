@@ -1,0 +1,22 @@
+- Overall jira for sparsity support and se-pointer
+	- [https://jira.devtools.intel.com/browse/EISW-26837](https://jira.devtools.intel.com/browse/EISW-26837)
+- Two tickets that can be done for SETable enablement:
+- [https://jira.devtools.intel.com/browse/EISW-51131](https://jira.devtools.intel.com/browse/EISW-51131)[](https://jira.devtools.intel.com/browse/EISW-51131)[https://jira.devtools.intel.com/browse/EISW-51373](https://jira.devtools.intel.com/browse/EISW-51373)
+- [10:21 PM] Crews, Darren S
+- here are some details on sparsity in the SAS including some generic rules of when sparsity should or shouldn't be used.  We can review in the next meeting and discuss heuristics in the compiler: [https://docs.intel.com/documents/MovidiusInternal/vpu4/common/SW/VPU4SAS.html#sparsity](https://docs.intel.com/documents/MovidiusInternal/vpu4/common/SW/VPU4SAS.html#sparsity)
+- Sparsity in SAS
+	- storage format in VPU
+		- whether the weights or activations are stored in sparse or dense format
+		- whether SE pointers are used for the operation
+			- some operations require SE pointers to be executed
+		- whether the operation supports or doesn't support sparsity
+- Traffic of CMX to support sparsity:
+	- The DMA traffic to load sparse weight is _DenseWeightSize x Sparsity+ WeightTableSize + WeightSparsityMap_, while dense model's DMA traffic is _DenseWeightSize + WeightTableSize_. If the sparsity is less than 12.5%, the overhead of loading sparsity map would exceed the compute acceleration from sparse mode.
+	- Besides, since the CMX minimum read granularity is 128 bits or 16 bytes, the effective amount of sparsity required could be significantly larger to ensure the CMX traffic does not grow between dense and sparse modes.
+	- An output channel size of multiples of 128 would be optimal so the sparse map data would occupy the full 16 bytes, and therefore requires a single write. An output channel size of 16 (the minimum allowed) would result in the worst relative performance since it would demonstrate the lowest effective BW given that only 1/8th of the sparsity map data written at any point would be useful.
+	- **A basic rule of thumb applied (in the absence of a more complete cost model) was to suggest any workload with an output channel size < 64 would be considered for switching to dense operation.**
+	- MTL/VPU2P7 hardware limitation. VPU2P7 supports sparse mode for ZMConv whose output channel size is not a power of 2 as long as there are no splits. But, if there are splits then there is a constrain that the splits must be a power of 2 in size. For example, you have a Convolution with output channel K=320 and you wany to split SOK across 2 DPUs as 2 workloads. On **VPU2P7, you would have to do 256/256 so would have to pad out to 512. VPU4P0 does not have this limitation, you can do 2 workloads each of which has K=160.**
+- Activation storage:
+	- > note that when SE pointers are required activations will need to be in sparse storage format even if dense
+	- #SE-pointer
+-

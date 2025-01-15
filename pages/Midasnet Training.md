@@ -1,0 +1,8 @@
+- #midasnet
+- Server:
+	- /home/rranftl/midas_v2.1 (for the codebase)
+	- /export/share/datasets (for training data)
+- Server usage for Intel Lab:
+	- https://wiki.ith.intel.com/display/VCL/SLURM+Cluster
+- Documentation:
+	- [MiDaS Codebase Notes.docx](../assets/MiDaS_Codebase_Notes_1654471643670_0.docx)

@@ -1,0 +1,56 @@
+- https://www.zhihu.com/question/606514058/answer/3078324182
+- What limited the number of token or sequence length for transformers? #card
+	- Due to the structure of attention block, need to calculate the attention score of N sequence to N sequence. That is $$O(N^2)$$ complexity
+- Reduce the complexity of transformer with respect to sequence length. The acceptible complexity upper bound is $$O(NlogN)$$.
+- ### Sparse Transformer:
+- ### 2.1 Factorized Self-Attention
+- Sparsity Attention A1:
+	- ![](https://pic2.zhimg.com/80/v2-1e071f10343c072cac28867e93ae5e3d_720w.webp)
+- Sparsity Attention A2:
+	- ![](https://pic4.zhimg.com/80/v2-49d57ab0fa606758fa7f9eaed354f227_720w.webp)
+- The N tokens only need to attend to L other tokens. We can control the L when the sequence length grows. Say, we set L to $$\sqrt(N)$$, the complexity become $$O(N\sqrt(N))$$
+- **2.1.1 Fixed Attention**
+	- ![](https://pic1.zhimg.com/80/v2-cf2ff5042d2109358b64646eef1e8090_720w.webp)
+- ### 2.2 Blockwise Self-Attention
+	- Blockwise Self-Attention的核心思想非常简单：将一个长度为N的序列，平均分成n个短序列。当原始序列长度N无法被n除尽时，对原始序列进行padding，使它能被除尽。
+	- 每一个短序列会去attend to另外一个短序列。
+- ### **2.3 Longformer**
+- Longformer一共提出了三种Attention，分别是**S**liding **W**indow based **Attention**（SW-Attention）、**D**ilated **S**liding **W**indow based **Attention**（DSW-Attention）和**G**lobal **Attention**（G-Attention）。
+	- **2.3.1 Sliding Window based Attention（SW-Attention）**
+		- ![](https://pic2.zhimg.com/80/v2-1e071f10343c072cac28867e93ae5e3d_720w.webp)
+		- SA1只能看到左边的L个token，为了增大感受野，配合SA2使用。类似于CNN中的感受野。
+			- ![](https://pic3.zhimg.com/80/v2-d455b32cdadb10aea1acbc86d2a7998a_720w.webp){:height 322, :width 497}
+	- **2.3.2 Dilated Sliding Window based Attention（DSW-Attention）**
+		- ![](https://pic4.zhimg.com/80/v2-49d57ab0fa606758fa7f9eaed354f227_720w.webp)
+		- 和SW-ATTENTION类似于dilated conv和conv的区别
+	- **2.3.3 Global Attention（G-Attention）**
+		- ![](https://pic4.zhimg.com/80/v2-5eda9c54eaf997a81c4095aaa4499367_720w.webp)
+- ### 2.4 Local Attention and Memory-compressed attention
+	- 2.4.1 Local Attention
+		- ![](https://pic4.zhimg.com/80/v2-4e01c9b945b8da4b555c1a73ff453597_720w.webp)
+	- 2.4.2 Memory-Compressed Attention（MCA）
+		- ![](https://pic3.zhimg.com/80/v2-17443697e791e2b6595762443931c806_720w.webp)
+		- 用一个matmul对于K和V进行降维
+- ### 2.5 Transformer-XL
+	- ![](https://pic2.zhimg.com/80/v2-f1770eb4456f49b272b43a12cfa5fba1_720w.webp)
+- ### Linear Transformer:
+- ### 3.1 Linear Attention
+	- Paper：[Transformers are rnns: Fast autoregressive transformers with linear attention](https://link.zhihu.com/?target=http%3A//proceedings.mlr.press/v119/katharopoulos20a/katharopoulos20a.pdf)
+	- MHA:
+		- ![image.png](../assets/image_1694063056307_0.png)
+	- For transformer:
+		- ![image.png](../assets/image_1694063081326_0.png)
+	- For linear attention:
+		- ![image.png](../assets/image_1694063118134_0.png)
+	- And transform the previous equation to:
+		- ![image.png](../assets/image_1694063312575_0.png)
+	- This basically transformed:
+		- (**N** * D) * (D * **N**) * (N * D) ==> **(N * N)** * (N * D) ==> N * D
+		-
+	- to:
+		- (N * D) * (**D** * N) * (N * **D**) ==> (N * D) * (**D * D**) ==> N * D
+- ### *3.2 Attention Free Transformer (AFT)
+	- ![image.png](../assets/image_1694063537592_0.png)
+- ### *3.3 RWKV
+	- Paper：[RWKV: Reinventing RNNs for the Transformer Era](https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/2305.13048.pdf)
+	- Based on 3.2

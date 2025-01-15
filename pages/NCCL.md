@@ -1,0 +1,81 @@
+- From Zhihu:
+  collapsed:: true
+	- **1）communication primitive**
+	  collapsed:: true
+		- broadcast
+		- gather
+		- all-gather
+		- scatter
+		- reduce
+		  collapsed:: true
+			- ![](https://picx.zhimg.com/80/v2-fe26ffda0f48c40b3f4a8feb7a73a669_720w.webp?source=2c26e567)
+		- all-reduce
+		  collapsed:: true
+			- ![](https://pic1.zhimg.com/80/v2-42844fc757ab01338f110622f0bb4962_720w.webp?source=2c26e567)
+		- reduce-scatter
+		- all-to-all
+	- **2） ring-base collectives**
+		- ![](https://picx.zhimg.com/80/v2-12af80e172e09cc92e4e6dcde6841311_720w.webp?source=2c26e567)
+		- latency:（K-1）N/B
+		- ![](https://picx.zhimg.com/80/v2-fed2f439627bc1c16bec63cc7ec84cdf_720w.webp?source=2c26e567)
+		- S * (N/S/B) + (k-2) * (N/S/B) = N(S+K-2)/(SB) --> N/B
+		- If S >> K, the upper equation stands, but if S not >> K, need to seek other methods like double binary tree
+		- 单机4卡通过同一个PCIe switch挂载在一棵CPU的场景：
+		  collapsed:: true
+			- ![](https://picx.zhimg.com/80/v2-dac47e37dedf4ce07c92861c138b91e7_720w.webp?source=2c26e567)
+		- 单机8卡通过两个CPU下不同的PCIe switch挂载的场景：
+		  collapsed:: true
+			- ![](https://picx.zhimg.com/80/v2-1400c6742580fabed45eb4d02553df83_720w.webp?source=2c26e567)
+		- [[pcie switch]]
+	- **3）NCCL实现**
+		- 下图所示，单机内多卡通过PCIe以及CPU socket通信，多机通过InfiniBand通信。
+			- ![](https://picx.zhimg.com/80/v2-dac47e37dedf4ce07c92861c138b91e7_1440w.webp?source=1def8aca)
+		- 多机多卡内部的通信环
+			- ![](https://pic1.zhimg.com/80/v2-1400c6742580fabed45eb4d02553df83_1440w.webp?source=1def8aca)
+			- ![](https://picx.zhimg.com/80/v2-c3c96eff75e8f1b161b6c62188370ea7_720w.webp?source=1def8aca)
+			- ![](https://picx.zhimg.com/80/v2-5614a5e2da87f34b0b76eabe40339f35_720w.webp?source=1def8aca)
+		- 单机多卡下，All reduce不同架构下的速度：
+			- 第一种，通过CPU之间的QPI socket连接，速度最慢，5G/s
+			- 第二种，一部分通过Switch连接，速度提升
+			- 第三种，完全通过Switch连接，速度10G/s
+			- 第四种，
+			- ![](https://picx.zhimg.com/80/v2-155b290bdc2964e129d24fadc5784f8d_720w.webp?source=1def8aca)
+		- 多机多卡下，All reduce的速度：
+			- 左边两机8卡，机器之间通过infiband通信，能达到单机的上限
+			- ![](https://picx.zhimg.com/80/v2-7b912f62b04ea7c1853fb4c1ae037b46_720w.webp?source=1def8aca)
+		- NCCL的优势：
+		  collapsed:: true
+			- ![](https://picx.zhimg.com/80/v2-b12bcc3d8b0a89abb5403cd24e0009a0_720w.webp?source=1def8aca)
+	- **4）DGX-1**
+		- ![Figure 4: DGX-1 uses an 8-GPU hybrid cube-mesh interconnection network topology. The corners of the mesh-connected faces of the cube are connected to the PCIe tree network, which also connects to the CPUs and NICs.](https://developer.nvidia.com/blog/parallelforall/wp-content/uploads/2017/04/NVLink-topology-e1491278374674.png)
+		- Use nvlink bw GPUs
+		- ![](https://picx.zhimg.com/80/v2-fc2163e0c729bf34c45cb0ca6cc3ed49_720w.webp?source=1def8aca)
+		- 双工链路，所以可以创建下面的4种环路
+			- ![image.png](../assets/image_1704434938508_0.png)
+		- 然后可以对数据进行切片，每一个链路负责部分的数据
+	- **5）Double binary tree**
+		- ![Summit Latency chart](https://developer.nvidia.com/blog/wp-content/uploads/2019/02/Summit-Latency.png)
+		- ![Binary tree diagram](https://developer.nvidia.com/blog/wp-content/uploads/2019/02/Btree.png)
+		- ![Double complementary binary tree diagram](https://developer.nvidia.com/blog/wp-content/uploads/2019/02/DBtree-625x346.png)
+		- 每个节点表示一个GPU的device，两个互补的二叉树
+		- 如何构建互补的二叉树?
+		- 随着节点数量的增加，Ring算法所带来的latency是成线性增加的。而Double Binary Tree的latency是log(N)。
+	- **6）collnet**
+		- 简单来说，SHArP是一个软硬结合的通信协议，实现在了NVIDIA Quantum HDR Switch的ASIC里。它可以把从各个node收到的数据进行求和，并发送回去。再说的通俗一点，通过使用SHArP，我们把求和（聚合/Reduce，随便怎么叫）的操作交由交换机完成了。这种做法，业界叫做In-network Computing（在网计算）。用术语展开来讲，就是将计算卸载到网络中进行。
+		- ![](https://pic4.zhimg.com/80/v2-aa61553f576c0c6918670c8719bf625f_720w.webp)
+- Bandwidth analysis:
+	- NVLINK:
+		- ![image.png](../assets/image_1704941152697_0.png){:height 424, :width 363}
+	- single nvlink: 25 GB/s
+	- ![image.png](../assets/image_1704941323516_0.png)
+		- All reduce is 450 GB/s for DGX H100
+	- ![](https://pic3.zhimg.com/v2-eb40fb61256a367309ba9d8764adb8f2_r.jpg)
+	- H100:
+		- 18 link per GPU, 900 GB/s
+		- 那么900GB/s是如何算出来的呢？每一个H100 GPU通过18个NVLink4连接到内部NVSwitch3芯片, 而每一个NVLink4连接实际是两条lanes,每个lane是112G PAM4, 这样一个NVLink4单向就是224Gbps, 或者可以说是25GB/s(注意这里从bits变成了Byte)单向带宽，50GB/s双向带宽，18个NVLink4总共是900GB/s双向带宽.
+	- A100:
+		- 12 link per GPU, 600 GB/s
+	- ![(Image source: NVIDIA)](https://assets.hardwarezone.com/img/2022/04/nvlink_switch_advancements.jpg)
+	- ![DGX A100 SuperPod vs. DGX H100 SuperPod deployment.](https://assets.hardwarezone.com/img/2022/04/nvlink_switch_advancements2.jpg)
+	- Sharp in NVSwitch3:
+		- ![](https://pic3.zhimg.com/v2-f1cad7e8aa62731b5d3c03fdd4e633e6_r.jpg)

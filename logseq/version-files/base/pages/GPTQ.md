@@ -1,0 +1,37 @@
+- kind of similar to what we proposed in AutoHessionChannelWiseQuantization, except this is post-training and directly use hessian to compensate the accuracy drop
+- https://ar5iv.labs.arxiv.org/html/2210.17323
+- {{video https://www.youtube.com/watch?v=mii-xFaPCrA&ab_channel=AemonAlgiz}}
+- Background:
+	- [[hessian]]
+	- Layerwise quantization:
+		- quantization layer-by-layer, solving a corresponding reconstruction problem for each layer
+		- Objective: 在一定数量的batch上，最小化当前量化层的输出activation和原始fp32的输出activation的L2误差
+			- ![image.png](../assets/image_1705235065230_0.png){:height 50, :width 255}
+	- OBQ
+		- 每次量化一列的权重（row应该指的是一个kernel的weight，也就是一个output channel），然后其他的weight通过计算一个补偿数值来保证最后的输出能够与之前fp32的输出类似。
+		- 下一个要量化的weight：
+			- $$w_q = argmin_{w_q}\frac{(quant(w_q)-w_q)^2}{[{H_F}^{-1}]_{qq}}$$
+		- 对应的其他weight应该更新的补偿数值如下:
+			- $$\delta_{F}=-\frac{w_q-quant(w_q)}{[H_F^{-1}]_{qq}} * (H_F^{-1})_{:,q}$$
+		- 然后用下面的公式更新Hessian矩阵的倒数：
+			- ![image.png](../assets/image_1705289451094_0.png)
+- Overview:
+	- Step 1: Arbitrary Order Insight.
+		- OBQ里面是先去量化可能导致误差最大的那部分权重，然后通过调整其他的权重来补偿这部分权重量化的损失。然后GPTQ发现，对于很大的layer，也就是weight数量很多，量化的权重的先后顺序没有那么重要。知乎上的一个[post](https://zhuanlan.zhihu.com/p/621427727)的例子是，假设原来的fp32的权重是一个很严密的砖墙，但是这些砖头的尺寸是fp32的，量化之后是把这个砖墙的砖变成了固定大小，可能只有16种（int4）。我们先去替换最大的那部分砖头，然后通过调整小的砖头来补偿那部分的变化。但是如果这个墙很大，并且大的砖头并没有那么多的情况下，砖头的更改顺序可能影响并不大。
+		- 原始的OBQ量化过程：
+			- 对于每一个output channel，一个一个的去量化其中的权重，然后每量化一个权重，用上面的公式去补偿剩下来的权重。
+		- 相对于OBQ，GPTQ对于所有的在同一列的权重同时量化。然后剩下来的没有量化的权重$$F$$以及$$H_F^{-1}$$对于同一列的权重都是一样的。这个很好理解，因为hessian matrix只依赖于输入数据，而对于所有的列的weight，输入数据都是一致的。不同的列只是在同样的数据上进行了不同的滤波。所以我们对于每个column的weight更新之后，都需要更新$$H_F^{-1}$$，总共需要n_column次。而相对应的，OBQ需要更新n_row * n_column次。
+	- Step 2: lazy batch update.
+		- 把column裹成一个一个block，然后每个block内部更新权重的时候不会update block内部其他的权重，然后在一个block更新完了之后，更新剩下的所有weight。
+		- ![image.png](../assets/image_1705221248601_0.png)
+	- Algorithm:
+		- ![image.png](../assets/image_1705221343790_0.png)
+- Code:
+	- https://github.com/IST-DASLab/gptq/blob/main/gptq.py
+	- 代码注释：
+		- https://zhuanlan.zhihu.com/p/623047485
+	- 代码比较简单，首先算一下hessian matrix，算法就是sample一部分evaluation的数据集，先把activation展开成计算input channel对应的activation的格式。
+		- 例如128x7x7x3的weight kernel，对应的input channel是3，kernel是7x7，那么每个输出的点对应的activation是7x7x3=147这么大。也就是输入需要展开成147 * b * oh * ow。然后我们去计算activation * activation_trans -> 147 * 147，也就是weight的hessian矩阵。
+	- 然后在量化的过程中，这部分的hessian矩阵就不变了，原因是hessian跟weight的数值没有关系，只和输入数据有关。
+	- 然后我们一次性量化block * oc那么多的权重。量化之后用上面的公式$$\delta_{F}=-\frac{w_q-quant(w_q)}{[H_F^{-1}]_{qq}} * (H_F^{-1})_{:,q}$$去补偿剩下来的权重。
+-

@@ -1,0 +1,17 @@
+- Lower implicit operators to VPUIP level
+	- `VPUIP::Copy` and `VPUIP::SubView`
+	- src/vpux_compiler/src/conversion/passes/VPU2VPUIP/convert_layers_to_VPUIP.cpp
+- What is `VPUIP::SubView` op? #ques
+	- This is what slice lowered to in VPUIP level.
+- What is difference between `mlir::MemRefType` and `VPUIP::DistributedBufferType`? #ques
+	- MemRefType is from mlir
+	- DistributedBufferType defined to represent multi-cluster tensors
+- SliceRewrite:
+	- Slice conversion include `mlir::memref::AllocOp` operator and `VPUIP::CopyOp`
+- ConcatRewrite:
+	- [[concat in DPU]]
+- ReshapeRewrite:
+	- Convert to `VPUIP::GenericReshapeOp`
+- PermutecastRewrite:
+	- `VPU::PermuteCastOp` --> `VPUIP::PermuteCastOp`
+	- [[ODU transpose]]

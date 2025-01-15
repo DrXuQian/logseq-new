@@ -1,0 +1,27 @@
+- Related:
+  collapsed:: true
+	- Vertical fusion:
+		- [[Tiled op in Nbperf]]
+		- [[halo region in Vertical fusion]]
+	- Shortest path algorithm implementation
+	- Shave DPU pipelining
+		- When to split and vertical fuse, potentially merge in vertical fusion algorithm
+	- Scheduling:
+		- [[Thoughts about scheduling problem in Nbperf]]
+- Vertical fusion with halo region
+	- 需要正确的temporal tile convolution（padding现在填写的不正确）
+	- 需要从最后一个节点反向推到前面节点的大小
+- Scheduling
+	- 简化memory allocation，只考虑peak memory，塞不下的时候通过插spill的dma来表示spill。
+	- 因为不需要memory allocation过程了，就可以在图上插copyop来表示这里有dma
+- Shortest path algorithm implementation
+	- tiling部分的抽象还可以，可以移植更复杂的算法
+- Shave DPU pipelining
+	- Might associated with vertical fusion. 可能会映射到vertical fusion的cost。
+- Transformer Optimization
+	- DPU mapping of layernorm
+	- DPU softmax
+- Stride DMA mapping
+	- channel expand
+	- channel slice
+	- interleavepad

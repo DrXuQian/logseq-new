@@ -1,0 +1,32 @@
+- Hexagon NPU:
+  collapsed:: true
+	- Key takeaways:
+		- Dedicated Scalar instruction set for control flow and general purpose
+		- Tensor is the DPU part, Vector is the DSP part, TCM is CMX
+			- ![image.png](../assets/image_1693448072235_0.png)
+		- Memory model:
+			- ![image.png](../assets/image_1693448740995_0.png)
+			- ![image.png](../assets/image_1693448843748_0.png)
+- Moffett Antoum:
+  collapsed:: true
+	- ![image.png](../assets/image_1693449358089_0.png)
+	- Architecture simulator:
+		- ![image.png](../assets/image_1693449597576_0.png){:height 346, :width 807}
+		- Sparsity acceleration:
+			- The sparsity ratio and bank size is programable
+			- ![image.png](../assets/image_1693449886327_0.png)
+	- Memory:
+		- larger MRM and CMX size than DPU
+	- LLM sparsity support in Moffett:
+		- ![image.png](../assets/image_1693450374483_0.png)
+- Presentation from Jeff Dean
+  collapsed:: true
+	- Compiler for power of VPU:
+		- replace VPUNN cost model with Power cost model, so we know the best selection power wise
+			- Tiling strategy
+			- Multi-cluster strategy
+			- Scheduling
+			- *Number of tiles used
+	- ![image.png](../assets/image_1693469680476_0.png){:height 437, :width 776}
+- Videos:
+	- {{video https://www.youtube.com/watch?v=rsxCZAE8QNA&ab_channel=hotchipsvideos}}

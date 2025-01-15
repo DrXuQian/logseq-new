@@ -1,0 +1,9 @@
+- ## Class Members
+	- [[_reverseUsers]]
+	- [[_allUsersInBlock]]
+	- [[_aliasInfo]]
+- ## What doe this function do?
+	- Collect all buffer allocations
+	- 用[[vpux::isBufAllocOp]]来判断是不是Buf allocation op
+	- 如果是，则调用[[vpux::MemLiveRangeInfo::addNewBuffer]]来给上面的op的输出添加buffer
+		- 主要就是修改了[[_reverseUsers]]以及[[_allUsersInBlock]]两个private类成员变量

@@ -1,0 +1,4 @@
+- #Midasnet
+- Accuracy checker config and quantization config
+	- [midas.yml](../assets/midas_1652880753654_0.yml)
+	- [midas.json](../assets/midas_1652880759638_0.json)
